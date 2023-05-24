@@ -2,6 +2,8 @@ import { describe, it, expect } from "vitest";
 
 import { signupSchema } from "../register";
 
+import AxiosHttpHandler from "@/module/http/implement/AxiosHttpHandler";
+
 const testData = {
   validEmail: "test@example.com",
   validPassword: "Test1234!",
@@ -12,6 +14,9 @@ const testData = {
 };
 
 describe("회원가입 스키마", () => {
+  const url = "https://api.example.com";
+  const axiosHttpHandler = new AxiosHttpHandler();
+
   it("유효한 데이터로 통과해야 함", () => {
     const validData = {
       email: testData.validEmail,
@@ -65,5 +70,25 @@ describe("회원가입 스키마", () => {
 
     const validationResult = signupSchema.safeParse(invalidData);
     expect(validationResult.success).toBe(false);
+  });
+
+  it("이메일 중복 검사 이메일이 이미 존재할때", async () => {
+    const email = testData.validEmail;
+    const response = await axiosHttpHandler.post(`${url}/users/email-exists`, {
+      email,
+    });
+    expect(response).toEqual({
+      exists: true,
+    });
+  });
+
+  it("이메일 중복 검사 이메일이 존재하지 않을때", async () => {
+    const email = testData.invalidEmail;
+    const response = await axiosHttpHandler.post(`${url}/users/email-exists`, {
+      email,
+    });
+    expect(response).toEqual({
+      exists: false,
+    });
   });
 });
