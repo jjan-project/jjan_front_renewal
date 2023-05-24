@@ -9,15 +9,17 @@
     "test": "vitest --watch=false",
     "coverage": "vitest run --coverage",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
-    "format": "prettier --write src/**/*.{js,jsx,ts,tsx,json,css,scss,md}",
+    "format": "prettier --ignore-unknown --write 'src/**/*.{js,jsx,ts,tsx,json,css,scss,md}'",
     "preview": "vite preview",
     "prepare": "husky install",
     "pre-commit": "run-s format lint test coverage"
   },
   "dependencies": {
+    "@types/react-router-dom": "^5.3.3",
     "axios": "^1.4.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.11.2"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
