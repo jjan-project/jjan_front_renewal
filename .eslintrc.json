@@ -6,7 +6,8 @@
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:storybook/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -16,11 +17,24 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["react", "@typescript-eslint", "import"],
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "import"
+  ],
   "rules": {
     "no-var": "error",
     "no-multiple-empty-lines": "error",
-    "no-console": ["error", { "allow": ["warn", "error", "info"] }],
+    "no-console": [
+      "error",
+      {
+        "allow": [
+          "warn",
+          "error",
+          "info"
+        ]
+      }
+    ],
     "eqeqeq": "error",
     "dot-notation": "error",
     "react/prop-types": 0,
@@ -30,7 +44,10 @@
     "prefer-const": "warn",
     "no-new-object": "error",
     "no-new-func": "error",
-    "object-shorthand": ["error", "always"],
+    "object-shorthand": [
+      "error",
+      "always"
+    ],
     "prefer-arrow-callback": "error",
     "prefer-destructuring": "error",
     "prefer-template": "error",
@@ -50,7 +67,10 @@
           "index"
         ],
         "newlines-between": "always",
-        "alphabetize": { "order": "asc", "caseInsensitive": true },
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        },
         "pathGroups": [
           {
             "pattern": "fs",
