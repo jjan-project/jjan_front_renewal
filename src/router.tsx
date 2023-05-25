@@ -1,6 +1,8 @@
 import React, { Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import { SignupProvider } from "@/store/signupStore";
+
 // const 로그인후불러올컴포넌트 = React.lazy(
 //   () => import("./pages/로그인후불러올컴포넌트"),
 // );
@@ -12,15 +14,18 @@ const LoadingSpinner = () => {
 const authRoutes = () => (
   <Route path="auth">
     <Route path="signin" />
-    <Route path="signup">
-      <Route path="email" />
-      <Route path="nick-name" />
-      <Route path="location" />
-      <Route path="birthday" />
-      <Route path="avatar" />
-      <Route path="gender" />
-      <Route path="capacity" />
-    </Route>
+
+    <SignupProvider>
+      <Route path="signup">
+        <Route path="email" />
+        <Route path="nick-name" />
+        <Route path="location" />
+        <Route path="birthday" />
+        <Route path="avatar" />
+        <Route path="gender" />
+        <Route path="capacity" />
+      </Route>
+    </SignupProvider>
   </Route>
 );
 
