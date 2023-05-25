@@ -37,6 +37,7 @@
     "brace-style": "error",
     "keyword-spacing": "error",
     "padding-line-between-statements": "error",
+    "react/display-name": "off",
     "import/order": [
       "error",
       {
