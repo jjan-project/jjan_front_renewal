@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useReducer, Dispatch } from "react";
 
 // 타입 정의
-type State = {
+export type State = {
   email: string;
   password: string;
   nickname: string;
@@ -9,7 +9,7 @@ type State = {
   birthday: string;
   avatar: string;
   gender: string;
-  drinkAmount: string;
+  capacity: string;
 };
 
 type Action =
@@ -20,12 +20,12 @@ type Action =
   | { type: "SET_BIRTHDAY"; payload: string }
   | { type: "SET_AVATAR"; payload: string }
   | { type: "SET_GENDER"; payload: string }
-  | { type: "SET_DRINK_AMOUNT"; payload: string };
+  | { type: "SET_CAPACITY"; payload: string };
 
-type DispatchType = Dispatch<Action>;
+export type DispatchType = Dispatch<Action>;
 
 // 초기 상태 정의
-const initialState: State = {
+export const initialState: State = {
   email: "",
   password: "",
   nickname: "",
@@ -33,7 +33,7 @@ const initialState: State = {
   birthday: "",
   avatar: "",
   gender: "",
-  drinkAmount: "",
+  capacity: "",
 };
 
 // 액션 생성자 함수 정의
@@ -65,9 +65,9 @@ export const setGender = (gender: string): Action => ({
   type: "SET_GENDER",
   payload: gender,
 });
-export const setDrinkAmount = (drinkAmount: string): Action => ({
-  type: "SET_DRINK_AMOUNT",
-  payload: drinkAmount,
+export const setCapacity = (capacity: string): Action => ({
+  type: "SET_CAPACITY",
+  payload: capacity,
 });
 
 // 리듀서 함수 정의
@@ -87,8 +87,8 @@ const signupReducer = (state: State, action: Action): State => {
       return { ...state, avatar: action.payload };
     case "SET_GENDER":
       return { ...state, gender: action.payload };
-    case "SET_DRINK_AMOUNT":
-      return { ...state, drinkAmount: action.payload };
+    case "SET_CAPACITY":
+      return { ...state, capacity: action.payload };
     default:
       return state;
   }
