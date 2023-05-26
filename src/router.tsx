@@ -14,18 +14,15 @@ const LoadingSpinner = () => {
 const authRoutes = () => (
   <Route path="auth">
     <Route path="signin" />
-
-    <SignupProvider>
-      <Route path="signup">
-        <Route path="email" />
-        <Route path="nick-name" />
-        <Route path="location" />
-        <Route path="birthday" />
-        <Route path="avatar" />
-        <Route path="gender" />
-        <Route path="capacity" />
-      </Route>
-    </SignupProvider>
+    <Route path="signup">
+      <Route path="email" />
+      <Route path="nick-name" />
+      <Route path="location" />
+      <Route path="birthday" />
+      <Route path="avatar" />
+      <Route path="gender" />
+      <Route path="capacity" />
+    </Route>
   </Route>
 );
 
@@ -37,13 +34,15 @@ const Router = () => {
     routes = <Routes>{/* <로그인후불러올컴포넌트 /> */}</Routes>;
   } else {
     routes = (
-      <Routes>
-        {/* 
+      <SignupProvider>
+        <Routes>
+          {/* 
           <Route path="/splash" element={<Splash />} />
           <Route path="/landing" element={<Landing />} />
          */}
-        {authRoutes()}
-      </Routes>
+          {authRoutes()}
+        </Routes>
+      </SignupProvider>
     );
   }
   return (
