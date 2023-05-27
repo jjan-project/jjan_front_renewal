@@ -3,6 +3,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { SignupProvider } from "@/store/signupStore";
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
 // const 로그인후불러올컴포넌트 = React.lazy(
 //   () => import("./pages/로그인후불러올컴포넌트"),
 // );
@@ -45,12 +48,18 @@ const Router = () => {
       </SignupProvider>
     );
   }
+
+  const queryClient = new QueryClient();
+
   return (
-    <BrowserRouter>
-      {/* <MainNavigation /> */}
-      <Suspense fallback={<LoadingSpinner />}>{routes}</Suspense>
-      {/* <BottomNavigation /> */}
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
+      <BrowserRouter>
+        {/* <MainNavigation /> */}
+        <Suspense fallback={<LoadingSpinner />}>{routes}</Suspense>
+        {/* <BottomNavigation /> */}
+      </BrowserRouter>
+    </QueryClientProvider>
   );
 };
 
