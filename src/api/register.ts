@@ -1,5 +1,5 @@
-import { State } from "@/store/signupStore";
 import HttpHandler from "@/module/http/interface/HttpHandler";
+import { State } from "@/store/signupStore";
 
 export default class Register {
   private baseURL: string;
