@@ -1,5 +1,7 @@
 import { rest } from "msw";
 
+import { State } from "@/store/signupStore";
+
 const fakeUsers = [
   {
     email: "test@example.com",
@@ -18,9 +20,6 @@ export const handlers = [
       }),
     );
   }),
-
-  // rest.post
-  // more..
 
   // 이메일 중복 검사
   rest.post("https://api.example.com/users/email-exists", (req, res, ctx) => {
@@ -44,5 +43,23 @@ export const handlers = [
         exists: false,
       }),
     );
+  }),
+
+  // 회원가입 요청
+  rest.post("https://api.example.com/user/join", (req, res, ctx) => {
+    const { email, password, nickname, location }: State = req.body as State;
+    let responseData;
+
+    if (email && password && nickname && location) {
+      responseData = {
+        item: email,
+        target: "email",
+        message: "OK",
+      };
+    } else {
+      responseData = { message: "FORBIDDEN" };
+    }
+
+    return res(ctx.status(200), ctx.json(responseData));
   }),
 ];
