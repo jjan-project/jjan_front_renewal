@@ -7,6 +7,7 @@ import { describe, expect, test } from "vitest";
 import { useSignUp } from "../useSignUp";
 
 import { QUERY_KEY } from "@/constants/queryKeys";
+import { testBaseURL } from "@/constants/testBaseURL";
 
 describe("useSignUp", () => {
   test("회원가입 성공 시 onSuccess 함수가 호출되고 쿼리 데이터가 업데이트되는지 확인", async () => {
@@ -23,7 +24,7 @@ describe("useSignUp", () => {
 
     const queryClient = new QueryClient();
     const TestComponent = () => {
-      const signUpMutation = useSignUp("https://api.example.com");
+      const signUpMutation = useSignUp(`${testBaseURL}/user/join`);
       const handleClick = () => {
         signUpMutation.mutate(signUpData);
       };
