@@ -1,7 +1,7 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import React, { Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import QueryProvider from "./queryProvider";
 
 import { SignupProvider } from "@/store/signupStore";
 
@@ -48,17 +48,14 @@ const Router = () => {
     );
   }
 
-  const queryClient = new QueryClient();
-
   return (
-    <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
+    <QueryProvider>
       <BrowserRouter>
         {/* <MainNavigation /> */}
         <Suspense fallback={<LoadingSpinner />}>{routes}</Suspense>
         {/* <BottomNavigation /> */}
       </BrowserRouter>
-    </QueryClientProvider>
+    </QueryProvider>
   );
 };
 
