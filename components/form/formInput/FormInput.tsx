@@ -19,7 +19,7 @@ const FormInput = (props: InputProps) => {
     <>
       <label htmlFor={name}>{name}</label>
       <input type={type} id={name} {...register(name)} />
-      {errors[name] && <p>{errors[name]?.message?.toString()}</p>}
+      {errors[name] && <p role="alert">{errors[name]?.message?.toString()}</p>}
     </>
   );
 };
