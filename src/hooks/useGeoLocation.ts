@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 
-interface Coordinates {
-  latitude: number;
-  longitude: number;
-}
+import type { Coordinates } from "@/types/kakaoMap.type";
 
 export function useGeoLocation(): Coordinates {
   const [location, setLocation] = useState<Coordinates>({
