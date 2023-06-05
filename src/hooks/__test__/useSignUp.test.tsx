@@ -1,10 +1,11 @@
-import React from "react";
-import { render, act, fireEvent, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { render, act, fireEvent, waitFor } from "@testing-library/react";
+import React from "react";
 import { MemoryRouter } from "react-router-dom";
 import { describe, expect, test } from "vitest";
 
 import { useSignUp } from "../useSignUp";
+
 import { QUERY_KEY } from "@/constants/queryKeys";
 import { testBaseURL } from "@/constants/testBaseURL";
 
