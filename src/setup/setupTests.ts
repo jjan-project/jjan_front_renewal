@@ -1,5 +1,5 @@
-import matchers from "@testing-library/jest-dom/matchers";
-import { expect, afterAll, afterEach, beforeAll } from "vitest";
+import "@testing-library/jest-dom";
+import { afterAll, afterEach, beforeAll } from "vitest";
 
 import { server } from "@/mocks/server";
 
