@@ -10,13 +10,13 @@ const FormBase = <TFieldValues extends FieldValues>({
   onSubmit,
   ...props
 }: FormProps<TFieldValues>) => {
-  const { testid } = props;
+  const { testId } = props;
 
   const methods = useForm<TFieldValues>(props);
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)} data-testid={testid}>
+      <form onSubmit={methods.handleSubmit(onSubmit)} data-testid={testId}>
         {children}
       </form>
     </FormProvider>

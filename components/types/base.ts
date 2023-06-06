@@ -1,3 +1,3 @@
 export type BaseTest = {
-  testid?: string;
+  testId?: string;
 };
