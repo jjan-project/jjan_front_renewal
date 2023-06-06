@@ -1,6 +1,8 @@
 import React, { Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import QueryProvider from "./queryProvider";
+
 import { SignupProvider } from "@/store/signupStore";
 
 // const 로그인후불러올컴포넌트 = React.lazy(
@@ -45,12 +47,15 @@ const Router = () => {
       </SignupProvider>
     );
   }
+
   return (
-    <BrowserRouter>
-      {/* <MainNavigation /> */}
-      <Suspense fallback={<LoadingSpinner />}>{routes}</Suspense>
-      {/* <BottomNavigation /> */}
-    </BrowserRouter>
+    <QueryProvider>
+      <BrowserRouter>
+        {/* <MainNavigation /> */}
+        <Suspense fallback={<LoadingSpinner />}>{routes}</Suspense>
+        {/* <BottomNavigation /> */}
+      </BrowserRouter>
+    </QueryProvider>
   );
 };
 

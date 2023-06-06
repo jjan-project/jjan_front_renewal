@@ -13,4 +13,13 @@ type PolymorphicComponentProp<
 type PolymorphicRef<C extends React.ElementType> =
   React.ComponentPropsWithRef<C>["ref"];
 
-export type { PolymorphicComponentProp, PolymorphicRef };
+type PolymorphicComponentPropWithRef<
+  C extends React.ElementType,
+  Props = object,
+> = PolymorphicComponentProp<C, Props> & { ref?: PolymorphicRef<C> };
+
+export type {
+  PolymorphicComponentPropWithRef,
+  PolymorphicComponentProp,
+  PolymorphicRef,
+};
