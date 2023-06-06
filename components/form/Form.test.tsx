@@ -1,10 +1,20 @@
+/* eslint-disable no-console */
 import { zodResolver } from "@hookform/resolvers/zod";
-import { render, fireEvent, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
+import user from "@testing-library/user-event";
 import React from "react";
-import { describe, test, vi } from "vitest";
+import { describe, expect, test, vi } from "vitest";
 import { z } from "zod";
 
 import { Form } from "./Form";
+
+const testData = {
+  validEmail: "test@example.com",
+  validPassword: "Test1234!",
+  invalidEmail: "invalidemail",
+  invalidPassword: "Test12345678",
+  emptyString: "",
+};
 
 const errorMessages = {
   required: "필수 항목입니다.",
@@ -33,27 +43,30 @@ const exampleLoginSchema = z.object({
     }),
 });
 
-const mockSubmit = vi.fn(data => {
-  // eslint-disable-next-line no-console
-  console.log(data);
-});
+describe("Form Component", () => {
+  test("Should render Form component correctly", () => {
+    const mockSubmit = vi.fn(data => {
+      console.log(data);
+    });
 
-describe("Form 컴포넌트", () => {
-  test("Form 컴포넌트를 올바르게 렌더링해야 함", () => {
     render(
-      <Form onSubmit={mockSubmit} testid="form">
+      <Form onSubmit={mockSubmit} testId="form">
         <Form.Input type="text" name="test" />
       </Form>,
     );
 
     const formElement = screen.getByTestId("form");
-    expect(formElement).to.be.ok;
+    expect(formElement).toBeInTheDocument();
 
-    const inputElement = screen.getAllByLabelText("test");
-    expect(inputElement).to.be.ok;
+    const inputElement = screen.getByLabelText("test");
+    expect(inputElement).toBeInTheDocument();
   });
 
-  test("올바르지 않은 입력에 대해 피드백 문구를 렌더링해야 함", async () => {
+  test("Should render feedback messages for invalid inputs", async () => {
+    const mockSubmit = vi.fn(data => {
+      console.log(data);
+    });
+
     render(
       <Form onSubmit={mockSubmit} resolver={zodResolver(exampleLoginSchema)}>
         <Form.Input type="email" name="email" />
@@ -62,14 +75,17 @@ describe("Form 컴포넌트", () => {
       </Form>,
     );
 
-    fireEvent.click(screen.getByRole("button"));
+    await user.click(screen.getByRole("button"));
 
-    expect(await screen.findAllByRole("alert")).toHaveLength(2);
-
-    expect(mockSubmit).not.toBeCalled();
+    await waitFor(() => expect(screen.queryAllByRole("alert")).toHaveLength(2));
+    expect(mockSubmit).not.toHaveBeenCalled();
   });
 
-  test("입력이 올바를 경우 onSubmit 함수가 호출되어야 함", () => {
+  test("Should call onSubmit function when the input is correct", async () => {
+    const mockSubmit = vi.fn(data => {
+      console.log(data);
+    });
+
     render(
       <Form onSubmit={mockSubmit} resolver={zodResolver(exampleLoginSchema)}>
         <Form.Input type="email" name="email" />
@@ -78,24 +94,18 @@ describe("Form 컴포넌트", () => {
       </Form>,
     );
 
-    fireEvent.input(screen.getByLabelText("email"), {
-      target: {
-        value: "example@test.com",
-      },
-    });
+    await user.type(screen.getByLabelText("email"), testData.validEmail);
+    await user.type(screen.getByLabelText("password"), testData.validPassword);
+    await user.click(screen.getByRole("button"));
 
-    fireEvent.input(screen.getByLabelText("password"), {
-      target: {
-        value: "Example1#",
-      },
-    });
-
-    fireEvent.click(screen.getByRole("button"));
-
-    expect(mockSubmit).not.toBeCalled();
+    expect(mockSubmit).toHaveBeenCalled();
   });
 
-  test("올바르지 않은 입력이 있을 때 onSubmit 함수가 호출되지 않아야 함", async () => {
+  test("Should not call onSubmit function when there is an invalid input", async () => {
+    const mockSubmit = vi.fn(data => {
+      console.log(data);
+    });
+
     render(
       <Form onSubmit={mockSubmit} resolver={zodResolver(exampleLoginSchema)}>
         <Form.Input type="email" name="email" />
@@ -104,20 +114,13 @@ describe("Form 컴포넌트", () => {
       </Form>,
     );
 
-    fireEvent.input(screen.getByLabelText("email"), {
-      target: {
-        value: "test",
-      },
-    });
+    await user.type(screen.getByLabelText("email"), testData.invalidEmail);
+    await user.type(
+      screen.getByLabelText("password"),
+      testData.invalidPassword,
+    );
+    await user.click(screen.getByRole("button"));
 
-    fireEvent.input(screen.getByLabelText("password"), {
-      target: {
-        value: "password",
-      },
-    });
-
-    fireEvent.click(screen.getByRole("button"));
-
-    expect(mockSubmit).toBeCalled();
+    expect(mockSubmit).not.toHaveBeenCalled();
   });
 });
