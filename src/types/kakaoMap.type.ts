@@ -1,8 +1,3 @@
-export interface Coordinates {
-  latitude: number;
-  longitude: number;
-}
-
 export interface kakaoKeyWordRequest {
   documents: {
     address_name: string;

@@ -3,8 +3,8 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { kakaoKeyWordURL } from "@/constants/kakaoURL";
 import { QUERY_KEY } from "@/constants/queryKeys";
 import { httpService } from "@/module/http";
-import type { Coordinates } from "@/types/kakaoMap.type";
-import { kakaoKeyWordRequest } from "@/types/kakaoMap.type";
+import type { kakaoKeyWordRequest } from "@/types/kakaoMap.type";
+import type { Coordinates } from "@/types/location.type";
 
 const SEARCH_OPTIONS = {
   query: "동사무소",
