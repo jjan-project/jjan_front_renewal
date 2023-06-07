@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import type { Coordinates } from "@/types/location.type";
+import type { Coordinates } from "@/types/location";
 
 interface Error {
   isError: boolean;
