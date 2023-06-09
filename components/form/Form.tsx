@@ -3,6 +3,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
 
 import { FormInput as Input } from "./formInput";
+import { ImageUploader } from "./imageUploder";
 import type { FormProps } from "./types";
 
 const FormBase = <TFieldValues extends FieldValues>({
@@ -23,6 +24,6 @@ const FormBase = <TFieldValues extends FieldValues>({
   );
 };
 
-const Form = Object.assign(FormBase, { Input });
+const Form = Object.assign(FormBase, { Input, ImageUploader });
 
 export { Form };
