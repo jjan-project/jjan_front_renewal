@@ -4,6 +4,7 @@ import React from "react";
 import { z } from "zod";
 
 import { Form } from "./Form";
+import { RenderProps } from "./imageUploder";
 
 const meta: Meta<typeof Form> = {
   title: "Form",
@@ -20,6 +21,7 @@ const errorMessages = {
   passwordMinLength: "비밀번호는 최소 8자 이상이어야 합니다.",
   passwordMaxLength: "비밀번호는 최대 16자 이하여야 합니다.",
   passwordPattern: "비밀번호는 영문자, 숫자, 대문자 조합이어야 합니다.",
+  unsupportFile: "지원하지 않는 파일 형식입니다.",
 };
 
 const {
@@ -28,7 +30,10 @@ const {
   passwordMinLength,
   passwordMaxLength,
   passwordPattern,
+  unsupportFile,
 } = errorMessages;
+
+const ACCEPTED_IMAGE_TYPES = ["image/png", "image/jpg"];
 
 const exampleLoginSchema = z.object({
   email: z.string().min(1, { message: required }).email({ message: email }),
@@ -39,6 +44,16 @@ const exampleLoginSchema = z.object({
     .regex(/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,16}$/, {
       message: passwordPattern,
     }),
+  profile: z.instanceof(FileList).refine(
+    files => {
+      return Array.from(files).every(file =>
+        ACCEPTED_IMAGE_TYPES.includes(file.type),
+      );
+    },
+    {
+      message: unsupportFile,
+    },
+  ),
 });
 
 type ExampleLoginSchema = z.infer<typeof exampleLoginSchema>;
@@ -48,12 +63,28 @@ const submitHandler = (data: ExampleLoginSchema) => {
   console.log(data);
 };
 
+const ExampleRenderUI = (props: RenderProps) => {
+  let names = "";
+
+  if (props.files) {
+    for (const file of props.files) {
+      names += `${file.name} + " "`;
+    }
+  }
+
+  return <h1 onClick={props.handleClick}>upload file : {names}</h1>;
+};
+
 export const Default: Story = {
   render: () => (
     <Form onSubmit={submitHandler} resolver={zodResolver(exampleLoginSchema)}>
       <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
         <Form.Input type="email" name="email" />
         <Form.Input type="password" name="password" />
+        <Form.ImageUploader
+          name="profile"
+          render={props => <ExampleRenderUI {...props} />}
+        />
         <button type="submit">submit</button>
       </div>
     </Form>
