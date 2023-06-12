@@ -7,6 +7,7 @@ import { describe, expect, test, vi } from "vitest";
 import { z } from "zod";
 
 import { Form } from "./Form";
+import { RenderProps } from "./imageUploder";
 
 const testData = {
   validEmail: "test@example.com",
@@ -22,6 +23,7 @@ const errorMessages = {
   passwordMinLength: "비밀번호는 최소 8자 이상이어야 합니다.",
   passwordMaxLength: "비밀번호는 최대 16자 이하여야 합니다.",
   passwordPattern: "비밀번호는 영문자, 숫자, 대문자 조합이어야 합니다.",
+  unsupportFile: "지원하지 않는 파일 형식입니다.",
 };
 
 const {
@@ -30,7 +32,22 @@ const {
   passwordMinLength,
   passwordMaxLength,
   passwordPattern,
+  unsupportFile,
 } = errorMessages;
+
+const ACCEPTED_IMAGE_TYPES = ["image/png", "image/jpg"];
+
+const ExampleRenderUI = (props: RenderProps) => {
+  let names = "";
+
+  if (props.files) {
+    for (const file of props.files) {
+      names += `${file.name} + " "`;
+    }
+  }
+
+  return <h1 onClick={props.handleClick}>upload file : {names}</h1>;
+};
 
 const exampleLoginSchema = z.object({
   email: z.string().min(1, { message: required }).email({ message: email }),
@@ -43,84 +60,186 @@ const exampleLoginSchema = z.object({
     }),
 });
 
+const exampleUploaderSchema = z.object({
+  profile: z.instanceof(FileList).refine(
+    files => {
+      return Array.from(files).every(file =>
+        ACCEPTED_IMAGE_TYPES.includes(file.type),
+      );
+    },
+    {
+      message: unsupportFile,
+    },
+  ),
+});
+
 describe("Form Component", () => {
-  test("Should render Form component correctly", () => {
-    const mockSubmit = vi.fn(data => {
-      console.log(data);
+  describe("Input", () => {
+    test("Should render Form component correctly", () => {
+      const mockSubmit = vi.fn(data => {
+        console.log(data);
+      });
+
+      render(
+        <Form onSubmit={mockSubmit} testId="form">
+          <Form.Input type="text" name="test" />
+        </Form>,
+      );
+
+      const formElement = screen.getByTestId("form");
+      expect(formElement).toBeInTheDocument();
+
+      const inputElement = screen.getByLabelText("test");
+      expect(inputElement).toBeInTheDocument();
     });
 
-    render(
-      <Form onSubmit={mockSubmit} testId="form">
-        <Form.Input type="text" name="test" />
-      </Form>,
-    );
+    test("Should render feedback messages for invalid inputs", async () => {
+      const mockSubmit = vi.fn(data => {
+        console.log(data);
+      });
 
-    const formElement = screen.getByTestId("form");
-    expect(formElement).toBeInTheDocument();
+      render(
+        <Form onSubmit={mockSubmit} resolver={zodResolver(exampleLoginSchema)}>
+          <Form.Input type="email" name="email" />
+          <Form.Input type="password" name="password" />
+          <button type="submit">click me</button>
+        </Form>,
+      );
 
-    const inputElement = screen.getByLabelText("test");
-    expect(inputElement).toBeInTheDocument();
+      await user.click(screen.getByRole("button"));
+
+      await waitFor(() =>
+        expect(screen.queryAllByRole("alert")).toHaveLength(2),
+      );
+      expect(mockSubmit).not.toHaveBeenCalled();
+    });
+
+    test("Should call onSubmit function when the input is correct", async () => {
+      const mockSubmit = vi.fn(data => {
+        console.log(data);
+      });
+
+      render(
+        <Form onSubmit={mockSubmit} resolver={zodResolver(exampleLoginSchema)}>
+          <Form.Input type="email" name="email" />
+          <Form.Input type="password" name="password" />
+          <button type="submit">click me</button>
+        </Form>,
+      );
+
+      await user.type(screen.getByLabelText("email"), testData.validEmail);
+      await user.type(
+        screen.getByLabelText("password"),
+        testData.validPassword,
+      );
+      await user.click(screen.getByRole("button"));
+
+      expect(mockSubmit).toHaveBeenCalled();
+    });
+
+    test("Should not call onSubmit function when there is an invalid input", async () => {
+      const mockSubmit = vi.fn(data => {
+        console.log(data);
+      });
+
+      render(
+        <Form onSubmit={mockSubmit} resolver={zodResolver(exampleLoginSchema)}>
+          <Form.Input type="email" name="email" />
+          <Form.Input type="password" name="password" />
+          <button type="submit">click me</button>
+        </Form>,
+      );
+
+      await user.type(screen.getByLabelText("email"), testData.invalidEmail);
+      await user.type(
+        screen.getByLabelText("password"),
+        testData.invalidPassword,
+      );
+      await user.click(screen.getByRole("button"));
+
+      expect(mockSubmit).not.toHaveBeenCalled();
+    });
   });
 
-  test("Should render feedback messages for invalid inputs", async () => {
-    const mockSubmit = vi.fn(data => {
-      console.log(data);
+  describe("Uploader", () => {
+    test("Should render Form component correctly", () => {
+      const mockSubmit = vi.fn(data => {
+        console.log(data);
+      });
+
+      render(
+        <Form onSubmit={mockSubmit} testId="form">
+          <Form.ImageUploader
+            name="profile"
+            render={props => ExampleRenderUI(props)}
+            testId="imageuploder"
+          />
+        </Form>,
+      );
+
+      const formElement = screen.getByTestId("form");
+      expect(formElement).toBeInTheDocument();
+
+      const inputElement = screen.getByTestId("imageuploder");
+      expect(inputElement).toBeInTheDocument();
     });
 
-    render(
-      <Form onSubmit={mockSubmit} resolver={zodResolver(exampleLoginSchema)}>
-        <Form.Input type="email" name="email" />
-        <Form.Input type="password" name="password" />
-        <button type="submit">click me</button>
-      </Form>,
-    );
+    test("Should call onSubmit function when the file is correct", async () => {
+      const mockSubmit = vi.fn(data => {
+        console.log(data);
+      });
 
-    await user.click(screen.getByRole("button"));
+      const file = new File(["file contents"], "filename.png", {
+        type: "image/png",
+      });
 
-    await waitFor(() => expect(screen.queryAllByRole("alert")).toHaveLength(2));
-    expect(mockSubmit).not.toHaveBeenCalled();
-  });
+      render(
+        <Form
+          onSubmit={mockSubmit}
+          resolver={zodResolver(exampleUploaderSchema)}
+        >
+          <Form.ImageUploader
+            name="profile"
+            render={props => ExampleRenderUI(props)}
+            testId="imageuploder"
+          />
+          <button type="submit">click me</button>
+        </Form>,
+      );
 
-  test("Should call onSubmit function when the input is correct", async () => {
-    const mockSubmit = vi.fn(data => {
-      console.log(data);
+      await user.upload(screen.getByTestId("imageuploder"), file);
+      await user.click(screen.getByRole("button"));
+
+      expect(mockSubmit).toHaveBeenCalled();
     });
 
-    render(
-      <Form onSubmit={mockSubmit} resolver={zodResolver(exampleLoginSchema)}>
-        <Form.Input type="email" name="email" />
-        <Form.Input type="password" name="password" />
-        <button type="submit">click me</button>
-      </Form>,
-    );
+    test("Should not call onSubmit function when the file is incorrect", async () => {
+      const mockSubmit = vi.fn(data => {
+        console.log(data);
+      });
 
-    await user.type(screen.getByLabelText("email"), testData.validEmail);
-    await user.type(screen.getByLabelText("password"), testData.validPassword);
-    await user.click(screen.getByRole("button"));
+      const file = new File(["file contents"], "filename.txt", {
+        type: "text/plain",
+      });
 
-    expect(mockSubmit).toHaveBeenCalled();
-  });
+      render(
+        <Form
+          onSubmit={mockSubmit}
+          resolver={zodResolver(exampleUploaderSchema)}
+        >
+          <Form.ImageUploader
+            name="profile"
+            render={props => ExampleRenderUI(props)}
+            testId="imageuploder"
+          />
+          <button type="submit">click me</button>
+        </Form>,
+      );
 
-  test("Should not call onSubmit function when there is an invalid input", async () => {
-    const mockSubmit = vi.fn(data => {
-      console.log(data);
+      await user.upload(screen.getByTestId("imageuploder"), file);
+      await user.click(screen.getByRole("button"));
+
+      expect(mockSubmit).not.toHaveBeenCalled();
     });
-
-    render(
-      <Form onSubmit={mockSubmit} resolver={zodResolver(exampleLoginSchema)}>
-        <Form.Input type="email" name="email" />
-        <Form.Input type="password" name="password" />
-        <button type="submit">click me</button>
-      </Form>,
-    );
-
-    await user.type(screen.getByLabelText("email"), testData.invalidEmail);
-    await user.type(
-      screen.getByLabelText("password"),
-      testData.invalidPassword,
-    );
-    await user.click(screen.getByRole("button"));
-
-    expect(mockSubmit).not.toHaveBeenCalled();
   });
 });
