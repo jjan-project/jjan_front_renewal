@@ -45,48 +45,65 @@ const Step3 = ({ onNextStep }: onNextStepType) => {
 };
 
 const TestComponent = () => {
-  const { Funnel, onNextStep } = useFunnel(Object.values(NAME));
+  const { Funnel, onNextStep, onPreviousStep } = useFunnel(Object.values(NAME));
 
   return (
-    <Funnel>
-      <Funnel.Step name={NAME.STEP_1}>
-        <Step1 onNextStep={onNextStep} />
-      </Funnel.Step>
-      <Funnel.Step name={NAME.STEP_2}>
-        <Step2 onNextStep={onNextStep} />
-      </Funnel.Step>
-      <Funnel.Step name={NAME.STEP_3}>
-        <Step3 onNextStep={onNextStep} />
-      </Funnel.Step>
-    </Funnel>
+    <div>
+      <Funnel>
+        <Funnel.Step name={NAME.STEP_1}>
+          <Step1 onNextStep={onNextStep} />
+        </Funnel.Step>
+        <Funnel.Step name={NAME.STEP_2}>
+          <Step2 onNextStep={onNextStep} />
+        </Funnel.Step>
+        <Funnel.Step name={NAME.STEP_3}>
+          <Step3 onNextStep={onNextStep} />
+        </Funnel.Step>
+      </Funnel>
+      <button onClick={onPreviousStep}>Previous</button>
+    </div>
   );
 };
 
 describe("useFunnel 테스트", () => {
   it("Step 변경 및 Next Step 버튼 테스트", () => {
-    const { getByText, queryByText } = render(<TestComponent />);
+    const { getByText, queryByText, getByRole } = render(<TestComponent />);
 
     expect(getByText(TITLE.STEP_1)).toBeInTheDocument();
     expect(queryByText(TITLE.STEP_2)).toBeNull();
     expect(queryByText(TITLE.STEP_3)).toBeNull();
 
-    fireEvent.click(getByText("Next Step"));
+    fireEvent.click(getByRole("button", { name: "Next Step" }));
 
     expect(getByText(TITLE.STEP_2)).toBeInTheDocument();
     expect(queryByText(TITLE.STEP_1)).toBeNull();
     expect(queryByText(TITLE.STEP_3)).toBeNull();
 
-    fireEvent.click(getByText("Next Step"));
+    fireEvent.click(getByRole("button", { name: "Next Step" }));
 
     expect(getByText(TITLE.STEP_3)).toBeInTheDocument();
     expect(queryByText(TITLE.STEP_1)).toBeNull();
     expect(queryByText(TITLE.STEP_2)).toBeNull();
 
-    fireEvent.click(getByText("Next Step"));
+    fireEvent.click(getByRole("button", { name: "Next Step" }));
 
     expect(getByText(TITLE.STEP_3)).toBeInTheDocument();
     expect(queryByText(TITLE.STEP_1)).toBeNull();
     expect(queryByText(TITLE.STEP_2)).toBeNull();
+  });
+
+  it("onPreviousStep 버튼 테스트", () => {
+    const { getByText, getByRole } = render(<TestComponent />);
+
+    expect(getByText(TITLE.STEP_1)).toBeInTheDocument();
+    fireEvent.click(getByRole("button", { name: "Previous" }));
+    expect(getByText(TITLE.STEP_1)).toBeInTheDocument();
+
+    fireEvent.click(getByRole("button", { name: "Next Step" }));
+    expect(getByText(TITLE.STEP_2)).toBeInTheDocument();
+
+    fireEvent.click(getByRole("button", { name: "Previous" }));
+    expect(getByText(TITLE.STEP_1)).toBeInTheDocument();
   });
 
   it("개발용 이동버튼 테스트", () => {

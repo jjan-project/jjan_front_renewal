@@ -17,7 +17,7 @@ const FunnelTestComponents = () => {
     STEP_3: "step3",
   };
 
-  const { Funnel, onNextStep } = useFunnel(Object.values(STS));
+  const { Funnel, onNextStep, onPreviousStep } = useFunnel(Object.values(STS));
 
   return (
     <div>
@@ -34,6 +34,7 @@ const FunnelTestComponents = () => {
           </Funnel.Step>
         </Funnel>
       </SignupProvider>
+      <button onClick={onPreviousStep}>Previous</button>
     </div>
   );
 };

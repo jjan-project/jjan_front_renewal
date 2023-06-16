@@ -18,6 +18,7 @@ type FunnelType = FunnelBaseComponent & {
 type UseFunnelReturn = {
   Funnel: FunnelType;
   onNextStep: () => void;
+  onPreviousStep: () => void;
 };
 
 function useFunnel(stepNames: string[]): UseFunnelReturn {
@@ -46,6 +47,14 @@ function useFunnel(stepNames: string[]): UseFunnelReturn {
     }
   };
 
+  const onPreviousStep = () => {
+    const index = stepNames.indexOf(step);
+    const nextStepName = stepNames[index - 1];
+    if (index > 0) {
+      setStep(nextStepName);
+    }
+  };
+
   const Step: StepComponent = ({ name, children }) => {
     return <>{step === name && <>{children}</>}</>;
   };
@@ -61,7 +70,7 @@ function useFunnel(stepNames: string[]): UseFunnelReturn {
 
   const Funnel = Object.assign(FunnelBase, { Step });
 
-  return { Funnel, onNextStep };
+  return { Funnel, onNextStep, onPreviousStep };
 }
 
 export default useFunnel;
