@@ -1,0 +1,37 @@
+td {
+  width: 50px;
+  height: 50px;
+  text-align: center;
+}
+
+.prevDay {
+  background-color: lightgray;
+}
+
+.today {
+  background-color: #ffca64;
+  cursor: pointer;
+}
+
+.futureDay {
+  background-color: #ffffff;
+  cursor: pointer;
+}
+
+.prevMonthDay,
+.nextMonthDay {
+  color: lightgray;
+}
+
+.futureDay:hover,
+.today:hover {
+  background-color: #3e85ef;
+  color: #fff;
+  cursor: pointer;
+}
+
+.choiceDay {
+  background-color: #3e85ef;
+  color: #fff;
+  cursor: pointer;
+}
