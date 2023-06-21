@@ -76,8 +76,9 @@ const exampleUploaderSchema = z.object({
 describe("Form Component", () => {
   describe("Input", () => {
     test("Should render Form component correctly", () => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const mockSubmit = vi.fn(data => {
-        console.log(data);
+        // console.log(data);
       });
 
       render(

@@ -3,6 +3,8 @@ import { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import { z } from "zod";
 
+import { Button } from "../button";
+
 import { Form } from "./Form";
 import { RenderProps } from "./imageUploder";
 
@@ -85,7 +87,9 @@ export const Default: Story = {
           name="profile"
           render={props => <ExampleRenderUI {...props} />}
         />
-        <button type="submit">submit</button>
+        <Button appearance="primary" type="submit">
+          로그인
+        </Button>
       </div>
     </Form>
   ),

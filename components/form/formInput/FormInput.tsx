@@ -2,8 +2,12 @@
  * 예제로 작성한 FormInput 컴포넌트입니다.
  */
 
+import { IconBrokenHome } from "jjan-icon";
 import React from "react";
 import { useFormContext } from "react-hook-form";
+
+import { Input } from "../../input";
+import { Typo } from "../../typo";
 
 interface InputProps {
   type: "text" | "password" | "email" | "file";
@@ -13,13 +17,24 @@ interface InputProps {
 const FormInput = (props: InputProps) => {
   const { type, name } = props;
   const { register, formState } = useFormContext();
-  const { errors } = formState;
+  const { errors, touchedFields } = formState;
 
   return (
     <>
-      <label htmlFor={name}>{name}</label>
-      <input type={type} id={name} {...register(name)} />
-      {errors[name] && <p role="alert">{errors[name]?.message?.toString()}</p>}
+      <Input
+        appearance="underline"
+        label={name}
+        type={type}
+        id={name}
+        icon={<IconBrokenHome />}
+        isValid={!errors[name] && touchedFields[name]}
+        {...register(name)}
+      />
+      {errors[name] && (
+        <Typo appearance="body3" as="span" role="alert" color="violet400">
+          {errors[name]?.message?.toString()}
+        </Typo>
+      )}
     </>
   );
 };

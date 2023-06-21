@@ -1,8 +1,6 @@
 import React, { useRef } from "react";
 import { useFormContext } from "react-hook-form";
 
-import { Input } from "../../input";
-
 import { ImageUploaderProps } from "./types";
 
 const ImageUploader = (props: ImageUploaderProps) => {
@@ -17,7 +15,7 @@ const ImageUploader = (props: ImageUploaderProps) => {
 
   return (
     <div style={{ cursor: "pointer" }}>
-      <Input
+      <input
         type="file"
         multiple={multiple}
         {...rest}
