@@ -1,6 +1,5 @@
 .container {
   position: relative;
-  width: 100%;
   min-height: 1.5em;
   border: 0.05em solid #777;
   display: flex;
