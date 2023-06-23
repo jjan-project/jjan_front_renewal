@@ -17,22 +17,15 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": [
-    "react",
-    "@typescript-eslint",
-    "import"
-  ],
+  "plugins": ["react", "@typescript-eslint", "import"],
   "rules": {
+    "react/react-in-jsx-scope": "off",
     "no-var": "error",
     "no-multiple-empty-lines": "error",
     "no-console": [
       "error",
       {
-        "allow": [
-          "warn",
-          "error",
-          "info"
-        ]
+        "allow": ["warn", "error", "info"]
       }
     ],
     "eqeqeq": "error",
@@ -44,10 +37,7 @@
     "prefer-const": "warn",
     "no-new-object": "error",
     "no-new-func": "error",
-    "object-shorthand": [
-      "error",
-      "always"
-    ],
+    "object-shorthand": ["error", "always"],
     "prefer-arrow-callback": "error",
     "prefer-destructuring": "error",
     "prefer-template": "error",
