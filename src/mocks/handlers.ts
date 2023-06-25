@@ -55,9 +55,15 @@ export const handlers = [
         item: email,
         target: "email",
         message: "OK",
+        token: {
+          accessToken: "Test access token",
+          refreshToken: "Test refresh token",
+        },
       };
     } else {
-      responseData = { message: "FORBIDDEN" };
+      responseData = {
+        message: "FORBIDDEN",
+      };
     }
 
     return res(ctx.status(200), ctx.json(responseData));
