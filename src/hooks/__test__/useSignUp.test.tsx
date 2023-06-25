@@ -57,11 +57,15 @@ describe("useSignUp", () => {
     });
 
     await waitFor(() => {
-      const { message } = queryClient.getQueryData([QUERY_KEY.user]) as {
+      const { message, token } = queryClient.getQueryData([QUERY_KEY.user]) as {
         message: string;
+        token: object;
       };
 
       expect(message).toEqual("OK");
+      expect(token).toEqual({
+        accessToken: "Test access token",
+      });
     });
   });
 
