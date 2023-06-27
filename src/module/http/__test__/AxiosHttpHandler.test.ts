@@ -15,4 +15,32 @@ describe("AxiosHttpHandler", () => {
       name: "John Doe",
     });
   });
+
+  test("request access token", async () => {
+    const response = await axiosHttpHandler.post(
+      `https://api.example.com/request`,
+      {},
+      {
+        token: {
+          accessToken: "123",
+        },
+      },
+    );
+
+    expect(response).toEqual({
+      message: "Token is vaild",
+    });
+  });
+
+  test("request not access token", async () => {
+    const response = await axiosHttpHandler.post(
+      `https://api.example.com/request`,
+      {},
+      { timeout: 1000 },
+    );
+
+    expect(response).toEqual({
+      message: "Token is invaild",
+    });
+  });
 });

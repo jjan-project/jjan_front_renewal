@@ -62,4 +62,16 @@ export const handlers = [
 
     return res(ctx.status(200), ctx.json(responseData));
   }),
+
+  // 액세스 토큰 인증
+  rest.post("https://api.example.com/request", (req, res, ctx) => {
+    let responseData;
+    if (req.headers.get("Authorization")?.split(" ")[1]) {
+      responseData = { message: "Token is vaild" };
+    } else {
+      responseData = { message: "Token is invaild" };
+    }
+
+    return res(ctx.status(200), ctx.json(responseData));
+  }),
 ];
