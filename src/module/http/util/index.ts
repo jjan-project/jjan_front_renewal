@@ -1,13 +1,14 @@
-import type { RequestSubConfigMap } from "../type";
+import type { RequestSubConfigMap, RequestToken } from "../type";
 
 export function getRequestHeader(
   requestHeaderMap: RequestSubConfigMap,
   url: string,
-  token?: string,
+  token?: RequestToken,
 ): Record<string, string> {
   const headerConfig = requestHeaderMap[url];
   if (typeof headerConfig === "function") {
-    return headerConfig(token || "");
+    if (token) return headerConfig(token || token);
+    else return {};
   }
   return headerConfig || {};
 }

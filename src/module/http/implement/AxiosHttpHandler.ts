@@ -8,15 +8,13 @@ import type {
 
 import { requestHeaderMap } from "../constant";
 import HttpHandler from "../interface/HttpHandler";
-import type { RequestConfig, RequestToken } from "../type";
+import type { RequestConfig } from "../type";
 import { getRequestHeader } from "../util";
 import { extractDomain } from "../util";
 
 import { mergeObjects } from "@/utils/objects";
 
-type AxiosRequestConfigAdaptor = Partial<AxiosRequestConfig> &
-  RequestConfig &
-  RequestToken;
+type AxiosRequestConfigAdaptor = Partial<AxiosRequestConfig> & RequestConfig;
 
 class AxiosHttpHandler implements HttpHandler {
   private instance: AxiosInstance;
@@ -89,7 +87,7 @@ class AxiosHttpHandler implements HttpHandler {
       headers: getRequestHeader(
         requestHeaderMap,
         extractDomain(url),
-        config.token?.accessToken,
+        config.token,
       ),
       /**
        * params: getRequestHeader(this.domain),
