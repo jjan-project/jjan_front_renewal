@@ -8,13 +8,15 @@ import type {
 
 import { requestHeaderMap } from "../constant";
 import HttpHandler from "../interface/HttpHandler";
-import type { RequestConfig } from "../type";
+import type { RequestConfig, RequestToken } from "../type";
 import { getRequestHeader } from "../util";
 import { extractDomain } from "../util";
 
 import { mergeObjects } from "@/utils/objects";
 
-type AxiosRequestConfigAdaptor = Partial<AxiosRequestConfig> & RequestConfig;
+type AxiosRequestConfigAdaptor = Partial<AxiosRequestConfig> &
+  RequestConfig &
+  RequestToken;
 
 class AxiosHttpHandler implements HttpHandler {
   private instance: AxiosInstance;
@@ -28,13 +30,10 @@ class AxiosHttpHandler implements HttpHandler {
     this.instance.interceptors.response.use(
       response => response,
       error => {
-        /**
-         * @todo
-         * Sophisticated error controls.
-         */
-        console.error("An error occurred:", error);
-
-        error.customMessage = "example error";
+        // RT 토큰이 유효하지 않을때
+        if (error.response?.status === 401) {
+          error.message = "Refresh token is not valid.";
+        }
 
         return Promise.reject(error);
       },
@@ -61,28 +60,37 @@ class AxiosHttpHandler implements HttpHandler {
     return this.request<T>("get", url, undefined, config);
   }
 
-  async post<T, D = object>(url: string, data: D, config?: AxiosRequestConfig) {
+  async post<T, D = object>(
+    url: string,
+    data: D,
+    config?: AxiosRequestConfigAdaptor,
+  ) {
     return this.request<T, D>("post", url, data, config);
   }
 
-  async delete<T>(url: string, config?: AxiosRequestConfig) {
+  async delete<T>(url: string, config?: AxiosRequestConfigAdaptor) {
     return this.request<T>("delete", url, undefined, config);
   }
 
-  async put<T, D>(url: string, data: D, config?: AxiosRequestConfig) {
+  async put<T, D>(url: string, data: D, config?: AxiosRequestConfigAdaptor) {
     return this.request<T, D>("put", url, data, config);
   }
 
-  async patch<T, D>(url: string, data: D, config?: AxiosRequestConfig) {
+  async patch<T, D>(url: string, data: D, config?: AxiosRequestConfigAdaptor) {
     return this.request<T, D>("patch", url, data, config);
   }
 
   private getRequestConfig(
     url: string,
-    config?: AxiosRequestConfig,
+    config?: AxiosRequestConfigAdaptor,
   ): AxiosRequestConfig {
+    if (!config) return {};
     const defaultConfig: AxiosRequestConfig = {
-      headers: getRequestHeader(requestHeaderMap, extractDomain(url)),
+      headers: getRequestHeader(
+        requestHeaderMap,
+        extractDomain(url),
+        config.token?.accessToken,
+      ),
       /**
        * params: getRequestHeader(this.domain),
        * more...
