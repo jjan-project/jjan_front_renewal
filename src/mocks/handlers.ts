@@ -62,4 +62,19 @@ export const handlers = [
 
     return res(ctx.status(200), ctx.json(responseData));
   }),
+
+  // 액세스 토큰 및 리프레시토큰 인증
+  rest.post("https://api.example.com/request", (req, res, ctx) => {
+    let responseData;
+    if (
+      req.headers.get("Authorization")?.split(" ")[1] &&
+      req.headers.get("Cookie")
+    ) {
+      responseData = { message: "Token is vaild" };
+    } else {
+      responseData = { message: "Token is invaild" };
+    }
+
+    return res(ctx.status(200), ctx.json(responseData));
+  }),
 ];
