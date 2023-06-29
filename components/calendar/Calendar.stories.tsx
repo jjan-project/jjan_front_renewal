@@ -20,3 +20,17 @@ export const Default: Story = {
     );
   },
 };
+
+export const FullMonthCalendar: Story = {
+  render: () => {
+    const [selectedDay, setSelectedDay] = useState<Date | null>(null);
+    return (
+      <Calendar
+        selectedDay={selectedDay}
+        setSelectedDay={setSelectedDay}
+        isPrevMonth
+        isNextMonth
+      />
+    );
+  },
+};
