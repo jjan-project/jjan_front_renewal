@@ -2,15 +2,43 @@ td {
   width: 50px;
   height: 50px;
   text-align: center;
+  border-radius: 7px;
+}
+
+.calendar {
+  width: 100%;
+  max-width: 375px;
+}
+
+.calendarNav {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.calendarNav-title {
+  font-weight: 700;
+}
+
+.prevMonth-button {
+  background-color: transparent;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  margin-right: 0.5rem;
+  cursor: pointer;
+}
+
+.nextMonth-button {
+  background-color: transparent;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
 }
 
 .prevDay {
-  background-color: lightgray;
-}
-
-.today {
-  background-color: #ffca64;
-  cursor: pointer;
+  color: lightgray;
 }
 
 .futureDay {
@@ -21,17 +49,18 @@ td {
 .prevMonthDay,
 .nextMonthDay {
   color: lightgray;
+  font-weight: 200;
 }
 
 .futureDay:hover,
 .today:hover {
-  background-color: #3e85ef;
+  background-color: #5b1fd9;
   color: #fff;
   cursor: pointer;
 }
 
 .choiceDay {
-  background-color: #3e85ef;
+  background-color: #5b1fd9;
   color: #fff;
   cursor: pointer;
 }
