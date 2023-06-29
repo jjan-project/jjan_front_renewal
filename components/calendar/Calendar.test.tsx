@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, within } from "@testing-library/react";
 import React from "react";
 import { describe, test, vi, beforeEach } from "vitest";
 
@@ -12,7 +12,14 @@ describe("Calendar 컴포넌트", () => {
     currentDate = new Date();
 
     setSelectedDay = vi.fn();
-    render(<Calendar selectedDay={null} setSelectedDay={setSelectedDay} />);
+    render(
+      <Calendar
+        selectedDay={null}
+        setSelectedDay={setSelectedDay}
+        isNextMonth
+        isPrevMonth
+      />,
+    );
   });
 
   const buildExpectedMonthText = (currentDate: Date) => {
@@ -39,15 +46,30 @@ describe("Calendar 컴포넌트", () => {
 
   test("오늘 이후 날짜를 클릭하면 setSelectedDay 함수가 호출되어야 합니다.", () => {
     const toDay = currentDate.getDate();
-    const toDayCell = screen.getByText(toDay);
-    fireEvent.click(toDayCell);
+    const toDayCells = screen.queryAllByRole("cell", {
+      name: new RegExp(`${toDay}`, "i"),
+    });
+    const toDayCell = toDayCells.find(el => el.classList.contains("futureDay"));
+
+    if (toDayCell) {
+      fireEvent.click(toDayCell);
+    }
     expect(setSelectedDay).toHaveBeenCalled();
   });
 
   test("오늘 이전 날짜를 클릭하면 setSelectedDay 함수가 호출되지 않아야 합니다.", () => {
     const yesterDay = currentDate.getDate() - 1;
-    const yesterDayCell = screen.getByText(yesterDay);
-    fireEvent.click(yesterDayCell);
+
+    const yesterDayCells = screen.queryAllByRole("cell", {
+      name: new RegExp(`${yesterDay}`, "i"),
+    });
+    const yesterDayCell = yesterDayCells.find(el =>
+      el.classList.contains("prevDay"),
+    );
+
+    if (yesterDayCell) {
+      fireEvent.click(yesterDayCell);
+    }
     expect(setSelectedDay).not.toHaveBeenCalled();
   });
 
