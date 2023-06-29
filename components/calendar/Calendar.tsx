@@ -4,7 +4,12 @@ import "./Calendar.css";
 
 import type { CalendarProps } from "./types";
 
-const Calendar = ({ selectedDay, setSelectedDay }: CalendarProps) => {
+const Calendar = ({
+  selectedDay,
+  setSelectedDay,
+  isPrevMonth,
+  isNextMonth,
+}: CalendarProps) => {
   const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
 
@@ -109,31 +114,20 @@ const Calendar = ({ selectedDay, setSelectedDay }: CalendarProps) => {
       if (day.getMonth() < currentMonth.getMonth()) {
         return (
           <td key={i} className="prevMonthDay">
-            {day.getDate()}
+            {isPrevMonth ? day.getDate() : ""}
           </td>
         );
       }
       if (day.getMonth() > currentMonth.getMonth()) {
         return (
           <td key={i} className="nextMonthDay">
-            {day.getDate()}
+            {isNextMonth ? day.getDate() : ""}
           </td>
         );
       }
       if (day < today) {
         return (
           <td key={i} className="prevDay">
-            {day.getDate()}
-          </td>
-        );
-      }
-      if (isSameDay(day, today)) {
-        return (
-          <td
-            key={i}
-            className={`today ${isSameDay(day, selectedDay) && "choiceDay"}`}
-            onClick={() => onClickDay(day)}
-          >
             {day.getDate()}
           </td>
         );
@@ -166,17 +160,27 @@ const Calendar = ({ selectedDay, setSelectedDay }: CalendarProps) => {
   const calendarRows = divideWeek(calendarTags);
 
   return (
-    <div className="Calendar">
-      <div>
-        <span>
+    <div className="calendar">
+      <div className="calendarNav">
+        <span className="calendarNav-title">
           {currentMonth.getFullYear()}년 {currentMonth.getMonth() + 1}월
         </span>
-        <button data-testid="prevMonth" onClick={prevCalendar}>
-          &lt;
-        </button>
-        <button data-testid="nextMonth" onClick={nextCalendar}>
-          &gt;
-        </button>
+        <div className="calendarNav-button">
+          <button
+            data-testid="prevMonth"
+            onClick={prevCalendar}
+            className="prevMonth-button"
+          >
+            &lt;
+          </button>
+          <button
+            data-testid="nextMonth"
+            onClick={nextCalendar}
+            className="nextMonth-button"
+          >
+            &gt;
+          </button>
+        </div>
       </div>
       <table>
         <thead>
