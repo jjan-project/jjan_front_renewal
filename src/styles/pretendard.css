@@ -10,7 +10,7 @@ http://scripts.sil.org/OFL
 @font-face {
   font-family: "Pretendard";
   font-weight: 900;
-  font-display: swap;
+  font-display: fallback;
   src: local("Pretendard Black"),
     url("./font/woff2/Pretendard-Black.woff2") format("woff2"),
     url("./woff/Pretendard-Black.woff") format("woff");
@@ -19,7 +19,7 @@ http://scripts.sil.org/OFL
 @font-face {
   font-family: "Pretendard";
   font-weight: 800;
-  font-display: swap;
+  font-display: fallback;
   src: local("Pretendard ExtraBold"),
     url("./font/woff2/Pretendard-ExtraBold.woff2") format("woff2"),
     url("./woff/Pretendard-ExtraBold.woff") format("woff");
@@ -28,7 +28,7 @@ http://scripts.sil.org/OFL
 @font-face {
   font-family: "Pretendard";
   font-weight: 700;
-  font-display: swap;
+  font-display: fallback;
   src: local("Pretendard Bold"),
     url("./font/woff2/Pretendard-Bold.woff2") format("woff2"),
     url("./woff/Pretendard-Bold.woff") format("woff");
@@ -37,7 +37,7 @@ http://scripts.sil.org/OFL
 @font-face {
   font-family: "Pretendard";
   font-weight: 600;
-  font-display: swap;
+  font-display: fallback;
   src: local("Pretendard SemiBold"),
     url("./font/woff2/Pretendard-SemiBold.woff2") format("woff2"),
     url("./woff/Pretendard-SemiBold.woff") format("woff");
@@ -46,7 +46,7 @@ http://scripts.sil.org/OFL
 @font-face {
   font-family: "Pretendard";
   font-weight: 500;
-  font-display: swap;
+  font-display: fallback;
   src: local("Pretendard Medium"),
     url("./font/woff2/Pretendard-Medium.woff2") format("woff2"),
     url("./woff/Pretendard-Medium.woff") format("woff");
@@ -55,7 +55,7 @@ http://scripts.sil.org/OFL
 @font-face {
   font-family: "Pretendard";
   font-weight: 400;
-  font-display: swap;
+  font-display: fallback;
   src: local("Pretendard Regular"),
     url("./font/woff2/Pretendard-Regular.woff2") format("woff2"),
     url("./woff/Pretendard-Regular.woff") format("woff");
@@ -64,7 +64,7 @@ http://scripts.sil.org/OFL
 @font-face {
   font-family: "Pretendard";
   font-weight: 300;
-  font-display: swap;
+  font-display: fallback;
   src: local("Pretendard Light"),
     url("./font/woff2/Pretendard-Light.woff2") format("woff2"),
     url("./woff/Pretendard-Light.woff") format("woff");
@@ -73,7 +73,7 @@ http://scripts.sil.org/OFL
 @font-face {
   font-family: "Pretendard";
   font-weight: 200;
-  font-display: swap;
+  font-display: fallback;
   src: local("Pretendard ExtraLight"),
     url("./font/woff2/Pretendard-ExtraLight.woff2") format("woff2"),
     url("./woff/Pretendard-ExtraLight.woff") format("woff");
@@ -82,7 +82,7 @@ http://scripts.sil.org/OFL
 @font-face {
   font-family: "Pretendard";
   font-weight: 100;
-  font-display: swap;
+  font-display: fallback;
   src: local("Pretendard Thin"),
     url("./font/woff2/Pretendard-Thin.woff2") format("woff2"),
     url("./woff/Pretendard-Thin.woff") format("woff");

@@ -1,0 +1,6 @@
+#app {
+  width: 100%;
+  max-width: 768px; /* 이 부분을 테블릿 크기에 맞게 조절하세요 */
+  margin: 0 auto; /* 중앙 정렬 */
+  padding: 0 15px; /* 필요한 패딩 */
+}
