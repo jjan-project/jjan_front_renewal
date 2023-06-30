@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import Signup from "./pages/Signup";
 import QueryProvider from "./queryProvider";
 
 import { SignupProvider } from "@/store/signupStore";
@@ -15,16 +16,8 @@ const LoadingSpinner = () => {
 
 const authRoutes = () => (
   <Route path="auth">
-    <Route path="signin" />
-    <Route path="signup">
-      <Route path="email" />
-      <Route path="nick-name" />
-      <Route path="location" />
-      <Route path="birthday" />
-      <Route path="avatar" />
-      <Route path="gender" />
-      <Route path="capacity" />
-    </Route>
+    {/* <Route path="signin" element={<Signin />} /> */}
+    <Route path="signup" element={<Signup />} />
   </Route>
 );
 
