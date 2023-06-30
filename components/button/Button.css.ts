@@ -33,8 +33,8 @@ const varients = styleVariants({
     {
       background: "#6230CB",
       border: "none",
-      borderRadius: "16px",
-      height: "34px",
+      borderRadius: "28px",
+      height: "51px",
       display: "flex",
       justifyContent: "center",
       alignItems: "center",

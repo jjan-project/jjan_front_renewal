@@ -1,5 +1,7 @@
 import { styleVariants, style } from "@vanilla-extract/css";
 
+import { breakpoints } from "@/theme/foundation";
+
 const textInput = style({
   backgroundColor: "initial",
   border: "none",
@@ -15,18 +17,20 @@ const content = style({
   display: "flex",
   alignItems: "flex-end",
   flexGrow: "1",
-  gap: "8px",
 });
 
 const label = style({
   "@media": {
-    "screen and (min-width: 320px)": {
+    [`screen and (min-width: ${breakpoints.xs})`]: {
+      width: "45%",
+    },
+    [`screen and (min-width: ${breakpoints.sm})`]: {
       width: "35%",
     },
-    "screen and (min-width: 414px)": {
+    [`screen and (min-width: ${breakpoints.md})`]: {
       width: "25%",
     },
-    "screen and (min-width: 718px)": {
+    [`screen and (min-width: ${breakpoints.lg})`]: {
       width: "10%",
     },
   },
@@ -42,7 +46,7 @@ const varients = styleVariants({
   },
   underline: {
     borderBottom: "2px solid #ddd",
-    paddingBottom: "8px",
+    paddingBottom: "0.1rem",
     display: "flex",
     alignItems: "center",
     gap: "8px",

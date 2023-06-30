@@ -18,7 +18,6 @@ const InputBase = forwardRef<HTMLInputElement, InputBaseProps>(
 const Input = forwardRef<HTMLInputElement, InputProps>(
   (props: InputProps, ref?: Ref<HTMLInputElement>) => {
     const localRef = useRef<HTMLInputElement>(null);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const {
       isValid,
       style,

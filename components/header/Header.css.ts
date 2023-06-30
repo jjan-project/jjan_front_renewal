@@ -2,7 +2,7 @@ import { style } from "@vanilla-extract/css";
 
 const container = style({
   display: "flex",
-  padding: "10px",
+  // padding: "10px",
   justifyContent: "space-between",
   alignItems: "center",
 });

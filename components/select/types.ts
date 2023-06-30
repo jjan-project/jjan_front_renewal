@@ -2,25 +2,25 @@ import { HTMLAttributes } from "react";
 
 import { BaseTest } from "../types/base";
 
-type SelectOption = {
+type SelectOption<T> = {
   label: string;
-  value: string | number;
+  value: T;
 };
 
-type SelectProps = HTMLAttributes<HTMLDivElement> &
+type SelectProps<T> = HTMLAttributes<HTMLDivElement> &
   BaseTest & {
     /**
      * Array of option objects to display in the select dropdown.
      */
-    options: SelectOption[];
+    options: SelectOption<T>[];
     /**
      * Optional default selected option object.
      */
-    value?: SelectOption;
+    value?: SelectOption<T>;
     /**
      * A function that is called whenever the select input's value changes.
      */
-    onChange: (value?: SelectOption) => void;
+    onChange: (value?: SelectOption<T>) => void;
   };
 
 export type { SelectOption, SelectProps };

@@ -83,7 +83,12 @@ describe("Form Component", () => {
 
       render(
         <Form onSubmit={mockSubmit} testId="form">
-          <Form.Input type="text" name="test" />
+          <Form.Input
+            appearance="filled"
+            label="test"
+            type="text"
+            name="test"
+          />
         </Form>,
       );
 
@@ -101,8 +106,18 @@ describe("Form Component", () => {
 
       render(
         <Form onSubmit={mockSubmit} resolver={zodResolver(exampleLoginSchema)}>
-          <Form.Input type="email" name="email" />
-          <Form.Input type="password" name="password" />
+          <Form.Input
+            appearance="filled"
+            label="email"
+            type="email"
+            name="email"
+          />
+          <Form.Input
+            appearance="filled"
+            label="password"
+            type="password"
+            name="password"
+          />
           <button type="submit">click me</button>
         </Form>,
       );
@@ -122,8 +137,18 @@ describe("Form Component", () => {
 
       render(
         <Form onSubmit={mockSubmit} resolver={zodResolver(exampleLoginSchema)}>
-          <Form.Input type="email" name="email" />
-          <Form.Input type="password" name="password" />
+          <Form.Input
+            appearance="filled"
+            label="email"
+            type="email"
+            name="email"
+          />
+          <Form.Input
+            appearance="filled"
+            label="password"
+            type="password"
+            name="password"
+          />
           <button type="submit">click me</button>
         </Form>,
       );
@@ -145,8 +170,18 @@ describe("Form Component", () => {
 
       render(
         <Form onSubmit={mockSubmit} resolver={zodResolver(exampleLoginSchema)}>
-          <Form.Input type="email" name="email" />
-          <Form.Input type="password" name="password" />
+          <Form.Input
+            appearance="filled"
+            label="email"
+            type="email"
+            name="email"
+          />
+          <Form.Input
+            appearance="filled"
+            label="password"
+            type="password"
+            name="password"
+          />
           <button type="submit">click me</button>
         </Form>,
       );

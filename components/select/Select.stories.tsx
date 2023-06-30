@@ -28,7 +28,7 @@ export const Default: Story = {
       value: 2,
     };
 
-    const [value, setValue] = useState<SelectOption | undefined>(defaultValue);
+    const [value, setValue] = useState<SelectOption<number>>(defaultValue);
 
     return (
       <Select

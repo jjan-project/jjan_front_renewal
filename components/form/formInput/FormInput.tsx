@@ -1,33 +1,55 @@
-/**
- * 예제로 작성한 FormInput 컴포넌트입니다.
- */
-
-import { IconBrokenHome } from "jjan-icon";
-import React from "react";
+import { useState, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 
-import { Input } from "../../input";
+import { Flex } from "../../../components/flex";
+import { Input } from "../../../components/input";
+import type { InputProps } from "../../../components/input/types";
 import { Typo } from "../../typo";
 
-interface InputProps {
-  type: "text" | "password" | "email" | "file";
+type FormInputOmitProps = "name" | "type";
+
+interface FormInputProps extends Omit<InputProps, FormInputOmitProps> {
+  type: "email" | "text" | "password";
   name: string;
+  isValidationMode?: boolean;
 }
 
-const FormInput = (props: InputProps) => {
-  const { type, name } = props;
-  const { register, formState } = useFormContext();
-  const { errors, touchedFields } = formState;
+const FormInput = (props: FormInputProps) => {
+  const { name, type, isValidationMode = false, ...restProps } = props;
+  const [isValid, setIsValid] = useState<boolean>(false);
+  const {
+    register,
+    formState: { errors, dirtyFields },
+    getValues,
+  } = useFormContext();
+
+  const calculateValidity = () => {
+    if (isValidationMode) {
+      return !errors[name] && dirtyFields[name];
+    }
+    return true;
+  };
+
+  useEffect(() => {
+    setIsValid(calculateValidity());
+  }, [errors[name], dirtyFields[name]]);
+
+  useEffect(() => {
+    if (isValidationMode && getValues(name)) {
+      setIsValid(true);
+    }
+    // else {
+    //   setError(name, {});
+    // }
+  }, []);
 
   return (
-    <>
+    <Flex flexDirection="column">
       <Input
-        appearance="underline"
-        label={name}
-        type={type}
         id={name}
-        icon={<IconBrokenHome />}
-        isValid={!errors[name] && touchedFields[name]}
+        type={type}
+        isValid={isValid}
+        {...restProps}
         {...register(name)}
       />
       {errors[name] && (
@@ -35,7 +57,7 @@ const FormInput = (props: InputProps) => {
           {errors[name]?.message?.toString()}
         </Typo>
       )}
-    </>
+    </Flex>
   );
 };
 
