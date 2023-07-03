@@ -1,0 +1,4 @@
+.img-disabled {
+  pointer-events: none;
+  filter: grayscale(100%);
+}
