@@ -9,6 +9,9 @@ const preview: Preview = {
         date: /Date$/,
       },
     },
+    options: {
+      resetArgsOnUnmount: false, // args 리셋 비활성화
+    },
   },
 };
 

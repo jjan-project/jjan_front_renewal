@@ -1,0 +1,29 @@
+.textarea-container {
+  border: 1px solid black;
+  border-radius: 22px;
+  position: relative;
+}
+
+.textarea {
+  resize: none;
+  background: none;
+  border: none;
+  width: 96%;
+  height: 85%;
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  outline: none;
+}
+
+.textarea::-webkit-scrollbar {
+  display: none;
+}
+
+.textarea-word-count {
+  position: absolute;
+  bottom: 3em;
+  right: 3em;
+  font-size: 0.2em;
+  opacity: 0.4;
+}
