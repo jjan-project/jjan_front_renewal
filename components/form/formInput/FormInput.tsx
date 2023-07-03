@@ -1,26 +1,63 @@
-/**
- * 예제로 작성한 FormInput 컴포넌트입니다.
- */
-
-import React from "react";
+import { useState, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 
-interface InputProps {
-  type: "text" | "password" | "email" | "file";
+import { Flex } from "../../../components/flex";
+import { Input } from "../../../components/input";
+import type { InputProps } from "../../../components/input/types";
+import { Typo } from "../../typo";
+
+type FormInputOmitProps = "name" | "type";
+
+interface FormInputProps extends Omit<InputProps, FormInputOmitProps> {
+  type: "email" | "text" | "password";
   name: string;
+  isValidationMode?: boolean;
 }
 
-const FormInput = (props: InputProps) => {
-  const { type, name } = props;
-  const { register, formState } = useFormContext();
-  const { errors } = formState;
+const FormInput = (props: FormInputProps) => {
+  const { name, type, isValidationMode = false, ...restProps } = props;
+  const [isValid, setIsValid] = useState<boolean>(false);
+  const {
+    register,
+    formState: { errors, dirtyFields },
+    getValues,
+  } = useFormContext();
+
+  const calculateValidity = () => {
+    if (isValidationMode) {
+      return !errors[name] && dirtyFields[name];
+    }
+    return true;
+  };
+
+  useEffect(() => {
+    setIsValid(calculateValidity());
+  }, [errors[name], dirtyFields[name]]);
+
+  useEffect(() => {
+    if (isValidationMode && getValues(name)) {
+      setIsValid(true);
+    }
+    // else {
+    //   setError(name, {});
+    // }
+  }, []);
 
   return (
-    <>
-      <label htmlFor={name}>{name}</label>
-      <input type={type} id={name} {...register(name)} />
-      {errors[name] && <p role="alert">{errors[name]?.message?.toString()}</p>}
-    </>
+    <Flex flexDirection="column">
+      <Input
+        id={name}
+        type={type}
+        isValid={isValid}
+        {...restProps}
+        {...register(name)}
+      />
+      {errors[name] && (
+        <Typo appearance="body3" as="span" role="alert" color="violet400">
+          {errors[name]?.message?.toString()}
+        </Typo>
+      )}
+    </Flex>
   );
 };
 

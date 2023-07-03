@@ -1,15 +1,19 @@
 import React, { createContext, useContext, useReducer, Dispatch } from "react";
 
+import { BirthdayState } from "@/pages/Signup/steps/birthday";
+import { YEARS } from "@/pages/Signup/steps/birthday/constants";
+import { GenderState } from "@/pages/Signup/steps/gender";
+
 // 타입 정의
 export type State = {
   email: string;
   password: string;
   nickname: string;
   location: string;
-  birthday: string;
-  avatar: string;
-  gender: string;
-  capacity: string;
+  birthday: BirthdayState;
+  avatar: File | null;
+  gender: GenderState;
+  capacity: number;
 };
 
 type Action =
@@ -17,10 +21,10 @@ type Action =
   | { type: "SET_PASSWORD"; payload: string }
   | { type: "SET_NICKNAME"; payload: string }
   | { type: "SET_LOCATION"; payload: string }
-  | { type: "SET_BIRTHDAY"; payload: string }
-  | { type: "SET_AVATAR"; payload: string }
-  | { type: "SET_GENDER"; payload: string }
-  | { type: "SET_CAPACITY"; payload: string };
+  | { type: "SET_BIRTHDAY"; payload: BirthdayState }
+  | { type: "SET_AVATAR"; payload: File }
+  | { type: "SET_GENDER"; payload: GenderState }
+  | { type: "SET_CAPACITY"; payload: number };
 
 export type DispatchType = Dispatch<Action>;
 
@@ -30,10 +34,14 @@ export const initialState: State = {
   password: "",
   nickname: "",
   location: "",
-  birthday: "",
-  avatar: "",
-  gender: "",
-  capacity: "",
+  birthday: {
+    year: YEARS[0],
+    month: { label: "1월", value: 1 },
+    day: { label: "1일", value: 1 },
+  },
+  avatar: null,
+  gender: { label: "남자", value: "남자" },
+  capacity: 0,
 };
 
 // 액션 생성자 함수 정의
@@ -53,19 +61,19 @@ export const setLocation = (location: string): Action => ({
   type: "SET_LOCATION",
   payload: location,
 });
-export const setBirthday = (birthday: string): Action => ({
+export const setBirthday = (birthday: BirthdayState): Action => ({
   type: "SET_BIRTHDAY",
   payload: birthday,
 });
-export const setAvatar = (avatar: string): Action => ({
+export const setAvatar = (avatar: File): Action => ({
   type: "SET_AVATAR",
   payload: avatar,
 });
-export const setGender = (gender: string): Action => ({
+export const setGender = (gender: GenderState): Action => ({
   type: "SET_GENDER",
   payload: gender,
 });
-export const setCapacity = (capacity: string): Action => ({
+export const setCapacity = (capacity: number): Action => ({
   type: "SET_CAPACITY",
   payload: capacity,
 });

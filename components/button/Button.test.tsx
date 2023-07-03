@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
+import user from "@testing-library/user-event";
 import React from "react";
-import { describe, expect } from "vitest";
+import { describe, expect, vi } from "vitest";
 
 import { Button } from "./Button";
 
@@ -23,9 +24,32 @@ describe("Button 컴포넌트", () => {
     expect(buttonElement.tagName).toBe("DIV");
   });
 
-  test("forwardRef의 기능이 올바르게 작동해야 함", () => {
-    const ref = React.createRef<HTMLButtonElement>();
-    render(<Button ref={ref}>Click me</Button>);
-    expect(ref.current).not.toBeNull();
+  test("button 태그가 click event가 발생하지 않아야 함", async () => {
+    const mockOnClick = vi.fn();
+    render(<Button onClick={mockOnClick}>Test</Button>);
+    await user.click(screen.getByText(/Test/i));
+    expect(mockOnClick).toHaveBeenCalledTimes(1);
+  });
+
+  test("button 태그가 disabled 상태일 때 click event가 발생하지 않아야 함", async () => {
+    const mockOnClick = vi.fn();
+    render(
+      <Button onClick={mockOnClick} disabled>
+        Test
+      </Button>,
+    );
+    await user.click(screen.getByText(/Test/i));
+    expect(mockOnClick).toHaveBeenCalledTimes(0);
+  });
+
+  test("anchor 태그가 disabled 상태일 때 click event가 발생하지 않아야 함", async () => {
+    const mockOnClick = vi.fn();
+    render(
+      <Button onClick={mockOnClick} as="a" disabled>
+        Test
+      </Button>,
+    );
+    await user.click(screen.getByText(/Test/i));
+    expect(mockOnClick).toHaveBeenCalledTimes(0);
   });
 });

@@ -12,34 +12,45 @@ export default meta;
 
 type Story = StoryObj<typeof Button>;
 
-export const Variant: Story = {
+export const NomalButton: Story = {
   render: () => (
-    <div style={{ display: "flex", gap: "1rem" }}>
-      <Button disabled>Button</Button>
-    </div>
-  ),
-};
-
-export const WithDisabled: Story = {
-  render: () => (
-    <div style={{ display: "flex", gap: "1rem" }}>
-      <Button disabled>Button</Button>
-      <Button as="div" disabled>
+    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+      <Button appearance="primary" disabled={false}>
+        Button
+      </Button>
+      <Button appearance="primary" disabled>
         Button
       </Button>
     </div>
   ),
 };
 
-export const WithPolymorphism: Story = {
+export const PolymorphicButton: Story = {
   render: () => (
-    <div style={{ display: "flex", gap: "1rem" }}>
-      <Button>Button</Button>
-      <Button as="div">Div</Button>
-      <Button as="a" href="https://www.google.com">
+    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+      <Button appearance="primary" as="div">
+        Div
+      </Button>
+      <Button appearance="primary" as="a" href="https://www.google.com">
         Anchor
       </Button>
-      <Button as="span">Span</Button>
+      <Button appearance="primary" as="span">
+        Span
+      </Button>
+      <Button appearance="primary" as="div" disabled>
+        Div
+      </Button>
+      <Button
+        appearance="primary"
+        as="a"
+        href="https://www.google.com"
+        disabled
+      >
+        Anchor
+      </Button>
+      <Button appearance="primary" as="span" disabled>
+        Span
+      </Button>
     </div>
   ),
 };

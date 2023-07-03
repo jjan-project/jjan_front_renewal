@@ -1,14 +1,12 @@
 import React, { useRef } from "react";
 import { useFormContext } from "react-hook-form";
 
-import { Input } from "../../input";
-
 import { ImageUploaderProps } from "./types";
 
 const ImageUploader = (props: ImageUploaderProps) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const { register, watch } = useFormContext();
-  const { render, name, multiple, testId } = props;
+  const { render, name, accept, multiple, testId } = props;
   const { ref, ...rest } = register(name);
 
   const handleClick = () => {
@@ -17,7 +15,7 @@ const ImageUploader = (props: ImageUploaderProps) => {
 
   return (
     <div style={{ cursor: "pointer" }}>
-      <Input
+      <input
         type="file"
         multiple={multiple}
         {...rest}
@@ -26,6 +24,7 @@ const ImageUploader = (props: ImageUploaderProps) => {
           fileInputRef.current = e;
         }}
         style={{ display: "none" }}
+        accept={accept}
         data-testid={testId}
       />
       {render && render({ files: watch(name), handleClick })}

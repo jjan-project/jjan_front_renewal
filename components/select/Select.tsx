@@ -3,11 +3,11 @@ import React, { useState } from "react";
 import "./select.css";
 import { SelectOption, SelectProps } from "./types";
 
-const Select = (props: SelectProps) => {
+const Select = <T,>(props: SelectProps<T>) => {
   const { options, value, onChange, testId } = props;
   const [isOpen, setIsOpen] = useState(false);
 
-  const selectOption = (option: SelectOption) => {
+  const selectOption = (option: SelectOption<T>) => {
     if (option !== value) onChange(option);
   };
 
@@ -24,10 +24,10 @@ const Select = (props: SelectProps) => {
       <span className="value">{value?.label}</span>
       <div className="caret"></div>
       <ul className={`options ${isOpen ? "show" : ""}`}>
-        {options.map(option => (
+        {options.map((option, index) => (
           <li
             className="option"
-            key={option.value}
+            key={index}
             onClick={e => {
               e.stopPropagation();
               selectOption(option);

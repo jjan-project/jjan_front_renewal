@@ -28,20 +28,14 @@ export const Default: Story = {
       value: 2,
     };
 
-    const [value, setValue] = useState<SelectOption | undefined>(defaultValue);
+    const [value, setValue] = useState<SelectOption<number>>(defaultValue);
 
     return (
-      <div
-        style={{
-          width: "30em",
-        }}
-      >
-        <Select
-          options={options}
-          value={value}
-          onChange={value => setValue(value)}
-        />
-      </div>
+      <Select
+        options={options}
+        value={value}
+        onChange={value => setValue(value)}
+      />
     );
   },
 };

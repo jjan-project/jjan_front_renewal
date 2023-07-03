@@ -17,7 +17,17 @@ const FormBase = <TFieldValues extends FieldValues>({
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)} data-testid={testId}>
+      <form
+        onSubmit={methods.handleSubmit(onSubmit)}
+        data-testid={testId}
+        style={{
+          flexGrow: 1,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+        }}
+        autoComplete="off"
+      >
         {children}
       </form>
     </FormProvider>

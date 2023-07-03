@@ -17,6 +17,7 @@ type ImageUploaderProps = Omit<InputHTMLAttributes<HTMLInputElement>, "name"> &
      * render function
      */
     render: (props: RenderProps) => ReactNode;
+    accepts?: string;
   };
 
 export type { RenderProps, ImageUploaderProps };
