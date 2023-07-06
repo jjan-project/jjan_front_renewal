@@ -14,7 +14,7 @@ export const Default = (args: AvatarProps) => {
 };
 Default.args = {
   alt: "사용자 아바타",
-  src: "public/test1.png",
+  src: "/test1.png",
   width: "60px",
   height: "60px",
   isDisabled: false,
