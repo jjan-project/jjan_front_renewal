@@ -14,12 +14,6 @@ const options = [
   { label: "five", value: 5 },
 ];
 
-const mockSetState = vi.fn();
-
-vi.mock("react", () => ({
-  useState: (initial: SelectOption<number>) => [initial, mockSetState],
-}));
-
 describe("Select component", () => {
   const mockOnChange = vi.fn();
 
@@ -36,7 +30,7 @@ describe("Select component", () => {
     expect(selectElement).toBeInTheDocument();
   });
 
-  test("Should render Select component and ul element when onClick", () => {
+  test("Should render Select component and ul element when onClick", async () => {
     render(
       <Select
         options={options}
@@ -49,7 +43,7 @@ describe("Select component", () => {
     const selectElement = screen.getByTestId("select");
     user.click(selectElement);
 
-    const ulElement = screen.getByRole("list");
+    const ulElement = await screen.findByRole("list");
     expect(ulElement).toBeInTheDocument();
   });
 
@@ -58,7 +52,7 @@ describe("Select component", () => {
       initialProps: { label: "first", value: 1 },
     });
 
-    render(
+    const { rerender } = render(
       <Select
         options={options}
         value={result.current[0]}
@@ -70,10 +64,20 @@ describe("Select component", () => {
     const selectElement = screen.getByTestId("select");
     await user.click(selectElement);
 
-    const listItem = screen.getByText("second");
+    const listItem = await screen.findByText("second"); // Use findByText if "second" is not present immediately in DOM
     await user.click(listItem);
 
-    expect(result.current[1]).toBeCalledWith({ label: "second", value: 2 });
+    // Force rerender with the updated state
+    rerender(
+      <Select
+        options={options}
+        value={result.current[0]}
+        onChange={value => result.current[1](value as SelectOption<number>)}
+        testId="select"
+      />,
+    );
+
+    expect(result.current[0]).toEqual({ label: "second", value: 2 });
   });
 
   test("List should close when clicking outside the list", async () => {
