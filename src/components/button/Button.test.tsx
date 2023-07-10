@@ -14,7 +14,7 @@ describe("Button 컴포넌트", () => {
   test("버튼이 red 색상의 스타일 값을 가지고 있음", () => {
     render(<Button style={{ color: "red" }}>Click me</Button>);
     const buttonElement = screen.getByText(/Click me/i);
-    expect(buttonElement).toHaveStyle("color: red");
+    expect(buttonElement).toHaveStyle("color: #ff0000");
   });
 
   test("버튼이 div 태그로 렌더링 될 수 있어야 함", () => {

@@ -5,21 +5,21 @@ import useProgressBar from "./useProgressBar";
 
 describe("useProgressBar", () => {
   test("should throw error if initialStep is negative", () => {
-    expect(() => renderHook(() => useProgressBar(-1, 10))).toThrow(
-      "Initial step cannot be negative.",
-    );
+    expect(() => {
+      renderHook(() => useProgressBar(-1, 10));
+    }).toThrow("Initial step cannot be negative.");
   });
 
   test("should throw error if maxStep is negative", () => {
-    expect(() => renderHook(() => useProgressBar(1, -10))).toThrow(
-      "Max step cannot be negative.",
-    );
+    expect(() => {
+      renderHook(() => useProgressBar(1, -10));
+    }).toThrow("Max step cannot be negative.");
   });
 
   test("should throw error if maxStep is less than initialStep", () => {
-    expect(() => renderHook(() => useProgressBar(10, 5))).toThrow(
-      "Max step cannot be less than initial step.",
-    );
+    expect(() => {
+      renderHook(() => useProgressBar(10, 5));
+    }).toThrow("Max step cannot be less than initial step.");
   });
 
   test("should increase the step when setGaugeUp is called", () => {
