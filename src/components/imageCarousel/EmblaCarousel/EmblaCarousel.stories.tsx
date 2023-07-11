@@ -4,12 +4,6 @@ import { IconChevronLeftSmall, IconChevronRightSmall } from "jjan-icon";
 import { EmblaCarousel } from "./EmblaCarousel";
 import { EmblaCarouselPropType } from "./types";
 
-import image1 from "@/assets/imageCaroselTestImg/carousel1.jpeg";
-import image2 from "@/assets/imageCaroselTestImg/carousel2.jpeg";
-import image3 from "@/assets/imageCaroselTestImg/carousel3.jpeg";
-import image4 from "@/assets/imageCaroselTestImg/carousel4.jpeg";
-import image5 from "@/assets/imageCaroselTestImg/carousel5.jpeg";
-
 const meta: Meta<typeof EmblaCarousel> = {
   title: "Carousel/EmblaCarousel",
   component: EmblaCarousel,
@@ -116,7 +110,13 @@ export const Default: Story = (args: EmblaCarouselPropType) => {
 };
 
 Default.args = {
-  images: [image1, image2, image3, image4, image5],
+  images: [
+    "/imageCaroselTestImg/carousel1.jpeg",
+    "/imageCaroselTestImg/carousel2.jpeg",
+    "/imageCaroselTestImg/carousel3.jpeg",
+    "/imageCaroselTestImg/carousel4.jpeg",
+    "/imageCaroselTestImg/carousel5.jpeg",
+  ],
   prevIcon: <IconChevronLeftSmall />,
   nextIcon: <IconChevronRightSmall />,
   active: true,
