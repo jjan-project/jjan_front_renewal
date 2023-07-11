@@ -1,5 +1,4 @@
 import { Meta } from "@storybook/react";
-import React from "react";
 
 import { Avatar } from "./Avatar";
 import type { AvatarProps } from "./types";
@@ -14,7 +13,7 @@ export const Default = (args: AvatarProps) => {
 };
 Default.args = {
   alt: "사용자 아바타",
-  src: "/test1.png",
+  src: "/avatarTestImg/test1.png",
   width: "60px",
   height: "60px",
   isDisabled: false,
