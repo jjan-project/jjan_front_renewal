@@ -4,15 +4,21 @@ import { useState, useEffect, useCallback } from "react";
 import "./EmblaCarousel.css";
 
 import { DotButton, PrevButton, NextButton } from "./ArrowsDotsButtons";
+import { handlePluginsArr } from "./plugins";
 import type { EmblaCarouselPropType } from "./types";
 
 const EmblaCarousel = (props: EmblaCarouselPropType) => {
-  const { images, options, prevIcon, nextIcon } = props;
-  const [emblaRef, emblaApi] = useEmblaCarousel(options);
+  const { images, options = {}, prevIcon, nextIcon, autoplayOptions } = props;
+
   const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
   const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
+
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    options,
+    handlePluginsArr({ autoplayOptions }),
+  );
 
   const scrollPrev = useCallback(
     () => emblaApi && emblaApi.scrollPrev(),

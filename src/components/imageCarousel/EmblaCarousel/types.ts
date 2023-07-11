@@ -1,3 +1,4 @@
+import { AutoplayOptionsType } from "embla-carousel-autoplay";
 import { EmblaOptionsType } from "embla-carousel-react";
 
 type EmblaCarouselPropType = {
@@ -5,7 +6,9 @@ type EmblaCarouselPropType = {
   prevIcon?: JSX.Element;
   nextIcon?: JSX.Element;
   options?: EmblaOptionsType;
-} & EmblaOptionsType;
+  autoplayOptions?: AutoplayOptionsType;
+} & EmblaOptionsType &
+  AutoplayOptionsType;
 
 type DotButtonPropType = {
   selected: boolean;
