@@ -1,0 +1,1 @@
+export { EmblaCarousel } from "./EmblaCarousel";

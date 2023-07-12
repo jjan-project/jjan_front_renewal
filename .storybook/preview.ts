@@ -25,6 +25,7 @@ const preview: Preview = {
         color: /(background|color)$/i,
         date: /Date$/,
       },
+      expanded: true,
     },
     options: {
       resetArgsOnUnmount: false, // args 리셋 비활성화

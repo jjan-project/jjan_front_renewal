@@ -1,0 +1,108 @@
+.sandbox {
+  width: 100%;
+  position: relative;
+}
+@media (min-width: 750px) {
+  .sandbox {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 67rem;
+  }
+}
+
+.embla {
+  --slide-spacing: 1rem;
+  --slide-size: 100%;
+  --slide-height: 15rem;
+  --background-code: black;
+}
+
+.embla__viewport {
+  overflow: hidden;
+}
+
+.embla__container {
+  backface-visibility: hidden;
+  display: flex;
+  touch-action: pan-y;
+  flex-direction: row;
+  height: auto;
+  margin-left: calc(var(--slide-spacing) * -1);
+}
+
+.embla__slide {
+  flex: 0 0 var(--slide-size);
+  min-width: 0;
+  padding-left: var(--slide-spacing);
+  position: relative;
+}
+
+.embla__slide__img {
+  display: block;
+  width: 100%;
+  height: var(--slide-height);
+  object-fit: contain;
+}
+
+.embla__dot,
+.embla__button {
+  -webkit-appearance: none;
+  background-color: transparent;
+  touch-action: manipulation;
+  display: inline-flex;
+  text-decoration: none;
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.embla__dots {
+  z-index: 1;
+  bottom: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.embla__dot {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.embla__dot:after {
+  background: white;
+  border-radius: 50%;
+  width: 20%;
+  height: 20%;
+  content: "";
+  border: 1px solid black;
+}
+.embla__dot--selected:after {
+  background: #5b1fd9;
+}
+.embla__button {
+  z-index: 1;
+  color: black;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+.embla__button--prev {
+  left: 1.5rem;
+}
+.embla__button--next {
+  right: 1.5rem;
+}
+.embla__button:disabled {
+  opacity: 0.3;
+}
