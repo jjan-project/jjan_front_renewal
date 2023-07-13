@@ -4,11 +4,21 @@ import { fileURLToPath, URL } from "url";
 
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
+import { VitePWA } from "vite-plugin-pwa";
 import svgr from "vite-plugin-svgr";
+
+import pwaConfig from "./pwaconfig.json";
+
+const pwaPlugin = VitePWA({
+  manifest: pwaConfig,
+  devOptions: {
+    enabled: true,
+  },
+});
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), svgr()],
+  plugins: [react(), pwaPlugin, svgr()],
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
