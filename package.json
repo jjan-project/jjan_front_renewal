@@ -44,6 +44,7 @@
     "@storybook/react": "^7.0.17",
     "@storybook/react-vite": "^7.0.17",
     "@storybook/testing-library": "^0.0.14-next.2",
+    "@tanstack/eslint-plugin-query": "^4.29.9",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",

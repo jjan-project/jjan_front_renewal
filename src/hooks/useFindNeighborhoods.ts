@@ -21,30 +21,25 @@ export function useFindNeighborhoods({ latitude, longitude }: Coordinates) {
     ...SEARCH_OPTIONS,
   };
 
-  return useQuery<kakaoKeyWordRequest>(
-    [QUERY_KEY.kakaoNeighborhoods, latitude, longitude],
-    () => httpService.get(kakaoKeyWordURL, { params }),
-    {
-      onSuccess: data => {
-        const uniqueAddresses = new Set<string>();
-        data.documents.forEach(item => {
-          const addressName = item.address_name
-            .split(" ")
-            .slice(0, 3)
-            .join(" ");
-          uniqueAddresses.add(addressName);
-        });
+  return useQuery<kakaoKeyWordRequest>({
+    queryKey: [QUERY_KEY.kakaoNeighborhoods, latitude, longitude, params],
+    queryFn: () => httpService.get(kakaoKeyWordURL, { params }),
+    onSuccess: data => {
+      const uniqueAddresses = new Set<string>();
+      data.documents.forEach(item => {
+        const addressName = item.address_name.split(" ").slice(0, 3).join(" ");
+        uniqueAddresses.add(addressName);
+      });
 
-        const neighborhoods = Array.from(uniqueAddresses);
+      const neighborhoods = Array.from(uniqueAddresses);
 
-        queryClient.setQueryData(
-          [QUERY_KEY.kakaoNeighborhoods, latitude, longitude],
-          neighborhoods,
-        );
-      },
-      onError: error => {
-        console.error("동네 검색 중 오류가 발생했습니다.", error);
-      },
+      queryClient.setQueryData(
+        [QUERY_KEY.kakaoNeighborhoods, latitude, longitude],
+        neighborhoods,
+      );
     },
-  );
+    onError: error => {
+      console.error("동네 검색 중 오류가 발생했습니다.", error);
+    },
+  });
 }
