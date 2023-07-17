@@ -9,11 +9,12 @@ import { ResponseType, RequestConfigType, ErrorType } from "./httpTypes";
 type QueryKeyT = [string, object | undefined];
 
 interface MutationProps<T, S = unknown> {
-  func?: (data: T | S) => Promise<ResponseType<S>>;
+  func?: ((data: T | S) => Promise<ResponseType<S>>) | (() => Promise<T>);
   url: string;
   updater?: (oldData: T, newData: S) => T;
   params?: RequestConfigType;
-  config?: UseMutationOptions<ResponseType<S>, ErrorType, T | S>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  config?: UseMutationOptions<any, any, any>;
 }
 
 interface QueryProps<T> {

@@ -76,7 +76,7 @@ export class ReactQueryManager implements ServerStateManager {
     });
   }
 
-  private genericMutation<T, S>(props: MutationProps<T, S>) {
+  private genericMutation<T, S = unknown>(props: MutationProps<T, S>) {
     const { func, url, params, updater, config } = props;
     const queryClient = useQueryClient();
     return useMutation<ResponseType<S>, ErrorType, T | S>({
@@ -120,11 +120,11 @@ export class ReactQueryManager implements ServerStateManager {
     });
   }
 
-  delete<T>(props: MutationProps<T, string | number>) {
+  delete<T>(props: MutationProps<T>) {
     const { url, params } = props;
 
-    return this.genericMutation<T, string | number>({
-      func: data => api.post<T, string | number>(url, data, params),
+    return this.genericMutation<T>({
+      func: () => api.delete<T>(url, params),
       ...props,
     });
   }
