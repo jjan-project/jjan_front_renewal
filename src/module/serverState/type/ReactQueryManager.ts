@@ -14,7 +14,7 @@ interface MutationProps<T, S = unknown> {
   updater?: (oldData: T, newData: S) => T;
   params?: RequestConfigType;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  config?: UseMutationOptions<any, any, any>;
+  config?: UseMutationOptions<ResponseType<S> | any, ErrorType, T | S>;
 }
 
 interface QueryProps<T> {
