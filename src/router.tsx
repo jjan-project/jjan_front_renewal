@@ -1,17 +1,16 @@
-import React, { Suspense } from "react";
+import { Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import { LoadingSplash } from "./components/loadingSplash";
 import QueryProvider from "./queryProvider";
 
+import SvgLoadingSplash from "@/assets/LoadingSplash.svg";
 import { SignupProvider } from "@/store/signupStore";
+
 
 // const 로그인후불러올컴포넌트 = React.lazy(
 //   () => import("./pages/로그인후불러올컴포넌트"),
 // );
-
-const LoadingSpinner = () => {
-  return <div>로딩창</div>;
-};
 
 const authRoutes = () => (
   <Route path="auth">
@@ -52,7 +51,9 @@ const Router = () => {
     <QueryProvider>
       <BrowserRouter>
         {/* <MainNavigation /> */}
-        <Suspense fallback={<LoadingSpinner />}>{routes}</Suspense>
+        <Suspense fallback={<LoadingSplash imageUrl={SvgLoadingSplash} />}>
+          {routes}
+        </Suspense>
         {/* <BottomNavigation /> */}
       </BrowserRouter>
     </QueryProvider>

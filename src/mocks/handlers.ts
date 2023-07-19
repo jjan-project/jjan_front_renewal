@@ -1,12 +1,8 @@
 import { rest } from "msw";
 
-import { State } from "@/store/signupStore";
+import { fakeUsers, fakePosts } from "./fakeData";
 
-const fakeUsers = [
-  {
-    email: "test@example.com",
-  },
-];
+import { State } from "@/store/signupStore";
 
 export const handlers = [
   rest.get("https://api.example.com/users/:id", (req, res, ctx) => {
@@ -82,5 +78,48 @@ export const handlers = [
     }
 
     return res(ctx.status(200), ctx.json(responseData));
+  }),
+
+  rest.delete("https://api.example.com/users/:id", (req, res, ctx) => {
+    const { id } = req.params;
+
+    const updatedUsers = fakeUsers.filter(user => user.id !== id);
+
+    return res(ctx.status(200), ctx.json(updatedUsers));
+  }),
+
+  rest.post("https://api.example.com/users", (req, res, ctx) => {
+    const newUser = req.body;
+
+    const newfakeUsers = [...fakeUsers, newUser];
+
+    return res(ctx.status(201), ctx.json(newfakeUsers));
+  }),
+
+  rest.patch("https://api.example.com/users", (req, res, ctx) => {
+    const updatedUser = req.body as { id: string };
+
+    const userIndex = fakeUsers.findIndex(user => user.id === updatedUser.id);
+
+    fakeUsers[userIndex] = { ...fakeUsers[userIndex], ...updatedUser };
+    return res(ctx.status(200), ctx.json(fakeUsers));
+  }),
+
+  rest.get("https://api.example.com/posts", (req, res, ctx) => {
+    const page = Number(req.url.searchParams.get("page")) || 1;
+    const pageSize = 10;
+    const start = (page - 1) * pageSize;
+    const end = start + pageSize;
+    const nextPage = fakePosts.length > end ? page + 1 : null;
+
+    return res(
+      ctx.status(200),
+      ctx.json({
+        nextId: nextPage,
+        previousId: page > 1 ? page - 1 : null,
+        data: fakePosts.slice(start, end),
+        count: fakePosts.length,
+      }),
+    );
   }),
 ];
