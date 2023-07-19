@@ -10,22 +10,16 @@ const FormBase = <TFieldValues extends FieldValues>({
   onSubmit,
   ...props
 }: FormProps<TFieldValues>) => {
-  const { testId } = props;
+  const { testId, id } = props;
 
   const methods = useForm<TFieldValues>(props);
 
   return (
     <FormProvider {...methods}>
       <form
+        id={id}
         onSubmit={methods.handleSubmit(onSubmit)}
         data-testid={testId}
-        style={{
-          flexGrow: 1,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-        }}
-        autoComplete="off"
       >
         {children}
       </form>

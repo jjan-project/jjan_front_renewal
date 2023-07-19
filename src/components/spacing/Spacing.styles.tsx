@@ -7,4 +7,5 @@ export const Spacing = styled.div<SpacingProps>`
   width: ${props =>
     props.direction === "horizontal" ? props.size : undefined};
   height: ${props => (props.direction === "vertical" ? props.size : undefined)};
+  flex-grow: ${props => (props.fill ? 1 : null)};
 `;
