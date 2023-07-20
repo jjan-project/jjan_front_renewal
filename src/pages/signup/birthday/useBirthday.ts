@@ -27,4 +27,4 @@ function useBirthday(props: useBirthdayArgs): useBirthdayReturn {
   return [birthday, handleBirthdayChange];
 }
 
-export default useBirthday;
+export { useBirthday };
