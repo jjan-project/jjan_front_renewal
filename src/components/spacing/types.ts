@@ -8,7 +8,8 @@ type SpacingProps = {
   /**
    * The size of the space to be applied.
    */
-  size: string;
+  size?: string;
+  fill?: boolean;
 } & HTMLAttributes<HTMLDivElement>;
 
 export type { SpacingProps };

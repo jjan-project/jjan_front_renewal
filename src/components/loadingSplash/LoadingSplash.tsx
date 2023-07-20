@@ -5,7 +5,6 @@ import { LoadingSplashProps } from "./types";
 const LoadingSplash = ({ imageUrl }: LoadingSplashProps) => {
   return (
     <div className="loading-splash-container">
-      <h4>잠시만 기다려주세요!</h4>
       <div className="loading-splash">
         <img
           src={imageUrl}
