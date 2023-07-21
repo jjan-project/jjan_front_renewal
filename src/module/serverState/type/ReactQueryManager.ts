@@ -8,19 +8,11 @@ import { ResponseType, RequestConfigType, ErrorType } from "./httpTypes";
 
 type QueryKeyT = [string, object | undefined];
 
-interface MutationProps<T, S = unknown> {
-  func?: ((data: T | S) => Promise<ResponseType<S>>) | (() => Promise<T>);
-  url: string;
-  updater?: (oldData: T, newData: S) => T;
-  params?: RequestConfigType;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  config?: UseMutationOptions<ResponseType<S> | any, ErrorType, T | S>;
-}
-
 interface QueryProps<T> {
   url: string | null;
   params?: RequestConfigType;
   config?: UseQueryOptions<T, Error, T, QueryKeyT>;
+  customQueryKey?: string;
 }
 
 interface GetInfinitePagesInterface<T> {
@@ -38,6 +30,16 @@ interface InfinitePagesProps<T> extends Omit<QueryProps<T>, "config"> {
     GetInfinitePagesInterface<T>,
     QueryKeyT
   >;
+}
+
+interface MutationProps<T, S = unknown> {
+  func?: ((data: T | S) => Promise<ResponseType<S>>) | (() => Promise<T>);
+  url: string;
+  updater?: (oldData: T, newData: S) => T;
+  params?: RequestConfigType;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  config?: UseMutationOptions<ResponseType<S> | any, ErrorType, T | S>;
+  customQueryKey?: string;
 }
 
 export type {
