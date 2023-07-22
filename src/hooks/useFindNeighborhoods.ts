@@ -51,5 +51,5 @@ export function useFindNeighborhoods({
     setAddressList(addresses);
   }, [neighborhoods.data]);
 
-  return addressList;
+  return { ...neighborhoods, data: addressList };
 }
