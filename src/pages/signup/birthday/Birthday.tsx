@@ -2,7 +2,7 @@ import { IconChevronLeftLarge } from "jjan-icon";
 
 import { YEARS } from "./constants";
 import { BirthdaySelectOption } from "./types";
-import useBirthday from "./useBirthday";
+import { useBirthday } from "./useBirthday";
 import { getDays, getMonths } from "./utils";
 
 import { Box } from "@/components/box";

@@ -1,45 +1,55 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 
-import { kakaoKeyWordURL } from "@/constants/kakaoURL";
-import { QUERY_KEY } from "@/constants/queryKeys";
-import { httpService } from "@/module/http";
-import type { kakaoKeyWordRequest } from "@/types/kakaoMap";
+import { useGetNeighborhoods } from "@/api/kakao";
+import type { PlacesSearchOptions } from "@/types/kakao";
 import type { Coordinates } from "@/types/location";
+import { convertObjectValuesToStrings } from "@/utils/convertObjectValuesToStrings";
+import { extractAddress } from "@/utils/kakao";
 
-const SEARCH_OPTIONS = {
+const defaultOptions = {
   query: "동사무소",
-  radius: 4000, // 반경 4키로
-  size: 15, // 최대 15개 아이템
+  radius: 3000, // 검색 반경 거리 1 = 1m
+  size: 15, // 최대 아이템 갯수
+  category_group_code: "PO3", // 공공기관
+  sort: "distance", // 거리 순 정렬
 };
 
-export function useFindNeighborhoods({ latitude, longitude }: Coordinates) {
-  const queryClient = useQueryClient();
+type Props = Coordinates & {
+  searchOptions: PlacesSearchOptions;
+};
 
-  const params = {
+export function useFindNeighborhoods({
+  latitude,
+  longitude,
+  searchOptions,
+}: Props) {
+  const [addressList, setAddressList] = useState<string[]>([]);
+
+  const shouldFetch = latitude !== 0 && longitude !== 0;
+
+  const options = {
     x: longitude,
     y: latitude,
-    ...SEARCH_OPTIONS,
+    ...defaultOptions,
+    ...searchOptions,
   };
 
-  return useQuery<kakaoKeyWordRequest>({
-    queryKey: [QUERY_KEY.kakaoNeighborhoods, latitude, longitude, params],
-    queryFn: () => httpService.get(kakaoKeyWordURL, { params }),
-    onSuccess: data => {
-      const uniqueAddresses = new Set<string>();
-      data.documents.forEach(item => {
-        const addressName = item.address_name.split(" ").slice(0, 3).join(" ");
-        uniqueAddresses.add(addressName);
-      });
+  const stringOptions = convertObjectValuesToStrings(options);
 
-      const neighborhoods = Array.from(uniqueAddresses);
+  const neighborhoods = useGetNeighborhoods(stringOptions);
 
-      queryClient.setQueryData(
-        [QUERY_KEY.kakaoNeighborhoods, latitude, longitude],
-        neighborhoods,
-      );
-    },
-    onError: error => {
-      console.error("동네 검색 중 오류가 발생했습니다.", error);
-    },
-  });
+  useEffect(() => {
+    if (!shouldFetch) return;
+
+    neighborhoods.refetch();
+  }, [latitude, longitude, shouldFetch]);
+
+  useEffect(() => {
+    if (!neighborhoods.data || !neighborhoods.data.documents) return;
+
+    const addresses = extractAddress(neighborhoods.data.documents);
+    setAddressList(addresses);
+  }, [neighborhoods.data]);
+
+  return { ...neighborhoods, data: addressList };
 }
