@@ -1,7 +1,8 @@
 type Response<T> = {
-  statusCode: number;
+  code: number;
   message: string;
-} & T;
+  data: T;
+};
 
 type ResponseWithToken<T> = Response<T> & {
   token: {
