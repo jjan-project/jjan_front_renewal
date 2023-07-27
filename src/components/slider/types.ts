@@ -1,4 +1,4 @@
-import type { InputHTMLAttributes, Dispatch, SetStateAction } from "react";
+import type { InputHTMLAttributes } from "react";
 
 import { BaseTest } from "../types/base";
 
@@ -28,7 +28,7 @@ type SliderProps = Omit<
     /**
      * Function to update the value of the slider
      */
-    setValue: Dispatch<SetStateAction<number>>;
+    setValue: (value: number) => void;
   };
 
 export type { SliderProps };

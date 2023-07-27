@@ -1,5 +1,7 @@
 import { HTMLAttributes } from "react";
 
+import type { Color } from "@/theme/foundation";
+
 type BoxProps = {
   /**
    * Defines the HTML element used for the root node.
@@ -30,6 +32,16 @@ type BoxProps = {
    * If true, aligns the content at the center of the element.
    */
   centerContent?: boolean;
+
+  /**
+   * Defines the background color of the element.
+   */
+  backgroundColor?: Color;
+
+  /**
+   * Defines the border radius of the element.
+   */
+  borderRadius?: string;
 } & HTMLAttributes<HTMLDivElement>;
 
 export type { BoxProps };
