@@ -6,10 +6,11 @@ export const colors = {
   gray300: "#4D4D57",
   gray600: "#A6A6B9",
   orange300: "#F2822A",
-  violet400: "#8551F1",
+  violet100: "#5B1FD9",
   violet200: "#6230CB",
-  yellow500: "#FFED47",
+  violet400: "#8551F1",
   yellow300: "#FAD40E",
+  yellow500: "#FFED47",
 } as const;
 
 export type Color = keyof typeof colors;
