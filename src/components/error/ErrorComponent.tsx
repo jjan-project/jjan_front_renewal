@@ -7,19 +7,7 @@ import { Stack } from "../stack";
 import { Typo } from "../typo";
 
 import * as S from "./ErrorComponent.styles";
-
-type ErrorType = {
-  message: string;
-  detailMessage?: string;
-  fixText?: string;
-  func?: () => void;
-};
-
-type ErrorComponentProps = {
-  resetError: () => void;
-  error: ErrorType;
-  errorImg?: string;
-};
+import { ErrorComponentProps } from "./types";
 
 export const ErrorComponent = ({
   resetError,

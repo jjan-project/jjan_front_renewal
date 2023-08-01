@@ -1,8 +1,7 @@
 import { render, fireEvent } from "@testing-library/react";
+import { vi } from "vitest";
 
 import { ErrorComponent } from "./ErrorComponent";
-
-import { vi } from "vitest";
 
 describe("ErrorComponent", () => {
   const mockResetError = vi.fn();
