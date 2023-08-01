@@ -6,6 +6,10 @@ import {
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ErrorBoundary } from "react-error-boundary";
 
+import { ErrorComponent } from "./components/error";
+
+import errorImg from "@/assets/error.png";
+
 interface Props {
   children: React.ReactNode;
 }
@@ -16,8 +20,12 @@ const QueryErrorBoundary = ({ children }: Props) => {
   return (
     <ErrorBoundary
       onReset={reset}
-      fallbackRender={({ resetErrorBoundary }) => (
-        <button onClick={() => resetErrorBoundary()}>Error Try again</button>
+      fallbackRender={({ resetErrorBoundary, error }) => (
+        <ErrorComponent
+          resetError={resetErrorBoundary}
+          error={error}
+          errorImg={errorImg}
+        />
       )}
     >
       {children}
