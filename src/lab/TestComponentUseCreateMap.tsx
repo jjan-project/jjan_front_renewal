@@ -1,4 +1,4 @@
-import useCreateMap from "@/hooks/useCreateMap";
+import { useCreateMap } from "@/hooks/maps";
 import { useGeoLocation } from "@/hooks/useGeoLocation";
 
 const TestComponentUseCreateMap = () => {
@@ -8,7 +8,6 @@ const TestComponentUseCreateMap = () => {
 
   const {
     mapComponent,
-
     resetMapToInitialPosition,
     currentLatitude,
     currentLongitude,
@@ -19,18 +18,18 @@ const TestComponentUseCreateMap = () => {
     mapClickEnabled: true,
     options: {
       markerEnabled: {
-        markerImage: "/vite.svg",
+        image: "/vite.svg",
       },
       polygonEnabled: { infoWindowEnabled: true },
       mapTypeControlEnabled: true,
       zoomControlEnabled: true,
-      circleEnabled: { radius: 1000 },
+      circleEnabled: { radius: 2000 },
     },
   });
 
   return (
     <div>
-      <div>{mapComponent()}</div>
+      <div style={{ width: "100%", height: "300px" }}>{mapComponent()}</div>
       <button onClick={resetMapToInitialPosition}>위치 초기화</button>
       <p>위도 : {currentLatitude}</p>
       <p>경도 : {currentLongitude}</p>
