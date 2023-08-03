@@ -12,6 +12,10 @@ export const Flex = styled.div<Omit<FlexProps, "children">>`
   flex-shrink: ${({ flexShrink }) => flexShrink};
   flex-direction: ${({ flexDirection }) => flexDirection || "row"};
   gap: ${({ gap }) => gap};
-  width: 100%;
-  height: 100%;
+  width: ${({ flexDirection }) =>
+    flexDirection === "row" || flexDirection === undefined
+      ? "100%"
+      : undefined};
+  height: ${({ flexDirection }) =>
+    flexDirection === "column" ? "100%" : undefined};
 `;
