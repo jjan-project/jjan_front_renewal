@@ -1,7 +1,9 @@
 .sandbox {
   width: 100%;
   position: relative;
+  height: 100%;
 }
+
 @media (min-width: 750px) {
   .sandbox {
     margin-left: auto;
@@ -13,12 +15,15 @@
 .embla {
   --slide-spacing: 1rem;
   --slide-size: 100%;
-  --slide-height: 15rem;
+  --slide-height: 100%;
   --background-code: black;
+
+  height: var(--slide-height);
 }
 
 .embla__viewport {
   overflow: hidden;
+  height: var(--slide-height);
 }
 
 .embla__container {
@@ -26,7 +31,7 @@
   display: flex;
   touch-action: pan-y;
   flex-direction: row;
-  height: auto;
+  height: var(--slide-height);
   margin-left: calc(var(--slide-spacing) * -1);
 }
 
