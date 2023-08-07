@@ -21,8 +21,8 @@ describe("TextArea 컴포넌트", () => {
         testId="textBox"
       />,
     );
-    const wordCount = getByText(/\/최대 5자/);
-    expect(wordCount).toHaveTextContent("5/최대 5자");
+    const wordCount = getByText(/\/ 최대/);
+    expect(wordCount).toHaveTextContent("5 / 최대 5자");
 
     const textArea = getByTestId("textBox");
 

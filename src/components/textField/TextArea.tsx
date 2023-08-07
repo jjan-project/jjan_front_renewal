@@ -43,7 +43,7 @@ const TextArea = (
         data-testid={testId}
       />
       <small className="textarea-word-count">
-        {String(value).length}/최대 {maxLength}자
+        {String(value).length} / 최대 {maxLength}자
       </small>
     </div>
   );

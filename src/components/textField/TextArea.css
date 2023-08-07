@@ -22,8 +22,8 @@
 
 .textarea-word-count {
   position: absolute;
-  bottom: 3em;
-  right: 3em;
-  font-size: 0.2em;
+  bottom: 1em;
+  right: 1em;
+  font-size: 0.7em;
   opacity: 0.4;
 }
