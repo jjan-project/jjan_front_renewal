@@ -6,7 +6,7 @@ type BoxProps = {
   /**
    * Defines the HTML element used for the root node.
    */
-  as?: "div" | "header" | "body" | "section" | "article";
+  as?: "div" | "header" | "body" | "section" | "article" | "footer";
 
   /**
    * Specifies the preferred type of scrolling for the element.
