@@ -1,4 +1,6 @@
-import glassesImg from "@/assets/glasses.png";
+import * as S from "./PartyCard.styles";
+import { OverlayedAvatarProps } from "./types";
+
 import { Avatar } from "@/components/avatar";
 import { Box } from "@/components/box";
 import { Flex } from "@/components/flex";
@@ -6,59 +8,41 @@ import { Spacing } from "@/components/spacing";
 import { Stack } from "@/components/stack";
 import { Typo } from "@/components/typo";
 
-const OverlayedAvatar = ({ overlay, ...avatarProps }) => {
+const OverlayedAvatar = ({ overlay, ...avatarProps }: OverlayedAvatarProps) => {
   return (
-    <div
-      style={{
-        position: "relative",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
+    <S.OverlayContainer>
       <Avatar {...avatarProps} style={{ borderRadius: "50%" }} />
-      {overlay && (
-        <div
-          style={{
-            position: "absolute",
-            color: "white",
-            fontWeight: "bold",
-          }}
-        >
-          {overlay}
-        </div>
-      )}
-    </div>
+      {overlay && <S.OverlayText>{overlay}</S.OverlayText>}
+    </S.OverlayContainer>
   );
 };
 
-const CardContributorsAvatar = () => {
+const CardContributorsAvatar = ({ avatars }: { avatars: string[] }) => {
   return (
-    <div style={{ display: "flex", position: "relative" }}>
-      {Array.from({ length: 4 }).map((_, index) => (
-        <div
-          key={index}
-          style={{
-            position: "absolute",
-            left: `${index * 25}px`,
-            zIndex: 4 - index,
-            backgroundColor: index === 3 ? "gray" : "transparent",
-            borderRadius: "50%",
-          }}
-        >
+    <S.AvatarContainer>
+      {avatars.slice(0, 4).map((avatarSrc, index) => (
+        <S.AvatarPositioner key={index} index={index}>
           <OverlayedAvatar
-            src={glassesImg}
+            src={avatarSrc}
             width="39px"
             height="39px"
-            overlay={index === 3 ? "+2" : undefined}
+            overlay={
+              index === 3 && avatars.length > 4
+                ? `+${avatars.length - 3}`
+                : undefined
+            }
           />
-        </div>
+        </S.AvatarPositioner>
       ))}
-    </div>
+    </S.AvatarContainer>
   );
 };
 
-const CardInfo = () => {
+const CardInfo = ({
+  contributorsAvatars,
+}: {
+  contributorsAvatars: string[];
+}) => {
   return (
     <Stack>
       <Flex flexDirection="column">
@@ -73,16 +57,16 @@ const CardInfo = () => {
           2023/6/29
         </Typo>
         <Spacing direction="vertical" size="20px" />
-        <CardContributorsAvatar />
+        <CardContributorsAvatar avatars={contributorsAvatars} />
       </Flex>
     </Stack>
   );
 };
 
-const CardImage = () => {
+const CardImage = ({ partyImage }: { partyImage: string }) => {
   return (
     <Box width="110px" height="110px" style={{ position: "relative" }}>
-      <img src={glassesImg} width="110px" height="110px" />
+      <img src={partyImage} width="110px" height="110px" />
       <Box
         width="41px"
         height="18px"
@@ -96,11 +80,17 @@ const CardImage = () => {
   );
 };
 
-const PartyCard = () => {
+const PartyCard = ({
+  partyImage,
+  contributorsAvatars,
+}: {
+  partyImage: string;
+  contributorsAvatars: string[];
+}) => {
   return (
     <Flex gap="18px">
-      <CardImage />
-      <CardInfo />
+      <CardImage partyImage={partyImage} />
+      <CardInfo contributorsAvatars={contributorsAvatars} />
     </Flex>
   );
 };

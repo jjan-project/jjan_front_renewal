@@ -1,17 +1,12 @@
+import * as S from "./Hr.styles";
+import { PropsType } from "./types";
+
 import { Box } from "@/components/box";
-import type { Color } from "@/theme/foundation";
-
-type HrType = "solid" | "dotted";
-
-interface PropsType {
-  type?: HrType;
-  backgroundColor?: Color;
-}
 
 const Hr = ({ type = "solid", backgroundColor = "gray700" }: PropsType) => {
   if (type === "dotted") {
     return (
-      <div style={{ display: "flex", gap: "8px", overflowX: "clip" }}>
+      <S.HrContainer>
         {Array.from({ length: 100 }).map((_, index) => (
           <Box
             key={index}
@@ -21,7 +16,7 @@ const Hr = ({ type = "solid", backgroundColor = "gray700" }: PropsType) => {
             style={{ flexShrink: 0 }}
           />
         ))}
-      </div>
+      </S.HrContainer>
     );
   }
 
