@@ -6,7 +6,7 @@ import {
   IconPeopleInvite,
 } from "jjan-icon";
 
-import { Hr, BottomButton } from "../../components";
+import { BottomButton } from "../../components/layout";
 
 import glassesImg from "@/assets/glasses.png";
 import testImage from "@/assets/회기 꽃술 6인팟!!.png";
@@ -14,10 +14,13 @@ import { Avatar } from "@/components/avatar";
 import { Box } from "@/components/box";
 import { Flex } from "@/components/flex";
 import { Header } from "@/components/header";
+import { Hr } from "@/components/hr";
 import { ImageCarousel } from "@/components/imageCarousel";
+import { List } from "@/components/list";
 import { Spacing } from "@/components/spacing";
 import { Stack } from "@/components/stack";
 import { Typo } from "@/components/typo";
+import { Layout } from "@/pages/components/layout";
 
 const Detail = () => {
   const images = [glassesImg, testImage];
@@ -26,21 +29,22 @@ const Detail = () => {
     console.info("");
   };
 
+  const HeaderContainer = (
+    <Header leftIcon={<IconChevronLeftLarge />} rightIcon={<IconBookmark />}>
+      회기 꽃술 6인팟!!
+    </Header>
+  );
+
   return (
-    <Box height="100dvh">
+    <Layout
+      header={HeaderContainer}
+      bottom={<BottomButton onClick={onJoined} />}
+    >
+      <Box width="100%" height="220px">
+        <ImageCarousel type="primary" images={images} />
+      </Box>
+
       <Box padding="0 20px">
-        <Header
-          leftIcon={<IconChevronLeftLarge />}
-          rightIcon={<IconBookmark />}
-        >
-          회기 꽃술 6인팟!!
-        </Header>
-        <Spacing direction="vertical" size="20px" />
-
-        <Box width="100%" height="220px">
-          <ImageCarousel type="primary" images={images} />
-        </Box>
-
         <Spacing direction="vertical" size="15px" />
 
         <Stack space="space03">
@@ -58,16 +62,16 @@ const Detail = () => {
 
           <Stack space="space02">
             <Typo appearance="body2" color="violet100">
-              참여 모임원 5명
+              참여 모임원 10명
             </Typo>
             <Flex>
-              <Typo appearance="body2">남: 2</Typo>
+              <Typo appearance="body2">남: 5</Typo>
               <Spacing direction="horizontal" size="10px" />
-              <Typo appearance="body2">여: 3</Typo>
+              <Typo appearance="body2">여: 5</Typo>
             </Flex>
 
-            <Flex gap="5px">
-              {Array.from({ length: 5 }).map((_, index) => (
+            <List gap="5px" direction="row">
+              {Array.from({ length: 10 }).map((_, index) => (
                 <Avatar
                   key={index}
                   src={glassesImg}
@@ -76,7 +80,7 @@ const Detail = () => {
                   style={{ borderRadius: "50%" }}
                 ></Avatar>
               ))}
-            </Flex>
+            </List>
           </Stack>
 
           <Hr />
@@ -103,8 +107,7 @@ const Detail = () => {
           </Stack>
         </Stack>
       </Box>
-      <BottomButton onClick={onJoined} />
-    </Box>
+    </Layout>
   );
 };
 

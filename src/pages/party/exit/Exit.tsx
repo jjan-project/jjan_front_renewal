@@ -9,6 +9,7 @@ import { Spacing } from "@/components/spacing";
 import { Stack } from "@/components/stack";
 import { TextArea } from "@/components/textField";
 import { Typo } from "@/components/typo";
+import { Layout } from "@/pages/components/layout";
 
 const Exit = () => {
   const ref = useRef<HTMLTextAreaElement>(null);
@@ -22,13 +23,18 @@ const Exit = () => {
     }
   };
 
+  const HeaderContainer = (
+    <Header leftIcon={<IconChevronLeftLarge />} rightIcon={<IconCancel />}>
+      모임 나가기
+    </Header>
+  );
+
   return (
-    <Box height="100dvh">
+    <Layout
+      header={HeaderContainer}
+      bottom={<BottomButton onClick={onValidate} />}
+    >
       <Box padding="0 20px">
-        <Header leftIcon={<IconChevronLeftLarge />} rightIcon={<IconCancel />}>
-          모임 나가기
-        </Header>
-        <Spacing direction="vertical" size="20px" />
         <Stack>
           <Typo appearance="body1">정말 모임을 나가시나요?</Typo>
           <Spacing direction="vertical" size="5px" />
@@ -55,9 +61,7 @@ const Exit = () => {
           {isValidate && "이유를 적어주세요."}
         </Typo>
       </Box>
-
-      <BottomButton onClick={onValidate} />
-    </Box>
+    </Layout>
   );
 };
 

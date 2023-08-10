@@ -1,10 +1,11 @@
 import { IconChevronLeftLarge, IconPeopleGroup } from "jjan-icon";
 
+import { Layout } from "../components/layout";
+
 import { Box } from "@/components/box";
 import { Flex } from "@/components/flex";
 import { Header } from "@/components/header";
 import { List } from "@/components/list";
-import { Spacing } from "@/components/spacing";
 import { Stack } from "@/components/stack";
 import { Typo } from "@/components/typo";
 
@@ -55,16 +56,19 @@ const Card = () => {
 };
 
 const Notifications = () => {
+  const HeaderContainer = (
+    <Header leftIcon={<IconChevronLeftLarge />}>알림</Header>
+  );
   return (
-    <Box height="100dvh" padding="0 20px">
-      <Header leftIcon={<IconChevronLeftLarge />}>알림</Header>
-      <Spacing direction="vertical" size="20px" />
-      <List gap="30px" height="calc(100dvh - 20px)">
-        {Array.from({ length: 10 }).map((_, index) => (
-          <Card key={index} />
-        ))}
-      </List>
-    </Box>
+    <Layout header={HeaderContainer}>
+      <Box padding="0 20px">
+        <List gap="30px" height="calc(100dvh - 20px)">
+          {Array.from({ length: 10 }).map((_, index) => (
+            <Card key={index} />
+          ))}
+        </List>
+      </Box>
+    </Layout>
   );
 };
 
