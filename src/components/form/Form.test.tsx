@@ -60,7 +60,7 @@ const exampleLoginSchema = z.object({
 });
 
 const exampleUploaderSchema = z.object({
-  profile: z.instanceof(FileList).refine(
+  profile: z.instanceof(Array<File>).refine(
     files => {
       return Array.from(files).every(file =>
         ACCEPTED_IMAGE_TYPES.includes(file.type),
@@ -233,6 +233,7 @@ describe("Form Component", () => {
           <Form.ImageUploader
             name="profile"
             render={(props: RenderProps) => ExampleRenderUI(props)}
+            mode="single"
             testId="imageuploder"
           />
           <button type="submit">click me</button>
@@ -262,6 +263,7 @@ describe("Form Component", () => {
           <Form.ImageUploader
             name="profile"
             render={(props: RenderProps) => ExampleRenderUI(props)}
+            mode="single"
             testId="imageuploder"
           />
           <button type="submit">click me</button>
