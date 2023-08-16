@@ -3,12 +3,14 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import QueryProvider from "./queryProvider";
 
+import { CreateParty } from "@/pages/create-party";
 import { Home } from "@/pages/home";
 import { Landing } from "@/pages/landing";
 import { Loading } from "@/pages/loading";
 import { Signin } from "@/pages/signin";
 import { Signup } from "@/pages/signup";
 import { SignupComplete } from "@/pages/signup-complete";
+import { PartyFormProvider } from "@/store/partyStore";
 import { SignupProvider } from "@/store/signupStore";
 
 // const 로그인후불러올컴포넌트 = React.lazy(
@@ -33,13 +35,20 @@ const Router = () => {
     routes = <Routes>{loggedInRoutes()}</Routes>;
   } else {
     routes = (
-      <SignupProvider>
-        <Routes>
-          <Route path="/" element={<Navigate to="/landing" />} />
-          <Route path="/landing" element={<Landing />} />
-          {authRoutes()}
-        </Routes>
-      </SignupProvider>
+      <>
+        <SignupProvider>
+          <Routes>
+            <Route path="/" element={<Navigate to="/landing" />} />
+            <Route path="/landing" element={<Landing />} />
+            {authRoutes()}
+          </Routes>
+        </SignupProvider>
+        <PartyFormProvider>
+          <Routes>
+            <Route path="/create-party" element={<CreateParty />} />
+          </Routes>
+        </PartyFormProvider>
+      </>
     );
   }
 
