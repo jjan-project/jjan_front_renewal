@@ -1,13 +1,17 @@
 td {
-  width: 50px;
-  height: 50px;
+  width: calc(100% / 7);
+  height: 36px;
   text-align: center;
   border-radius: 7px;
 }
 
+thead {
+  margin-bottom: 2rem;
+}
+
 .calendar {
   width: 100%;
-  max-width: 375px;
+  height: 35dvh;
 }
 
 .calendarNav {
