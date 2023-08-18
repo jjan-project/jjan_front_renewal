@@ -1,1 +1,1 @@
-export * from "./CreateParty";
+export { default } from "./CreateParty";

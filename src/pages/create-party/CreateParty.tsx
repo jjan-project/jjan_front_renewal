@@ -84,4 +84,4 @@ const CreateParty = () => {
   );
 };
 
-export { CreateParty };
+export default CreateParty;

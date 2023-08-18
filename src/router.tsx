@@ -1,9 +1,9 @@
+import React from "react";
 import { Suspense } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import QueryProvider from "./queryProvider";
 
-import { CreateParty } from "@/pages/create-party";
 import { Home } from "@/pages/home";
 import { Landing } from "@/pages/landing";
 import { Loading } from "@/pages/loading";
@@ -13,9 +13,7 @@ import { SignupComplete } from "@/pages/signup-complete";
 import { PartyFormProvider } from "@/store/partyStore";
 import { SignupProvider } from "@/store/signupStore";
 
-// const 로그인후불러올컴포넌트 = React.lazy(
-//   () => import("./pages/로그인후불러올컴포넌트"),
-// );
+const CreateParty = React.lazy(() => import("@/pages/create-party"));
 
 const authRoutes = () => (
   <Route path="auth">
@@ -33,6 +31,16 @@ const Router = () => {
 
   if (token) {
     routes = <Routes>{loggedInRoutes()}</Routes>;
+    routes = (
+      <Routes>
+        {/* <로그인후불러올컴포넌트 /> */}
+        <PartyFormProvider>
+          <Routes>
+            <Route path="/create-party" element={<CreateParty />} />
+          </Routes>
+        </PartyFormProvider>
+      </Routes>
+    );
   } else {
     routes = (
       <>
@@ -43,11 +51,6 @@ const Router = () => {
             {authRoutes()}
           </Routes>
         </SignupProvider>
-        <PartyFormProvider>
-          <Routes>
-            <Route path="/create-party" element={<CreateParty />} />
-          </Routes>
-        </PartyFormProvider>
       </>
     );
   }
