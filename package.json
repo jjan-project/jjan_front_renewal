@@ -24,7 +24,7 @@
     "axios": "^1.4.0",
     "embla-carousel-autoplay": "^8.0.0-rc10",
     "embla-carousel-react": "^8.0.0-rc10",
-    "jjan-icon": "^0.0.2-2023-07-03",
+    "jjan-icon": "^0.0.5-2023-08-17",
     "proj4": "^2.9.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
