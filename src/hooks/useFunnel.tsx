@@ -1,4 +1,28 @@
-import React, { useState, ReactNode } from "react";
+import styled from "@emotion/styled";
+import { useState, ReactNode } from "react";
+
+const DevButtonContainer = styled.div`
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  bottom: 20px;
+  right: 10px;
+  background-color: white;
+  border: 1px solid black;
+  padding: 3px;
+  z-index: 1000;
+`;
+
+const DevToggleButton = styled.small`
+  display: flex;
+  justify-content: center;
+  margin-top: 3px;
+`;
+
+const DevButton = styled.button<{ isVisible: boolean }>`
+  margin: 5px;
+  display: ${({ isVisible }) => (isVisible ? "inline-block" : "none")};
+`;
 
 type StepProps = {
   name: string;
@@ -23,16 +47,29 @@ type UseFunnelReturn = {
 
 function useFunnel(stepNames: string[]): UseFunnelReturn {
   const isDev = import.meta.env.DEV;
+  const [isDevButtonVisible, setDevButtonVisible] = useState(false);
+
+  const toggleDevButton = () => {
+    setDevButtonVisible(!isDevButtonVisible);
+  };
+
   const Dev = () => {
     return (
-      <div>
-        <small>개발용 이동버튼 : </small>
-        {stepNames.map((name, i) => (
-          <button key={i} onClick={() => setStep(name)}>
-            {name}
-          </button>
-        ))}
-      </div>
+      <DevButtonContainer onClick={toggleDevButton}>
+        {stepNames.map(
+          (name, i) =>
+            isDevButtonVisible && (
+              <DevButton
+                key={i}
+                isVisible={isDevButtonVisible}
+                onClick={() => setStep(name)}
+              >
+                {name}
+              </DevButton>
+            ),
+        )}
+        <DevToggleButton>Funnel Dev</DevToggleButton>
+      </DevButtonContainer>
     );
   };
 
