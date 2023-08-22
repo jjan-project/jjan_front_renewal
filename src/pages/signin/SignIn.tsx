@@ -1,10 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useQueryClient } from "@tanstack/react-query";
 import { IconChevronLeftLarge } from "jjan-icon";
 import { useNavigate } from "react-router-dom";
 
 import { FORM_DATA } from "./constants";
 import { signinSchema } from "./schema";
+import type { SigninSchemaType } from "./schema";
 
+import { useSigninApi } from "@/api/jjan/joinController";
 import { Box } from "@/components/box";
 import { Button } from "@/components/button";
 import { Flex } from "@/components/flex";
@@ -12,9 +15,12 @@ import { Form } from "@/components/form/Form";
 import { Header } from "@/components/header";
 import { Spacing } from "@/components/spacing";
 import { Stack } from "@/components/stack";
+import { QUERY_KEY } from "@/constants/queryKeys";
 
 const Signin = () => {
   const navigate = useNavigate();
+  const signinMutation = useSigninApi();
+  const queryClient = useQueryClient();
 
   const handlePrev = () => {
     navigate("/landing", {
@@ -22,8 +28,15 @@ const Signin = () => {
     });
   };
 
-  const handleSignin = () => {
-    // signin
+  const handleSignin = (data: SigninSchemaType) => {
+    signinMutation.mutate(data, {
+      onSuccess: response => {
+        queryClient.setQueryData([QUERY_KEY.user], response.data);
+        navigate("/", {
+          replace: true,
+        });
+      },
+    });
   };
 
   return (
@@ -61,7 +74,7 @@ const Signin = () => {
         </Form>
         <Spacing direction="vertical" fill={true} />
         <Box>
-          <Button type="submit" form="emailForm">
+          <Button type="submit" form="signinForm">
             로그인
           </Button>
           <Spacing direction="vertical" size="32px" />
