@@ -77,7 +77,6 @@ const Nickname = (props: SignupSubPageProps) => {
               placeholder="닉네임을 입력해주세요."
               isValidationMode
               defaultValue={name}
-              value={name}
             />
           </Form>
           <Spacing direction="vertical" size="15px" />

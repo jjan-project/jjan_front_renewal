@@ -28,17 +28,23 @@ const {
 
 const isEmailExisted = async (email: string) => {
   try {
-    const { code } = await isEmailExistedApi(email);
-    if (code === 1) return true;
-  } catch (e) {
-    throw new jjanError({
-      message: "이메일 중복검사 에러가 발생했습니다.",
-      name: "이메일 중복검사 에러",
-      code: -1,
-    });
-  }
+    const { code, message } = await isEmailExistedApi(email);
+    if (code === -1) {
+      throw new jjanError({
+        message,
+        name: "이메일 중복검사 에러",
+        code,
+      });
+    }
 
-  return false;
+    return true;
+  } catch (e) {
+    /**
+     * @todo
+     * 추후 에러 핸들링 수정
+     */
+    return false;
+  }
 };
 
 const signupSchema = z

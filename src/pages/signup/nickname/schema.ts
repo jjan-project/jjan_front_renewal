@@ -6,16 +6,23 @@ import { isNicknameExistedApi } from "@/api/jjan/joinController";
 
 const isNicknameExists = async (nickname: string) => {
   try {
-    const { code } = await isNicknameExistedApi(nickname);
-    if (code === 1) return true;
+    const { code, message } = await isNicknameExistedApi(nickname);
+    if (code === -1) {
+      throw new jjanError({
+        message,
+        name: "닉네임 중복검사 에러",
+        code,
+      });
+    }
+
+    return true;
   } catch (e) {
-    throw new jjanError({
-      message: "이메일 중복검사 에러가 발생했습니다.",
-      name: "이메일 중복검사 에러",
-      code: -1,
-    });
+    /**
+     * @todo
+     * 추후 에러 핸들링 수정
+     */
+    return false;
   }
-  return false;
 };
 
 const errorMessages = {
