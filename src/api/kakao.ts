@@ -10,6 +10,9 @@ import {
 export const useGetNeighborhoods = (params: PlacesSearchOptionsStringified) =>
   serverStateManager.fetch<PlacesSearchResultResponse>({
     url: `${kakaoRoutes.searchKeyword}?${String(new URLSearchParams(params))}`,
-    config: { enabled: !(params.x === "0" && params.y === "0") },
+    config: {
+      enabled: !(params.x === "0" && params.y === "0"),
+      suspense: false,
+    },
     customQueryKey: QUERY_KEY.kakaoNeighborhoods,
   });
