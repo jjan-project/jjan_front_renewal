@@ -1,5 +1,9 @@
 import { z } from "zod";
 
+import { jjanError } from "@/errors";
+
+import { isEmailExistedApi } from "@/api/jjan/joinController";
+
 const errorMessages = {
   required: "필수 항목입니다.",
   email: "유효하지 않은 이메일입니다.",
@@ -22,6 +26,21 @@ const {
   existsEmail,
 } = errorMessages;
 
+const isEmailExisted = async (email: string) => {
+  try {
+    const { code } = await isEmailExistedApi(email);
+    if (code === 1) return true;
+  } catch (e) {
+    throw new jjanError({
+      message: "이메일 중복검사 에러가 발생했습니다.",
+      name: "이메일 중복검사 에러",
+      code: -1,
+    });
+  }
+
+  return false;
+};
+
 const signupSchema = z
   .object({
     email: z.string().min(1, { message: required }).email({ message: email }),
@@ -35,7 +54,7 @@ const signupSchema = z
 
     confirmPassword: z.string().min(1, { message: confirmPasswordRequired }),
   })
-  .refine(data => !isEmailExists(data.email), {
+  .refine(data => isEmailExisted(data.email), {
     path: ["email"],
     message: existsEmail,
   })
@@ -48,13 +67,3 @@ type SignupSchemaType = z.infer<typeof signupSchema>;
 
 export type { SignupSchemaType };
 export { signupSchema };
-
-// 이메일 중복 검사 함수
-function isEmailExists(email: string): boolean {
-  console.info(email);
-  // 서버에서 이메일 중복 여부를 검사하는 로직을 작성
-  // 중복되는 이메일이 존재하면 true를 반환하고, 존재하지 않으면 false를 반환
-  // 실제 서버 API 호출이나 데이터베이스 조회 등의 로직을 구현해야 합니다.
-  // 여기에서는 예시로 항상 false를 반환하도록 설정했습니다.
-  return false;
-}

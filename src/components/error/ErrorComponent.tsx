@@ -15,7 +15,6 @@ export const ErrorComponent = ({
   errorImg,
 }: ErrorComponentProps) => {
   const { message, detailMessage, fixText, func } = error;
-
   return (
     <Box height="100dvh" centerContent>
       <S.Header>

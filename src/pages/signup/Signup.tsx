@@ -1,3 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
+import { Loading } from "../loading";
+
 import { Address } from "./address";
 import { Avatar } from "./avatar";
 import { Birthday } from "./birthday";
@@ -6,18 +10,20 @@ import { Email } from "./email";
 import { Gender } from "./gender";
 import { Nickname } from "./nickname";
 
+import { useSignupApi } from "@/api/jjan/joinController";
 import useProgressBar from "@/components/progressbar/useProgressBar";
 import useFunnel from "@/hooks/useFunnel";
-// import { useSignupState } from "@/store/signupStore";
+import { useSignupState, State as SignupStateType } from "@/store/signupStore";
+import { getFormattedBirthday } from "@/utils/getFormattedBirthday";
 
 const STS = {
-  Email: "step1",
-  Address: "step2",
-  Birthday: "step3",
-  Gender: "step4",
-  Nickname: "step5",
-  Avatar: "step6",
-  Capacity: "step7",
+  Email: "email",
+  Address: "address",
+  Birthday: "birthday",
+  Gender: "gender",
+  Nickname: "nickname",
+  Avatar: "avatar",
+  Capacity: "capacity",
 };
 
 const components = [
@@ -34,11 +40,9 @@ const FIRST_STEP = 1;
 const LAST_STEP = Object.keys(STS).length;
 
 const Signup = () => {
-  /**
-   * @todo
-   * 값 확인용 signup 함수 완성되면 대체할 예정
-   */
-  // const signupState = useSignupState();
+  const signupState = useSignupState();
+  const signupMutation = useSignupApi();
+  const navigate = useNavigate();
 
   const { Funnel, onNextStep, onPreviousStep } = useFunnel(Object.values(STS));
   const { step, setGaugeUp, setGaugeDown } = useProgressBar(
@@ -46,19 +50,50 @@ const Signup = () => {
     LAST_STEP,
   );
 
-  const stepUphandler = () => {
+  const convertObjectToData = (obj: SignupStateType) => {
+    const { birthday, ...rest } = obj;
+
+    return {
+      ...rest,
+      address: rest.address || "",
+      gender: rest.gender.value,
+      drinkingCapacity: rest.capacity.toString(),
+      birth: getFormattedBirthday(birthday),
+    };
+  };
+
+  const postFormData = async () => {
+    const data = convertObjectToData(signupState);
+
+    const formData = new FormData();
+    formData.append(
+      "data",
+      new Blob([JSON.stringify(data)], { type: "application/json" }),
+    );
+    formData.append("image", signupState.avatar as File);
+
+    try {
+      await signupMutation.mutateAsync(formData);
+      return true;
+    } catch (e) {
+      /**
+       * @todo
+       * 추후 에러 핸들링 변경
+       */
+    }
+
+    return false;
+  };
+
+  const stepUphandler = async () => {
     if (step !== LAST_STEP) {
       onNextStep();
       setGaugeUp();
     } else {
-      // call signup function
-      // console.log("singup");
-      /**
-       * @todo
-       * 값 확인용 signup 함수 완성되면 대체할 예정
-       * ex signup() or signup(signupState)
-       */
-      // console.log(signupState);
+      const isSingupSuccess = await postFormData();
+      if (isSingupSuccess) {
+        navigate("/auth/signup-complete");
+      }
     }
   };
 
@@ -67,8 +102,7 @@ const Signup = () => {
       onPreviousStep();
       setGaugeDown();
     } else {
-      // cancle signup
-      // console.log("cancle");
+      navigate("/landing");
     }
   };
 
@@ -78,6 +112,10 @@ const Signup = () => {
     onNextStep: stepUphandler,
     onPrevStep: stepDownHandler,
   };
+
+  if (signupMutation.isLoading) {
+    return <Loading />;
+  }
 
   return (
     <Funnel>

@@ -15,33 +15,30 @@ import { useFindNeighborhoods } from "@/hooks/useFindNeighborhoods";
 import { useGeoLocation } from "@/hooks/useGeoLocation";
 import { SignupSubPageProps } from "@/pages/signup/types";
 import {
-  setLocation,
+  setAddress,
   useSignupDispatch,
   useSignupState,
 } from "@/store/signupStore";
 
-/**
- * @todo
- * 주소 가져오는 방식 api => sdk 변경 후 수정
- */
-
 const Address = (props: SignupSubPageProps) => {
-  const { location } = useSignupState();
+  const { address } = useSignupState();
   const { curStep, lastStep, onNextStep, onPrevStep } = props;
   const dispatch = useSignupDispatch();
   const {
     geoLocation: { latitude, longitude },
   } = useGeoLocation();
-  const { data: addresses } = useFindNeighborhoods({ latitude, longitude });
-  useFindNeighborhoods({ latitude, longitude });
-  const [value, setValue] = useState<string>(location || "");
 
+  const { data: addresses, isLoading } = useFindNeighborhoods({
+    latitude,
+    longitude,
+  });
+  const [value, setValue] = useState<string>(address || "");
   const handlePrve = () => {
     onPrevStep();
   };
 
   const handleNext = () => {
-    dispatch(setLocation(value));
+    dispatch(setAddress(value));
     onNextStep();
   };
 
@@ -70,12 +67,15 @@ const Address = (props: SignupSubPageProps) => {
             onChange={e => setValue(e.target.value)}
             isValid={true}
           />
+          {isLoading && (
+            <Typo appearance="body1">동네를 불러오는중입니다...</Typo>
+          )}
           <List height="40vh" overflow="scroll" gap="18px">
             {addresses &&
-              addresses.documents.map(({ address_name }, index) => (
+              addresses.map((address_name, index) => (
                 <Fragment key={index}>
                   <Typo
-                    appearance="header2"
+                    appearance="body2"
                     onClick={() => setValue(address_name)}
                   >
                     {address_name}
