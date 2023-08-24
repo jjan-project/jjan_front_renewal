@@ -1,3 +1,5 @@
+import { AxiosRequestConfig } from "axios";
+
 type HeaderConfig =
   | Record<string, string>
   | ((param: RequestToken) => Record<string, string>);
@@ -7,7 +9,8 @@ type RequestConfig = {
   params?: object;
   headers?: object;
   token?: RequestToken;
-};
+} & Partial<AxiosRequestConfig>;
+
 type HttpMethod = "get" | "post" | "delete" | "put" | "patch";
 
 interface RequestToken {

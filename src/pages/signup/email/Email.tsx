@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { IconChevronLeftLarge } from "jjan-icon";
+import { IconChevronLeftLarge, IconCheck } from "jjan-icon";
 
 import { FORM_DATA } from "./constants";
 import { SignupSchemaType, signupSchema } from "./schema";
@@ -22,8 +22,8 @@ import {
 
 const Email = (props: SignupSubPageProps) => {
   const { email } = useSignupState();
-  const { curStep, lastStep, onNextStep, onPrevStep } = props;
   const dispatch = useSignupDispatch();
+  const { curStep, lastStep, onNextStep, onPrevStep } = props;
 
   const defaultValues = {
     email,
@@ -67,7 +67,7 @@ const Email = (props: SignupSubPageProps) => {
                 type={input.type as "email" | "password" | "text"}
                 name={input.name}
                 label={input.label}
-                icon={<IconChevronLeftLarge />}
+                icon={<IconCheck />}
                 isValidationMode
                 autoComplete={input.autoComplete}
               />

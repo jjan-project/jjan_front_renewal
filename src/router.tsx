@@ -1,8 +1,9 @@
 import { Suspense } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import QueryProvider from "./queryProvider";
 
+import { Home } from "@/pages/home";
 import { Landing } from "@/pages/landing";
 import { Loading } from "@/pages/loading";
 import { Signin } from "@/pages/signin";
@@ -14,10 +15,6 @@ import { SignupProvider } from "@/store/signupStore";
 //   () => import("./pages/로그인후불러올컴포넌트"),
 // );
 
-const LoadingSpinner = () => {
-  return <Loading />;
-};
-
 const authRoutes = () => (
   <Route path="auth">
     <Route path="signin" element={<Signin />} />
@@ -26,19 +23,20 @@ const authRoutes = () => (
   </Route>
 );
 
+const loggedInRoutes = () => <Route path="/" element={<Home />} />;
+
 const Router = () => {
   let token; // 로그인 여부 확인
   let routes;
 
   if (token) {
-    routes = <Routes>{/* <로그인후불러올컴포넌트 /> */}</Routes>;
+    routes = <Routes>{loggedInRoutes()}</Routes>;
   } else {
     routes = (
       <SignupProvider>
         <Routes>
-          {/* <Route path="/splash" element={<Splash />} /> */}
+          <Route path="/" element={<Navigate to="/landing" />} />
           <Route path="/landing" element={<Landing />} />
-          <Route path="/loading" element={<Loading />} />
           {authRoutes()}
         </Routes>
       </SignupProvider>
@@ -48,9 +46,7 @@ const Router = () => {
   return (
     <QueryProvider>
       <BrowserRouter>
-        {/* <MainNavigation /> */}
-        <Suspense fallback={<LoadingSpinner />}>{routes}</Suspense>
-        {/* <BottomNavigation /> */}
+        <Suspense fallback={<Loading />}>{routes}</Suspense>
       </BrowserRouter>
     </QueryProvider>
   );

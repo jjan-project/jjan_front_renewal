@@ -90,6 +90,7 @@ export class ReactQueryManager implements ServerStateManager {
   private genericMutation<T, S = unknown>(props: MutationProps<T, S>) {
     const { func, url, params, updater, config } = props;
     const queryClient = useQueryClient();
+
     return useMutation<ResponseType<S>, ErrorType, T | S>({
       mutationFn: func,
       onMutate: async data => {

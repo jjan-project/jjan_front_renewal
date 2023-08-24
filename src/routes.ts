@@ -3,10 +3,18 @@ export const kakaoRoutes = {
 };
 
 export const userRoutes = {
-  updateAvatar: "/user/profile-image",
-  updateNickName: "/user/nickname",
-  updateDrinkCapacity: "/user/drink-capacity",
+  signin: "/api/user/login",
+  signup: "/api/user/join",
 
-  deleteUserAT: "/user",
-  deleteUserUserEmail: "/user/:userEmail",
+  existsEmail: "/api/user/unique-email",
+  existsNickname: "/api/user/unique-nickname",
+
+  updateAvatar: "/api/user/profile-image",
+  updateNickName: "/api/user/nickname",
+  updateDrinkCapacity: "/api/user/drink-capacity",
+
+  deleteUserAT: "/api/user",
+  deleteUserUserEmail: "/api/user/:userEmail",
+
+  randomNickname: "/api/user/random-nickname",
 };

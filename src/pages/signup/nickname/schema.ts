@@ -1,27 +1,45 @@
 import { z } from "zod";
 
-/**
- * @todo
- * 닉네임 검사 api 구현 후 통합
- */
+import { jjanError } from "@/errors";
 
-// import { isNicknameExists } from "@/api/jjan";
+import { isNicknameExistedApi } from "@/api/jjan/joinController";
+
+const isNicknameExists = async (nickname: string) => {
+  try {
+    const { code, message } = await isNicknameExistedApi(nickname);
+    if (code === -1) {
+      throw new jjanError({
+        message,
+        name: "닉네임 중복검사 에러",
+        code,
+      });
+    }
+
+    return true;
+  } catch (e) {
+    /**
+     * @todo
+     * 추후 에러 핸들링 수정
+     */
+    return false;
+  }
+};
 
 const errorMessages = {
   required: "필수 항목입니다.",
   existsNickname: "이미 존재하는 닉네임입니다.",
 };
 
-// const { required, existsNickname } = errorMessages;
-const { required } = errorMessages;
+const { required, existsNickname } = errorMessages;
 
-const nicknameSchema = z.object({
-  nickname: z.string().min(1, { message: required }),
-});
-// .refine(async data => await isNicknameExists(data.nickname), {
-//   path: ["nickname"],
-//   message: existsNickname,
-// });
+const nicknameSchema = z
+  .object({
+    nickname: z.string().min(1, { message: required }),
+  })
+  .refine(data => isNicknameExists(data.nickname), {
+    path: ["nickname"],
+    message: existsNickname,
+  });
 
 type NicknameSchemaType = z.infer<typeof nicknameSchema>;
 

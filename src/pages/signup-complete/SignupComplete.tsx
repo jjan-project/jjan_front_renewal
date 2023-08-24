@@ -22,6 +22,10 @@ const SignupComplete = () => {
     navigate("/landing", {
       replace: true,
     });
+    /**
+     * @todo
+     * 추후 자동 로그인 구현
+     */
   };
 
   return (

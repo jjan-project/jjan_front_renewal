@@ -1,8 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { IconChevronLeftLarge } from "jjan-icon";
+import { useState } from "react";
 
 import { NicknameSchemaType, nicknameSchema } from "./schema";
 
+import { useFetchRandomNickname } from "@/api/jjan/joinController";
 import { Box } from "@/components/box";
 import { Button } from "@/components/button";
 import { Flex } from "@/components/flex";
@@ -20,8 +22,13 @@ import {
 } from "@/store/signupStore";
 
 const Nickname = (props: SignupSubPageProps) => {
+  const signupState = useSignupState();
+
+  const [name, setName] = useState<string>(signupState.nickname);
   const { curStep, lastStep, onNextStep, onPrevStep } = props;
   const dispatch = useSignupDispatch();
+  const { data: nicknameData, refetch: nicknameRefetch } =
+    useFetchRandomNickname();
 
   const handlePrev = () => {
     onPrevStep();
@@ -31,6 +38,13 @@ const Nickname = (props: SignupSubPageProps) => {
     const { nickname } = data;
     dispatch(setNickname(nickname));
     onNextStep();
+  };
+
+  const onClikcRecommendNickname = () => {
+    if (nicknameData) {
+      setName(nicknameData.data);
+      dispatch(setNickname(nicknameData.data));
+    }
   };
 
   return (
@@ -61,9 +75,21 @@ const Nickname = (props: SignupSubPageProps) => {
               type="text"
               name="nickname"
               placeholder="닉네임을 입력해주세요."
-              defaultValue={useSignupState().nickname}
+              isValidationMode
+              defaultValue={name}
             />
           </Form>
+          <Spacing direction="vertical" size="15px" />
+          {nicknameData && (
+            <Flex alignItems="center" gap="10px">
+              <Typo appearance="body1" onClick={onClikcRecommendNickname}>
+                {nicknameData.data}
+              </Typo>
+              <Typo appearance="header1" onClick={() => nicknameRefetch()}>
+                ↻
+              </Typo>
+            </Flex>
+          )}
         </Stack>
         <Spacing direction="vertical" fill={true} />
         <Box>

@@ -6,12 +6,15 @@ import type {
   Method,
 } from "axios";
 
+import { jjanError } from "@/errors";
+
 import { requestHeaderMap } from "../constant";
 import HttpHandler from "../interface/HttpHandler";
 import type { RequestConfig } from "../type";
 import { getRequestHeader } from "../util";
 import { extractDomain } from "../util";
 
+import { JJAN_URL } from "@/api/jjan/domain";
 import { mergeObjects } from "@/utils/objects";
 
 type AxiosRequestConfigAdaptor = Partial<AxiosRequestConfig> & RequestConfig;
@@ -28,9 +31,16 @@ class AxiosHttpHandler implements HttpHandler {
     this.instance.interceptors.response.use(
       response => response,
       error => {
-        // RT 토큰이 유효하지 않을때
-        if (error.response?.status === 401) {
-          error.message = "Refresh token is not valid.";
+        const isJjanServerError = new RegExp(JJAN_URL).test(error.config.url);
+
+        if (isJjanServerError) {
+          return Promise.reject(
+            new jjanError({
+              message: error.response.data.message,
+              name: error.code,
+              code: error.response.status,
+            }),
+          );
         }
 
         return Promise.reject(error);

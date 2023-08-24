@@ -15,7 +15,7 @@ const defaultOptions = {
 };
 
 type Props = Coordinates & {
-  searchOptions: PlacesSearchOptions;
+  searchOptions?: PlacesSearchOptions;
 };
 
 export function useFindNeighborhoods({

@@ -8,7 +8,7 @@ export type State = {
   email: string;
   password: string;
   nickname: string;
-  location: string;
+  address: string;
   birthday: BirthdayState;
   avatar: File | null;
   gender: GenderState;
@@ -19,7 +19,7 @@ type Action =
   | { type: "SET_EMAIL"; payload: string }
   | { type: "SET_PASSWORD"; payload: string }
   | { type: "SET_NICKNAME"; payload: string }
-  | { type: "SET_LOCATION"; payload: string }
+  | { type: "SET_ADDRESS"; payload: string }
   | { type: "SET_BIRTHDAY"; payload: BirthdayState }
   | { type: "SET_AVATAR"; payload: File }
   | { type: "SET_GENDER"; payload: GenderState }
@@ -32,7 +32,7 @@ export const initialState: State = {
   email: "",
   password: "",
   nickname: "",
-  location: "",
+  address: "",
   birthday: {
     year: YEARS[0],
     month: { label: "1월", value: 1 },
@@ -56,9 +56,9 @@ export const setNickname = (nickname: string): Action => ({
   type: "SET_NICKNAME",
   payload: nickname,
 });
-export const setLocation = (location: string): Action => ({
-  type: "SET_LOCATION",
-  payload: location,
+export const setAddress = (address: string): Action => ({
+  type: "SET_ADDRESS",
+  payload: address,
 });
 export const setBirthday = (birthday: BirthdayState): Action => ({
   type: "SET_BIRTHDAY",
@@ -86,8 +86,8 @@ const signupReducer = (state: State, action: Action): State => {
       return { ...state, password: action.payload };
     case "SET_NICKNAME":
       return { ...state, nickname: action.payload };
-    case "SET_LOCATION":
-      return { ...state, location: action.payload };
+    case "SET_ADDRESS":
+      return { ...state, address: action.payload };
     case "SET_BIRTHDAY":
       return { ...state, birthday: action.payload };
     case "SET_AVATAR":

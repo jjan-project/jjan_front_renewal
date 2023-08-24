@@ -1,5 +1,4 @@
-import { render, fireEvent } from "@testing-library/react";
-import React from "react";
+import { render, fireEvent, waitFor } from "@testing-library/react";
 
 import useFunnel from "../useFunnel";
 
@@ -112,7 +111,12 @@ describe("useFunnel 테스트", () => {
     const componentsNames = Object.values(NAME);
     const componentsTitles = Object.values(TITLE);
 
-    componentsNames.forEach((name, index) => {
+    componentsNames.forEach(async (name, index) => {
+      const toggleButton = await waitFor(() =>
+        getByRole("small", { name: "Funnel Dev" }),
+      );
+
+      fireEvent.click(toggleButton);
       const stepButton = getByRole("button", { name });
       expect(stepButton).toBeInTheDocument();
 
