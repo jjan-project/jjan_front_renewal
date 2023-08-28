@@ -10,17 +10,20 @@ const Avatar = (props: AvatarProps, ref: ForwardedRef<HTMLImageElement>) => {
     isDisabled,
     width = "50px",
     height = "50px",
+    isCircle = false,
     src,
     testId,
     ...otherProps
   } = props;
 
-  const avatarClassName = isDisabled ? "img-disabled" : "";
+  const avatarDisabled = isDisabled ? "img-disabled" : "";
+
+  const avatarCircle = isCircle ? "img-circle" : "";
 
   return (
     <img
       {...otherProps}
-      className={avatarClassName}
+      className={`${avatarDisabled} ${avatarCircle}`}
       alt={alt}
       width={width}
       height={height}
