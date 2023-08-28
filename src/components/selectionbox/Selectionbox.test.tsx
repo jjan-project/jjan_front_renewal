@@ -2,20 +2,20 @@ import { render, screen } from "@testing-library/react";
 import user from "@testing-library/user-event";
 import { describe, expect, test, vi } from "vitest";
 
-import { Checkbox } from "./Checkbox";
+import { Selectionbox } from "./Selectionbox";
 
-describe("Checkbox component", () => {
+describe("Selectionbox component", () => {
   const options = ["Option 1", "Option 2", "Option 3"];
 
-  test("renders checkboxes with options", () => {
-    render(<Checkbox options={options} />);
-    const checkboxes = screen.getAllByRole("checkbox");
+  test("renders selectionboxes with options", () => {
+    render(<Selectionbox options={options} />);
+    const selectionboxes = screen.getAllByRole("checkbox");
 
-    expect(checkboxes).toHaveLength(options.length);
+    expect(selectionboxes).toHaveLength(options.length);
   });
 
-  test("renders checkboxes with the correct labels", () => {
-    render(<Checkbox options={options} />);
+  test("renders selectionboxes with the correct labels", () => {
+    render(<Selectionbox options={options} />);
     const labels = screen.getAllByRole("checkbox");
 
     expect(labels).toHaveLength(options.length);
@@ -24,14 +24,14 @@ describe("Checkbox component", () => {
     });
   });
 
-  test("handles checkbox change", async () => {
+  test("handles selectionbox change", async () => {
     const handleChange = vi.fn();
-    render(<Checkbox options={options} onChange={handleChange} />);
-    const checkboxes = screen.getAllByRole("checkbox");
+    render(<Selectionbox options={options} onChange={handleChange} />);
+    const selectionboxes = screen.getAllByRole("checkbox");
 
     // Simulate clicking the checkboxes
-    await user.click(checkboxes[0]);
-    await user.click(checkboxes[2]);
+    await user.click(selectionboxes[0]);
+    await user.click(selectionboxes[2]);
 
     expect(handleChange).toHaveBeenCalledTimes(2);
     expect(handleChange).toHaveBeenCalledWith(["Option 1"]);

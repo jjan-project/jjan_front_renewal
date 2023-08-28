@@ -1,16 +1,16 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
 
-import { Checkbox } from "./Checkbox";
+import { Selectionbox } from "./Selectionbox";
 
-const meta: Meta<typeof Checkbox> = {
-  title: "Checkbox",
-  component: Checkbox,
+const meta: Meta<typeof Selectionbox> = {
+  title: "Selectionbox",
+  component: Selectionbox,
 };
 
 export default meta;
 
-type Story = StoryObj<typeof Checkbox>;
+type Story = StoryObj<typeof Selectionbox>;
 
 const terms = [
   "외향적인",
@@ -39,13 +39,16 @@ export const Default: Story = {
       new Set(),
     );
 
-    const handleCheckboxGroupChange = (selectedValues: string[]) => {
+    const handleSelectionboxGroupChange = (selectedValues: string[]) => {
       setSelectedValues(new Set(selectedValues));
     };
 
     return (
       <>
-        <Checkbox options={terms} onChange={handleCheckboxGroupChange} />
+        <Selectionbox
+          options={terms}
+          onChange={handleSelectionboxGroupChange}
+        />
         <h1>selected:</h1>
         {Array.from(selectedValues).map(value => (
           <p key={value}>{value}</p>

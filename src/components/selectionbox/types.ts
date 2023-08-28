@@ -1,6 +1,6 @@
-type CheckboxProps = {
+type SelectionboxProps = {
   options: string[];
   onChange?: (values: string[]) => void;
 };
 
-export type { CheckboxProps };
+export type { SelectionboxProps };

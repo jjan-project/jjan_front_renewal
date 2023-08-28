@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 import { colors } from "@/theme/foundation";
 
-export const Checkbox = styled.label<{ checked: boolean }>`
+export const Selectionbox = styled.label<{ checked: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;

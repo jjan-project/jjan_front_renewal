@@ -1,12 +1,12 @@
 import { useState } from "react";
 
-import * as S from "./Checkbox.styles";
-import { CheckboxProps } from "./types";
+import * as S from "./Selectionbox.styles";
+import { SelectionboxProps } from "./types";
 
 import { Cluster } from "@/components/cluster";
 import { Typo } from "@/components/typo";
 
-const Checkbox = (props: CheckboxProps) => {
+const Selectionbox = (props: SelectionboxProps) => {
   const { options, onChange } = props;
 
   const [selectedValues, setSelectedValues] = useState<Set<string>>(new Set());
@@ -31,7 +31,7 @@ const Checkbox = (props: CheckboxProps) => {
   return (
     <Cluster gap="10px">
       {options.map((option, index) => (
-        <S.Checkbox
+        <S.Selectionbox
           key={index}
           checked={selectedValues.has(option)}
           role="checkbox"
@@ -51,10 +51,10 @@ const Checkbox = (props: CheckboxProps) => {
               display: "none",
             }}
           />
-        </S.Checkbox>
+        </S.Selectionbox>
       ))}
     </Cluster>
   );
 };
 
-export { Checkbox };
+export { Selectionbox };
