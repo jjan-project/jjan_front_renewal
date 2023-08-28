@@ -1,7 +1,9 @@
 import { userRoutes } from "@/routes";
 
 import { JJAN_URL } from "./domain";
+import { AuthResponseData } from "./types";
 
+import { httpService } from "@/module/http";
 import { serverStateManager } from "@/module/serverState";
 
 export const useUpdateAvatar = () =>
@@ -33,4 +35,9 @@ export const useDeleteUserUserEmail = (userEmail: string) =>
         userEmail,
       },
     },
+  });
+
+export const fetchUserInfo = () =>
+  httpService.get<AuthResponseData>(`${JJAN_URL}${userRoutes.userInfo}`, {
+    withCredentials: true,
   });
