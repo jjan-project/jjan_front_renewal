@@ -182,11 +182,23 @@ const Calendar = ({
           </button>
         </div>
       </div>
-      <table>
+      <table
+        style={{
+          width: "100%",
+        }}
+      >
         <thead>
           <tr>
             {daysOfWeek.map((day, i) => (
-              <th key={i} data-testid="calendarHead">
+              <th
+                key={i}
+                style={{
+                  fontSize: "13px",
+                  fontWeight: 400,
+                  lineHeight: "36px",
+                }}
+                data-testid="calendarHead"
+              >
                 {day}
               </th>
             ))}
@@ -194,7 +206,16 @@ const Calendar = ({
         </thead>
         <tbody>
           {calendarRows.map((row: JSX.Element[], i: number) => (
-            <tr key={i}>{row}</tr>
+            <tr
+              key={i}
+              style={{
+                fontSize: "13px",
+                fontWeight: 400,
+                lineHeight: "36px",
+              }}
+            >
+              {row}
+            </tr>
           ))}
         </tbody>
       </table>
