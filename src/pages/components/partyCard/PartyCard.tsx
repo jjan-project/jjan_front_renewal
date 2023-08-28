@@ -1,5 +1,5 @@
 import * as S from "./PartyCard.styles";
-import { OverlayedAvatarProps } from "./types";
+import { OverlayedAvatarProps, PartyCardProps } from "./types";
 
 import { Avatar } from "@/components/avatar";
 import { Box } from "@/components/box";
@@ -11,7 +11,18 @@ import { Typo } from "@/components/typo";
 const OverlayedAvatar = ({ overlay, ...avatarProps }: OverlayedAvatarProps) => {
   return (
     <S.OverlayContainer>
-      <Avatar {...avatarProps} style={{ borderRadius: "50%" }} />
+      {avatarProps.src === "blank" ? (
+        <Box
+          width="39px"
+          height="39px"
+          backgroundColor="gray800"
+          borderRadius="50%"
+          overflow="hidden"
+        />
+      ) : (
+        <Avatar {...avatarProps} style={{ borderRadius: "50%" }} />
+      )}
+
       {overlay && <S.OverlayText>{overlay}</S.OverlayText>}
     </S.OverlayContainer>
   );
@@ -39,10 +50,10 @@ const CardContributorsAvatar = ({ avatars }: { avatars: string[] }) => {
 };
 
 const CardInfo = ({
+  title,
+  date,
   contributorsAvatars,
-}: {
-  contributorsAvatars: string[];
-}) => {
+}: Pick<PartyCardProps, "title" | "date" | "contributorsAvatars">) => {
   return (
     <Stack>
       <Flex flexDirection="column">
@@ -51,10 +62,10 @@ const CardInfo = ({
           color="violet100"
           style={{ fontWeight: "bold" }}
         >
-          회기 꽃술 6인팟!!
+          {title}
         </Typo>
         <Typo appearance="body3" color="gray700" style={{ fontWeight: "bold" }}>
-          2023/6/29
+          {date}
         </Typo>
         <Spacing direction="vertical" size="20px" />
         <CardContributorsAvatar avatars={contributorsAvatars} />
@@ -63,10 +74,24 @@ const CardInfo = ({
   );
 };
 
-const CardImage = ({ partyImage }: { partyImage: string }) => {
+const CardImage = ({
+  partyImage,
+  dDay,
+}: Pick<PartyCardProps, "partyImage" | "dDay">) => {
   return (
     <Box width="110px" height="110px" style={{ position: "relative" }}>
-      <img src={partyImage} width="110px" height="110px" />
+      {partyImage === "black" ? (
+        <Box
+          width="110px"
+          height="110px"
+          backgroundColor="gray800"
+          borderRadius="50%"
+          overflow="hidden"
+        />
+      ) : (
+        <Avatar width="110px" height="110px" src={partyImage} />
+      )}
+
       <Box
         width="41px"
         height="18px"
@@ -74,23 +99,32 @@ const CardImage = ({ partyImage }: { partyImage: string }) => {
         style={{
           position: "absolute",
           top: "0",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         }}
-      />
+      >
+        <Typo appearance="info1">{`D-${dDay}`}</Typo>
+      </Box>
     </Box>
   );
 };
 
 const PartyCard = ({
   partyImage,
+  title,
+  date,
+  dDay,
   contributorsAvatars,
-}: {
-  partyImage: string;
-  contributorsAvatars: string[];
-}) => {
+}: PartyCardProps) => {
   return (
     <Flex gap="18px">
-      <CardImage partyImage={partyImage} />
-      <CardInfo contributorsAvatars={contributorsAvatars} />
+      <CardImage dDay={dDay} partyImage={partyImage} />
+      <CardInfo
+        title={title}
+        date={date}
+        contributorsAvatars={contributorsAvatars}
+      />
     </Flex>
   );
 };
