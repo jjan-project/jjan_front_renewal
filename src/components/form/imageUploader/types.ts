@@ -3,8 +3,10 @@ import { InputHTMLAttributes, ReactNode } from "react";
 import { BaseTest } from "../../types/base";
 
 type RenderProps = {
-  files: FileList;
+  files: File[];
   handleClick: () => void;
+  handleDeleteByIndex: (target: number) => void;
+  handleDeleteAll: () => void;
 };
 
 type ImageUploaderProps = Omit<InputHTMLAttributes<HTMLInputElement>, "name"> &
@@ -17,6 +19,7 @@ type ImageUploaderProps = Omit<InputHTMLAttributes<HTMLInputElement>, "name"> &
      * render function
      */
     render: (props: RenderProps) => ReactNode;
+    mode?: "single" | "multiple";
     accepts?: string;
   };
 
