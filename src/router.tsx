@@ -1,12 +1,14 @@
-import React from "react";
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
+import { fetchUserInfo } from "./api/jjan/userController";
 import QueryProvider from "./queryProvider";
 
 import { Home } from "@/pages/home";
 import { Landing } from "@/pages/landing";
 import { Loading } from "@/pages/loading";
+import { Notifications } from "@/pages/notifications";
+import { PartyExplore, PartyFiler } from "@/pages/party";
 import { Signin } from "@/pages/signin";
 import { Signup } from "@/pages/signup";
 import { SignupComplete } from "@/pages/signup-complete";
@@ -23,22 +25,40 @@ const authRoutes = () => (
   </Route>
 );
 
-const loggedInRoutes = () => <Route path="/" element={<Home />} />;
+const loggedInRoutes = () => (
+  <>
+    <Route path="/" element={<Home />} />
+    <Route path="/notifications" element={<Notifications />} />
+    <Route path="/party-explore" element={<PartyExplore />} />
+    <Route path="/party-filter" element={<PartyFiler />} />
+  </>
+);
 
 const Router = () => {
-  let token; // 로그인 여부 확인
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+
+  const onLoggendIn = async () => {
+    try {
+      await fetchUserInfo();
+      setIsLoggedIn(true);
+    } catch (error) {
+      console.error("Error while verifying JWT Token", error);
+      setIsLoggedIn(false);
+    }
+  };
+
+  useEffect(() => {
+    onLoggendIn();
+  }, []);
+
   let routes;
 
-  if (token) {
-    routes = <Routes>{loggedInRoutes()}</Routes>;
+
+  if (isLoggedIn) {
     routes = (
       <Routes>
-        {/* <로그인후불러올컴포넌트 /> */}
-        <PartyFormProvider>
-          <Routes>
-            <Route path="/create-party" element={<CreateParty />} />
-          </Routes>
-        </PartyFormProvider>
+        <Route path="/landing" element={<Navigate to="/" />} />
+        {loggedInRoutes()}
       </Routes>
     );
   } else {

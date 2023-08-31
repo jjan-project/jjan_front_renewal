@@ -2,3 +2,7 @@
   pointer-events: none;
   filter: grayscale(100%);
 }
+
+.img-circle {
+  border-radius: 50%;
+}

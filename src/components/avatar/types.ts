@@ -7,6 +7,7 @@ type ImageBaseProps = ImgHTMLAttributes<HTMLImageElement>;
 type AvatarProps = ImageBaseProps &
   BaseTest & {
     isDisabled?: boolean;
+    isCircle?: boolean;
   };
 
-export { AvatarProps };
+export type { AvatarProps };

@@ -3,10 +3,10 @@ import { useState } from "react";
 
 import { Box } from "@/components/box";
 import { Button } from "@/components/button";
-import { Checkbox } from "@/components/checkbox/Checkbox";
 import { Flex } from "@/components/flex";
 import { Header } from "@/components/header";
 import { ProgressBar } from "@/components/progressbar";
+import { Selectionbox } from "@/components/selectionbox/Selectionbox";
 import { Spacing } from "@/components/spacing";
 import { Stack } from "@/components/stack";
 import { Typo } from "@/components/typo";
@@ -72,7 +72,7 @@ const Keywords = (props: PartyFormSubPageProps) => {
             키워드를 설정해주세요.
           </Typo>
         </Stack>
-        <Checkbox
+        <Selectionbox
           options={KEYWORDS}
           onChange={values => setSelectedKeywords(new Set(values))}
         />

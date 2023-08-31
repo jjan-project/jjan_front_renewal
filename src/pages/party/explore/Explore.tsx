@@ -1,8 +1,11 @@
 import { IconChevronLeftLarge, IconMenu } from "jjan-icon";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { NAV_ITEMS } from "../constants";
 
-import glassesImg from "@/assets/glasses.png";
+import { useFetchAllParty, fetchMyParty } from "@/api/jjan/partyController";
+import { PartyInfo } from "@/api/jjan/types";
 import { BottomNav } from "@/components/bottomNav";
 import { Box } from "@/components/box";
 import { Header } from "@/components/header";
@@ -13,6 +16,7 @@ import { Tabs } from "@/components/tabs";
 import { Typo } from "@/components/typo";
 import { PartyCard } from "@/pages/components";
 import { Layout } from "@/pages/components/layout";
+import { calculateDday } from "@/utils/calculateDday";
 
 const NAME = {
   FIRST: "짠 모임",
@@ -20,8 +24,41 @@ const NAME = {
 };
 
 const Explore = () => {
+  const [myPartyList, setMyPartyList] = useState<PartyInfo[]>();
+  const navigate = useNavigate();
+
+  const response = useFetchAllParty();
+
+  let partyList: PartyInfo[] | undefined;
+
+  if (response?.data) {
+    partyList = response.data.data;
+  }
+
+  const onFetch = async () => {
+    try {
+      const { data } = await fetchMyParty();
+      setMyPartyList(data);
+    } catch (error) {
+      console.error("Error while verifying JWT Token", error);
+    }
+  };
+
+  useEffect(() => {
+    onFetch();
+  }, []);
+
+  const handleDday = (date: string) => {
+    const [day] = date.split(" ");
+
+    return calculateDday(day);
+  };
+
   const HeaderContainer = (
-    <Header leftIcon={<IconChevronLeftLarge />} rightIcon={<IconMenu />}>
+    <Header
+      leftIcon={<IconChevronLeftLarge onClick={() => navigate(-1)} />}
+      rightIcon={<IconMenu onClick={() => navigate("/party-filter")} />}
+    >
       탐색하기
     </Header>
   );
@@ -45,31 +82,36 @@ const Explore = () => {
             </Tabs.List>
             <Tabs.Panel name={NAME.FIRST}>
               <List gap="30px" height="calc(100dvh - 68px - 221px)">
-                {Array.from({ length: 20 }).map((_, index) => (
-                  <PartyCard
-                    key={index}
-                    partyImage={glassesImg}
-                    contributorsAvatars={[
-                      glassesImg,
-                      glassesImg,
-                      glassesImg,
-                      glassesImg,
-                      glassesImg,
-                      glassesImg,
-                    ]}
-                  />
-                ))}
+                {partyList &&
+                  partyList.map(partyInfo => (
+                    <PartyCard
+                      key={partyInfo.id}
+                      title={partyInfo.title}
+                      date={partyInfo.partyDate}
+                      partyImage={partyInfo.thumbnail}
+                      dDay={handleDday(partyInfo.partyDate)}
+                      contributorsAvatars={partyInfo.joinUser.map(
+                        user => user.profile,
+                      )}
+                    />
+                  ))}
               </List>
             </Tabs.Panel>
             <Tabs.Panel name={NAME.SECOND}>
               <List gap="30px" height="calc(100dvh - 68px - 221px)">
-                {Array.from({ length: 2 }).map((_, index) => (
-                  <PartyCard
-                    key={index}
-                    partyImage={glassesImg}
-                    contributorsAvatars={[glassesImg, glassesImg]}
-                  />
-                ))}
+                {myPartyList &&
+                  myPartyList.map(partyInfo => (
+                    <PartyCard
+                      key={partyInfo.id}
+                      title={partyInfo.title}
+                      date={partyInfo.partyDate}
+                      partyImage={partyInfo.thumbnail}
+                      dDay={handleDday(partyInfo.partyDate)}
+                      contributorsAvatars={partyInfo.joinUser.map(
+                        user => user.profile,
+                      )}
+                    />
+                  ))}
               </List>
             </Tabs.Panel>
           </Tabs>

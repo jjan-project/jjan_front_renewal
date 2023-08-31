@@ -1,5 +1,4 @@
 import { useMutation } from "@tanstack/react-query";
-
 import { partyRoutes } from "@/routes";
 
 import { Response } from "../types";

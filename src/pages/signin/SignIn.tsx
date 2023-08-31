@@ -1,5 +1,4 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useQueryClient } from "@tanstack/react-query";
 import { IconChevronLeftLarge } from "jjan-icon";
 import { useNavigate } from "react-router-dom";
 
@@ -15,12 +14,10 @@ import { Form } from "@/components/form/Form";
 import { Header } from "@/components/header";
 import { Spacing } from "@/components/spacing";
 import { Stack } from "@/components/stack";
-import { QUERY_KEY } from "@/constants/queryKeys";
 
 const Signin = () => {
   const navigate = useNavigate();
   const signinMutation = useSigninApi();
-  const queryClient = useQueryClient();
 
   const handlePrev = () => {
     navigate("/landing", {
@@ -30,11 +27,8 @@ const Signin = () => {
 
   const handleSignin = (data: SigninSchemaType) => {
     signinMutation.mutate(data, {
-      onSuccess: response => {
-        queryClient.setQueryData([QUERY_KEY.user], response.data);
-        navigate("/", {
-          replace: true,
-        });
+      onSuccess: () => {
+        window.location.replace("/");
       },
     });
   };
