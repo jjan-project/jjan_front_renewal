@@ -24,4 +24,15 @@ export const userRoutes = {
 export const partyRoutes = {
   getAllParty: "/api/party",
   getMyParty: "/api/party/my",
+  getParty: "/api/party/:partyId",
+
+  createParty: "/api/party",
+
+  updateParty: "/api/party/:partyId",
+
+  deleteParty: "/api/party/:partyId",
+
+  joinParty: "/api/party/join/:partyId",
+
+  outParty: "/api/party/join/:partyId",
 };
