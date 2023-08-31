@@ -1,4 +1,5 @@
 import { IconChevronLeftLarge, IconPeopleGroup } from "jjan-icon";
+import { useNavigate } from "react-router-dom";
 
 import { Layout } from "../components/layout";
 
@@ -56,8 +57,12 @@ const Card = () => {
 };
 
 const Notifications = () => {
+  const navigate = useNavigate();
+
   const HeaderContainer = (
-    <Header leftIcon={<IconChevronLeftLarge />}>알림</Header>
+    <Header leftIcon={<IconChevronLeftLarge onClick={() => navigate(-1)} />}>
+      알림
+    </Header>
   );
   return (
     <Layout header={HeaderContainer}>

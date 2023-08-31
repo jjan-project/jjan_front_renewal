@@ -17,4 +17,11 @@ export const userRoutes = {
   deleteUserUserEmail: "/api/user/:userEmail",
 
   randomNickname: "/api/user/random-nickname",
+
+  userInfo: "/api/user/info",
+};
+
+export const partyRoutes = {
+  getAllParty: "/api/party",
+  getMyParty: "/api/party/my",
 };

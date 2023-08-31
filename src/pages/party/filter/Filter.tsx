@@ -1,5 +1,6 @@
 import { IconChevronLeftLarge } from "jjan-icon";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { LabelCheckBox } from "../../components";
 
@@ -14,6 +15,8 @@ import { Typo } from "@/components/typo";
 import { Layout } from "@/pages/components/layout";
 
 const Filter = () => {
+  const navigate = useNavigate();
+
   const [distance, setDistance] = useState<number>(0);
   const [memberCnt, setMemberCnt] = useState<number>(1);
 
@@ -29,7 +32,13 @@ const Filter = () => {
   };
 
   const HeaderContainer = (
-    <Header leftIcon={<IconChevronLeftLarge />}>필터</Header>
+    <Header
+      leftIcon={
+        <IconChevronLeftLarge onClick={() => navigate("/party-explore")} />
+      }
+    >
+      필터
+    </Header>
   );
 
   return (
