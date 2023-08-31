@@ -12,11 +12,10 @@ import { PartyExplore, PartyFiler } from "@/pages/party";
 import { Signin } from "@/pages/signin";
 import { Signup } from "@/pages/signup";
 import { SignupComplete } from "@/pages/signup-complete";
+import { PartyFormProvider } from "@/store/partyStore";
 import { SignupProvider } from "@/store/signupStore";
 
-// const 로그인후불러올컴포넌트 = React.lazy(
-//   () => import("./pages/로그인후불러올컴포넌트"),
-// );
+const CreateParty = React.lazy(() => import("@/pages/create-party"));
 
 const authRoutes = () => (
   <Route path="auth">
@@ -54,6 +53,7 @@ const Router = () => {
 
   let routes;
 
+
   if (isLoggedIn) {
     routes = (
       <Routes>
@@ -63,13 +63,15 @@ const Router = () => {
     );
   } else {
     routes = (
-      <SignupProvider>
-        <Routes>
-          <Route path="/" element={<Navigate to="/landing" />} />
-          <Route path="/landing" element={<Landing />} />
-          {authRoutes()}
-        </Routes>
-      </SignupProvider>
+      <>
+        <SignupProvider>
+          <Routes>
+            <Route path="/" element={<Navigate to="/landing" />} />
+            <Route path="/landing" element={<Landing />} />
+            {authRoutes()}
+          </Routes>
+        </SignupProvider>
+      </>
     );
   }
 

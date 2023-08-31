@@ -16,3 +16,19 @@ export const useGetNeighborhoods = (params: PlacesSearchOptionsStringified) =>
     },
     customQueryKey: QUERY_KEY.kakaoNeighborhoods,
   });
+
+type ExParam = {
+  x: string;
+  y: string;
+  radius: string;
+  query: string;
+};
+
+export const useGetLocation = (params: ExParam) =>
+  serverStateManager.fetch<PlacesSearchResultResponse>({
+    url: `${kakaoRoutes.searchKeyword}?x=${params.x}&y=${params.y}&radius=${params.radius}&query=${params.query}`,
+    config: {
+      enabled: !!params.query,
+    },
+    customQueryKey: `${QUERY_KEY.locations}${params.query}`,
+  });
