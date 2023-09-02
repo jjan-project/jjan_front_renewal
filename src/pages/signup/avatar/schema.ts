@@ -9,11 +9,15 @@ const errorMessages = {
 const { unsupportFile } = errorMessages;
 
 const avatarSchema = z.object({
-  avatar: z.instanceof(FileList).refine(
+  avatar: z.instanceof(Array<File | undefined>).refine(
     files => {
-      return Array.from(files).every(file =>
-        ACCEPTED_IMAGE_TYPES.includes(file.type),
-      );
+      return Array.from(files).every(file => {
+        if (file === undefined) {
+          return true;
+        }
+
+        return ACCEPTED_IMAGE_TYPES.includes(file.type);
+      });
     },
     {
       message: unsupportFile,
