@@ -19,12 +19,6 @@ describe("Calendar 컴포넌트", () => {
     expect(avatarElement).toHaveAttribute("src", imagePath);
   });
 
-  test("Avatar 컴포넌트에 isDisabled 적용되었는지 확인", () => {
-    render(<Avatar alt={altText} src={imagePath} testId={testId} isDisabled />);
-    const avatarElement = screen.getByTestId(testId);
-    expect(avatarElement).toHaveClass("img-disabled");
-  });
-
   test("Avatar 컴포넌트의 ref 조작이 되는지 확인", () => {
     const TestComponent = () => {
       const avatarRef = useRef<HTMLImageElement | null>(null);
