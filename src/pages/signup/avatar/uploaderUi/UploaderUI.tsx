@@ -9,7 +9,7 @@ const UploaderUI = (props: RenderProps) => {
 
   return (
     <S.Container onClick={handleClick}>
-      {files ? (
+      {files.length > 0 && files[0] !== undefined ? (
         <S.Img src={URL.createObjectURL(files[0])} />
       ) : (
         <S.Default>
