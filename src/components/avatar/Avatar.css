@@ -6,3 +6,8 @@
 .img-circle {
   border-radius: 50%;
 }
+
+.img-error {
+  background-color: gray;
+  display: inline-block;
+}

@@ -1,8 +1,7 @@
-import React, { forwardRef, ForwardedRef } from "react";
+import { forwardRef, ForwardedRef, useState } from "react";
 
+import * as S from "./Avatar.styled";
 import type { AvatarProps } from "./types";
-
-import "./Avatar.css";
 
 const Avatar = (props: AvatarProps, ref: ForwardedRef<HTMLImageElement>) => {
   const {
@@ -16,20 +15,26 @@ const Avatar = (props: AvatarProps, ref: ForwardedRef<HTMLImageElement>) => {
     ...otherProps
   } = props;
 
-  const avatarDisabled = isDisabled ? "img-disabled" : "";
+  const [imageError, setImageError] = useState(false);
 
-  const avatarCircle = isCircle ? "img-circle" : "";
+  const handleImageError = () => {
+    setImageError(true);
+  };
+
+  const Component = imageError ? S.ErrorFallback : S.ImageContainer;
 
   return (
-    <img
+    <Component
       {...otherProps}
-      className={`${avatarDisabled} ${avatarCircle}`}
+      isDisabled={isDisabled}
+      isCircle={isCircle}
       alt={alt}
       width={width}
       height={height}
       ref={ref}
-      src={src}
+      src={!imageError ? src : undefined}
       data-testid={testId}
+      onError={handleImageError}
     />
   );
 };
