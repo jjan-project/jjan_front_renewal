@@ -12,10 +12,7 @@ import { PartyExplore, PartyFiler } from "@/pages/party";
 import { Signin } from "@/pages/signin";
 import { Signup } from "@/pages/signup";
 import { SignupComplete } from "@/pages/signup-complete";
-import { PartyFormProvider } from "@/store/partyStore";
 import { SignupProvider } from "@/store/signupStore";
-
-const CreateParty = React.lazy(() => import("@/pages/create-party"));
 
 const authRoutes = () => (
   <Route path="auth">
@@ -52,7 +49,6 @@ const Router = () => {
   }, []);
 
   let routes;
-
 
   if (isLoggedIn) {
     routes = (
