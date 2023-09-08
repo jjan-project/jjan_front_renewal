@@ -5,13 +5,17 @@ import {
   IconLocationOn,
   IconPeopleInvite,
 } from "jjan-icon";
+import { useParams, useNavigate } from "react-router-dom";
 
 import { BottomButton } from "../../components/layout";
 
-import glassesImg from "@/assets/glasses.png";
-import testImage from "@/assets/회기 꽃술 6인팟!!.png";
+import { TagBox } from "./TagBox";
+import { useDetailData } from "./useDetailData";
+
+import { joinParty } from "@/api/jjan/partyController";
 import { Avatar } from "@/components/avatar";
 import { Box } from "@/components/box";
+import { Cluster } from "@/components/cluster";
 import { Flex } from "@/components/flex";
 import { Header } from "@/components/header";
 import { Hr } from "@/components/hr";
@@ -21,65 +25,111 @@ import { Spacing } from "@/components/spacing";
 import { Stack } from "@/components/stack";
 import { Typo } from "@/components/typo";
 import { Layout } from "@/pages/components/layout";
+import { formatToKoreanDateTime } from "@/utils/formatToKoreanDateTime";
+
+const PartyImages = ({ images }: { images?: string[] }) => (
+  <Box width="100%" height="220px">
+    {images && images.length ? (
+      <ImageCarousel type="primary" images={images} />
+    ) : (
+      <Box centerContent height="100%" backgroundColor="gray800">
+        <Typo appearance="body2">사진이 존재하지 않습니다.</Typo>
+      </Box>
+    )}
+  </Box>
+);
 
 const Detail = () => {
-  const images = [glassesImg, testImage];
+  const navigate = useNavigate();
+  const { partyId } = useParams();
+  const { responseDetail, isJoined } = useDetailData(partyId);
 
-  const onJoined = () => {
-    console.info("");
+  const onJoined = async () => {
+    try {
+      await joinParty(partyId);
+      navigate(`/party-joined/${partyId}`);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const onExit = () => {
+    navigate(`/party-exit/${partyId}`);
   };
 
   const HeaderContainer = (
-    <Header leftIcon={<IconChevronLeftLarge />} rightIcon={<IconBookmark />}>
-      회기 꽃술 6인팟!!
+    <Header
+      leftIcon={<IconChevronLeftLarge onClick={() => navigate(-1)} />}
+      rightIcon={<IconBookmark />}
+    >
+      {responseDetail?.data.title || ""}
     </Header>
   );
 
   return (
     <Layout
       header={HeaderContainer}
-      bottom={<BottomButton onClick={onJoined} />}
+      bottom={
+        <BottomButton
+          text={isJoined ? "참여 취소" : "참여"}
+          onClick={isJoined ? onExit : onJoined}
+        />
+      }
     >
-      <Box width="100%" height="220px">
-        <ImageCarousel type="primary" images={images} />
-      </Box>
+      <PartyImages images={responseDetail?.data.partyImages} />
 
       <Box padding="0 20px">
         <Spacing direction="vertical" size="15px" />
-
         <Stack space="space03">
-          <Typo appearance="body1">회기 꽃술 6인팟!!</Typo>
+          <Typo appearance="body1">
+            {responseDetail?.data.title || "제목이 없습니다."}
+          </Typo>
 
           <Stack space="space02">
             <Typo appearance="body2">
-              경희대 근처 사시는 20대 남녀 모두 환영합니다. 같이 즐겁게 술
-              마셔요!
+              {responseDetail?.data.content || "내용이 존재하지 않습니다."}
             </Typo>
-            {/* 여기는 파티 태그 자리입니다. */}
+            <Cluster gap="10px">
+              {responseDetail
+                ? responseDetail?.data.partyTags.map((tagName, index) => (
+                    <TagBox key={index} text={tagName} />
+                  ))
+                : ""}
+            </Cluster>
           </Stack>
 
           <Hr />
 
           <Stack space="space02">
             <Typo appearance="body2" color="violet100">
-              참여 모임원 10명
+              참여 모임원{" "}
+              {responseDetail
+                ? responseDetail?.data.female + responseDetail?.data.male
+                : "0"}
+              명
             </Typo>
             <Flex>
-              <Typo appearance="body2">남: 5</Typo>
+              <Typo appearance="body2">
+                남: {responseDetail?.data.male || "0"}
+              </Typo>
               <Spacing direction="horizontal" size="10px" />
-              <Typo appearance="body2">여: 5</Typo>
+              <Typo appearance="body2">
+                여: {responseDetail?.data.female || "0"}
+              </Typo>
             </Flex>
 
             <List gap="5px" direction="row">
-              {Array.from({ length: 10 }).map((_, index) => (
-                <Avatar
-                  key={index}
-                  src={glassesImg}
-                  width="39px"
-                  height="39px"
-                  style={{ borderRadius: "50%" }}
-                ></Avatar>
-              ))}
+              {responseDetail
+                ? responseDetail?.data.joinUser.map((userInfo, index) => (
+                    <Avatar
+                      key={index}
+                      src={userInfo.profile}
+                      width="39px"
+                      height="39px"
+                      style={{ borderRadius: "50%" }}
+                    ></Avatar>
+                  ))
+                : ""}
             </List>
           </Stack>
 
@@ -92,17 +142,25 @@ const Detail = () => {
 
             <Flex gap="10px" alignItems="center">
               <IconClock />
-              <Typo appearance="body2">6월 23일 오후 6시</Typo>
+              <Typo appearance="body2">
+                {responseDetail
+                  ? formatToKoreanDateTime(responseDetail?.data.partyDate)
+                  : "시간 정보가 없습니다."}
+              </Typo>
             </Flex>
             <Flex gap="10px" alignItems="center">
               <IconLocationOn />
               <Typo appearance="body2">
-                서울특별시 동대문구 경희대로1길 8-14 1층
+                {responseDetail?.data.location.address ||
+                  "주소명이 존재하지 않습니다."}
               </Typo>
             </Flex>
             <Flex gap="10px" alignItems="center">
               <IconPeopleInvite />
-              <Typo appearance="body2">최대 6명</Typo>
+              <Typo appearance="body2">
+                {`최대 ${responseDetail?.data.maxPartyNum}명` ||
+                  "최대 인원이 설정되지 않았습니다."}
+              </Typo>
             </Flex>
           </Stack>
         </Stack>
