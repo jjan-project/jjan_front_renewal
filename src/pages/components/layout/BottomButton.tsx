@@ -17,12 +17,18 @@ const BottomButtonContainer = styled.div`
   padding: 20px;
 `;
 
-const BottomButton = ({ onClick }: { onClick: () => void }) => {
+const BottomButton = ({
+  text,
+  onClick,
+}: {
+  text: string;
+  onClick: () => void;
+}) => {
   return (
     <Box>
       <Spacing direction="vertical" size="90px" />
       <BottomButtonContainer>
-        <Button onClick={onClick}>다음</Button>
+        <Button onClick={onClick}>{text}</Button>
       </BottomButtonContainer>
     </Box>
   );
