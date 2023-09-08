@@ -8,7 +8,13 @@ import { Home } from "@/pages/home";
 import { Landing } from "@/pages/landing";
 import { Loading } from "@/pages/loading";
 import { Notifications } from "@/pages/notifications";
-import { PartyExplore, PartyFiler } from "@/pages/party";
+import {
+  PartyExplore,
+  PartyFiler,
+  PartyDetail,
+  PartyExit,
+  PartyJoined,
+} from "@/pages/party";
 import { Signin } from "@/pages/signin";
 import { Signup } from "@/pages/signup";
 import { SignupComplete } from "@/pages/signup-complete";
@@ -28,6 +34,9 @@ const loggedInRoutes = () => (
     <Route path="/notifications" element={<Notifications />} />
     <Route path="/party-explore" element={<PartyExplore />} />
     <Route path="/party-filter" element={<PartyFiler />} />
+    <Route path="/party-detail/:partyId" element={<PartyDetail />} />
+    <Route path="/party-exit/:partyId" element={<PartyExit />} />
+    <Route path="/party-joined/:partyId" element={<PartyJoined />} />
   </>
 );
 

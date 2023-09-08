@@ -1,5 +1,6 @@
 export const kakaoRoutes = {
   searchKeyword: "https://dapi.kakao.com/v2/local/search/keyword.json",
+  addressFromLatLng: `https://dapi.kakao.com/v2/local/geo/coord2address.json`,
 };
 
 export const userRoutes = {
@@ -32,7 +33,7 @@ export const partyRoutes = {
 
   deleteParty: "/api/party/:partyId",
 
-  joinParty: "/api/party/join/:partyId",
+  joinParty: "/api/party/:partyId/join",
 
-  outParty: "/api/party/join/:partyId",
+  outParty: "/api/party/:partyId/exit",
 };
