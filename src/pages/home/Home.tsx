@@ -172,15 +172,7 @@ const Home = () => {
               </Flex.Item>
 
               <Flex.Item flex="1 1 20%">
-                {userInfo && userInfo.profile === "blank" ? (
-                  <Box
-                    width="68px"
-                    height="68px"
-                    backgroundColor="gray800"
-                    borderRadius="50%"
-                    overflow="hidden"
-                  />
-                ) : (
+                {userInfo && (
                   <Avatar
                     isCircle
                     width="68px"

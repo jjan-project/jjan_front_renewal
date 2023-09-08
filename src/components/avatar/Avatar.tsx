@@ -1,4 +1,4 @@
-import { forwardRef, ForwardedRef, useState } from "react";
+import { forwardRef, ForwardedRef, useState, useEffect } from "react";
 
 import * as S from "./Avatar.styled";
 import type { AvatarProps } from "./types";
@@ -20,6 +20,12 @@ const Avatar = (props: AvatarProps, ref: ForwardedRef<HTMLImageElement>) => {
   const handleImageError = () => {
     setImageError(true);
   };
+
+  useEffect(() => {
+    if (src === null) {
+      setImageError(true);
+    }
+  }, [src]);
 
   const Component = imageError ? S.ErrorFallback : S.ImageContainer;
 
