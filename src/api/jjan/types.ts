@@ -13,6 +13,12 @@ export type SigninData = {
   password: string;
 };
 
+type PartyLocation = {
+  address: string;
+  latitude: string;
+  longitude: string;
+};
+
 type PartyJoinUser = {
   id: number;
   profile: string | "blank";
@@ -26,6 +32,20 @@ export type PartyInfo = {
   title: string;
 };
 
+export type PartyDetailInfo = {
+  id: number;
+  joinUser: PartyJoinUser[];
+  location: PartyLocation;
+  content: string;
+  female: number;
+  male: number;
+  maxPartyNum: number;
+  partyDate: string;
+  partyImages: string[];
+  partyTags: string[];
+  title: string;
+};
+
 export type CreatePartyResponseData = {
   id: string;
   author: string;
@@ -33,10 +53,7 @@ export type CreatePartyResponseData = {
   title: string;
   content: string;
   maxPartyNum: string;
-  location: {
-    partyLatitude: string;
-    partyLongitude: string;
-  };
+  location: PartyLocation;
   partyDate: string;
   partyTags: string[];
   partyImages: string[];
@@ -46,10 +63,7 @@ export type UpdatePartyResponseDate = {
   title: string;
   content: string;
   maxPartyNum: string;
-  location: {
-    partyLatitude: string;
-    partyLongitude: string;
-  };
+  location: PartyLocation;
   partyDate: string;
   partyTags: string[];
   partyImages: string[];
