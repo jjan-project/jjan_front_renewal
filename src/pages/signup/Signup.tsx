@@ -64,7 +64,6 @@ const Signup = () => {
 
   const postFormData = async () => {
     const data = convertObjectToData(signupState);
-
     const formData = new FormData();
     formData.append(
       "data",

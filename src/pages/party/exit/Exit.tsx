@@ -1,8 +1,10 @@
-import { IconChevronLeftLarge, IconCancel } from "jjan-icon";
+import { IconChevronLeftLarge } from "jjan-icon";
 import { useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { BottomButton } from "../../components";
 
+import { outParty } from "@/api/jjan/partyController";
 import { Box } from "@/components/box";
 import { Header } from "@/components/header";
 import { Spacing } from "@/components/spacing";
@@ -12,19 +14,31 @@ import { Typo } from "@/components/typo";
 import { Layout } from "@/pages/components/layout";
 
 const Exit = () => {
+  const { partyId } = useParams();
+  const navigate = useNavigate();
+
   const ref = useRef<HTMLTextAreaElement>(null);
 
   const [isValidate, setIsValidate] = useState(false);
 
-  const onValidate = () => {
+  const onValidate = async () => {
     const value = ref.current?.value;
-    if (value && value.length < 2) {
+
+    if (!value || value.length < 2) {
       setIsValidate(true);
+      return;
+    }
+
+    try {
+      await outParty(partyId);
+      navigate("/party-explore");
+    } catch (e) {
+      console.error(e);
     }
   };
 
   const HeaderContainer = (
-    <Header leftIcon={<IconChevronLeftLarge />} rightIcon={<IconCancel />}>
+    <Header leftIcon={<IconChevronLeftLarge onClick={() => navigate(-1)} />}>
       모임 나가기
     </Header>
   );
@@ -32,7 +46,7 @@ const Exit = () => {
   return (
     <Layout
       header={HeaderContainer}
-      bottom={<BottomButton onClick={onValidate} />}
+      bottom={<BottomButton text="완료" onClick={onValidate} />}
     >
       <Box padding="0 20px">
         <Stack>

@@ -80,18 +80,7 @@ const CardImage = ({
 }: Pick<PartyCardProps, "partyImage" | "dDay">) => {
   return (
     <Box width="110px" height="110px" style={{ position: "relative" }}>
-      {partyImage === "black" ? (
-        <Box
-          width="110px"
-          height="110px"
-          backgroundColor="gray800"
-          borderRadius="50%"
-          overflow="hidden"
-        />
-      ) : (
-        <Avatar width="110px" height="110px" src={partyImage} />
-      )}
-
+      <Avatar width="110px" height="110px" src={partyImage} />
       <Box
         width="41px"
         height="18px"

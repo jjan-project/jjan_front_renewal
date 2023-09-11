@@ -41,9 +41,20 @@ type PlacesSearchResultResponse = {
   meta: Meta;
 };
 
+type Coord2AddressResult = {
+  address: kakao.maps.services.Address;
+  road_address: kakao.maps.services.RoadAaddress;
+};
+
+type Coord2AddressResultResponse = {
+  documents: Coord2AddressResult[];
+  meta: Meta;
+};
+
 export type {
   PlacesSearchOptions,
   PlacesSearchOptionsStringified,
   PlacesSearchResult,
   PlacesSearchResultResponse,
+  Coord2AddressResultResponse,
 };

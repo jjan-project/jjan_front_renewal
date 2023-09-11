@@ -3,6 +3,7 @@ import { kakaoRoutes } from "@/routes";
 import { QUERY_KEY } from "@/constants/queryKeys";
 import { serverStateManager } from "@/module/serverState";
 import {
+  Coord2AddressResultResponse,
   PlacesSearchOptionsStringified,
   PlacesSearchResultResponse,
 } from "@/types/kakao";
@@ -31,4 +32,12 @@ export const useGetLocation = (params: ExParam) =>
       enabled: !!params.query,
     },
     customQueryKey: `${QUERY_KEY.locations}${params.query}`,
+  });
+
+export const useGetAddressFromLatLng = (latitude: string, longitude: string) =>
+  serverStateManager.fetch<Coord2AddressResultResponse>({
+    url: `${kakaoRoutes.addressFromLatLng}?x=${longitude}&y=${latitude}&input_coord=WGS84`,
+    config: {
+      enabled: !(latitude === "" && longitude === ""),
+    },
   });

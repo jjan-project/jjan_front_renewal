@@ -1,10 +1,9 @@
 import { IconChevronLeftLarge, IconMenu } from "jjan-icon";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { NAV_ITEMS } from "../constants";
 
-import { useFetchAllParty, fetchMyParty } from "@/api/jjan/partyController";
+import { useFetchAllParty, fetchJoinedParty } from "@/api/jjan/partyController";
 import { PartyInfo } from "@/api/jjan/types";
 import { BottomNav } from "@/components/bottomNav";
 import { Box } from "@/components/box";
@@ -24,33 +23,24 @@ const NAME = {
 };
 
 const Explore = () => {
-  const [myPartyList, setMyPartyList] = useState<PartyInfo[]>();
   const navigate = useNavigate();
 
-  const response = useFetchAllParty();
-
+  const allPartyResponse = useFetchAllParty();
   let partyList: PartyInfo[] | undefined;
 
-  if (response?.data) {
-    partyList = response.data.data;
+  if (allPartyResponse?.data) {
+    partyList = allPartyResponse.data.data;
   }
 
-  const onFetch = async () => {
-    try {
-      const { data } = await fetchMyParty();
-      setMyPartyList(data);
-    } catch (error) {
-      console.error("Error while verifying JWT Token", error);
-    }
-  };
+  const joinedPartyResponse = fetchJoinedParty();
+  let joinedPartyList: PartyInfo[] | undefined;
 
-  useEffect(() => {
-    onFetch();
-  }, []);
+  if (joinedPartyResponse?.data) {
+    joinedPartyList = joinedPartyResponse.data.data;
+  }
 
   const handleDday = (date: string) => {
     const [day] = date.split(" ");
-
     return calculateDday(day);
   };
 
@@ -82,36 +72,46 @@ const Explore = () => {
             </Tabs.List>
             <Tabs.Panel name={NAME.FIRST}>
               <List gap="30px" height="calc(100dvh - 68px - 221px)">
-                {partyList &&
-                  partyList.map(partyInfo => (
-                    <PartyCard
-                      key={partyInfo.id}
-                      title={partyInfo.title}
-                      date={partyInfo.partyDate}
-                      partyImage={partyInfo.thumbnail}
-                      dDay={handleDday(partyInfo.partyDate)}
-                      contributorsAvatars={partyInfo.joinUser.map(
-                        user => user.profile,
-                      )}
-                    />
-                  ))}
+                {partyList
+                  ? partyList.map(partyInfo => (
+                      <Link
+                        to={`/party-detail/${partyInfo.id}`}
+                        key={partyInfo.id}
+                      >
+                        <PartyCard
+                          title={partyInfo.title}
+                          date={partyInfo.partyDate}
+                          partyImage={partyInfo.thumbnail}
+                          dDay={handleDday(partyInfo.partyDate)}
+                          contributorsAvatars={partyInfo.joinUser.map(
+                            user => user.profile,
+                          )}
+                        />
+                      </Link>
+                    ))
+                  : "모임을 찾을 수 없습니다."}
               </List>
             </Tabs.Panel>
             <Tabs.Panel name={NAME.SECOND}>
               <List gap="30px" height="calc(100dvh - 68px - 221px)">
-                {myPartyList &&
-                  myPartyList.map(partyInfo => (
-                    <PartyCard
-                      key={partyInfo.id}
-                      title={partyInfo.title}
-                      date={partyInfo.partyDate}
-                      partyImage={partyInfo.thumbnail}
-                      dDay={handleDday(partyInfo.partyDate)}
-                      contributorsAvatars={partyInfo.joinUser.map(
-                        user => user.profile,
-                      )}
-                    />
-                  ))}
+                {joinedPartyList
+                  ? joinedPartyList.map(partyInfo => (
+                      <Link
+                        to={`/party-detail/${partyInfo.id}`}
+                        key={partyInfo.id}
+                      >
+                        <PartyCard
+                          title={partyInfo.title}
+                          date={partyInfo.partyDate}
+                          partyImage={partyInfo.thumbnail}
+                          dDay={handleDday(partyInfo.partyDate)}
+                          contributorsAvatars={partyInfo.joinUser.map(
+                            user => user.profile,
+                          )}
+                        />
+                      </Link>
+                    ))
+                  : "나의 모임을 찾을 수 없습니다."}
               </List>
             </Tabs.Panel>
           </Tabs>
