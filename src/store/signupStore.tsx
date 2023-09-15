@@ -13,6 +13,8 @@ export type State = {
   avatar: File | null;
   gender: GenderState;
   capacity: number;
+  latitude: number;
+  longitude: number;
 };
 
 type Action =
@@ -23,7 +25,9 @@ type Action =
   | { type: "SET_BIRTHDAY"; payload: BirthdayState }
   | { type: "SET_AVATAR"; payload: File }
   | { type: "SET_GENDER"; payload: GenderState }
-  | { type: "SET_CAPACITY"; payload: number };
+  | { type: "SET_CAPACITY"; payload: number }
+  | { type: "SET_LATITUDE"; payload: number }
+  | { type: "SET_LONGITUDE"; payload: number };
 
 export type DispatchType = Dispatch<Action>;
 
@@ -41,6 +45,8 @@ export const initialState: State = {
   avatar: null,
   gender: { label: "남자", value: "남자" },
   capacity: 0,
+  latitude: 0,
+  longitude: 0,
 };
 
 // 액션 생성자 함수 정의
@@ -76,6 +82,14 @@ export const setCapacity = (capacity: number): Action => ({
   type: "SET_CAPACITY",
   payload: capacity,
 });
+export const setLatitude = (latitude: number): Action => ({
+  type: "SET_LATITUDE",
+  payload: latitude,
+});
+export const setLongitude = (longitude: number): Action => ({
+  type: "SET_LONGITUDE",
+  payload: longitude,
+});
 
 // 리듀서 함수 정의
 const signupReducer = (state: State, action: Action): State => {
@@ -96,6 +110,10 @@ const signupReducer = (state: State, action: Action): State => {
       return { ...state, gender: action.payload };
     case "SET_CAPACITY":
       return { ...state, capacity: action.payload };
+    case "SET_LATITUDE":
+      return { ...state, latitude: action.payload };
+    case "SET_LONGITUDE":
+      return { ...state, longitude: action.payload };
     default:
       return state;
   }
