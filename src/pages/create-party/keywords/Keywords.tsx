@@ -1,5 +1,4 @@
 import { IconCancel, IconChevronLeftLarge } from "jjan-icon";
-import { useState } from "react";
 
 import { Box } from "@/components/box";
 import { Button } from "@/components/button";
@@ -43,11 +42,7 @@ const Keywords = (props: PartyFormSubPageProps) => {
   const { curStep, lastStep, onPrevStep, onNextStep } = props;
   const dispatch = usePartyFormDispatch();
 
-  const [selectedKeywords, setSelectedKeywords] = useState(keywords);
-
   const handleNext = () => {
-    dispatch(setKeywords(selectedKeywords));
-
     onNextStep();
   };
 
@@ -74,7 +69,8 @@ const Keywords = (props: PartyFormSubPageProps) => {
         </Stack>
         <Selectionbox
           options={KEYWORDS}
-          onChange={values => setSelectedKeywords(new Set(values))}
+          defaultValues={keywords}
+          onChange={values => dispatch(setKeywords(new Set(values)))}
         />
         <Spacing direction="vertical" fill={true} />
         <Box>
