@@ -1,10 +1,14 @@
 import { IconChevronLeftLarge, IconMenu } from "jjan-icon";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
 import { NAV_ITEMS } from "../constants";
 
-import { useFetchAllParty, fetchJoinedParty } from "@/api/jjan/partyController";
-import { PartyInfo } from "@/api/jjan/types";
+import {
+  useAllPartyData,
+  useJoinedPartyData,
+  usePartyFilterData,
+} from "./hooks/";
+
 import { BottomNav } from "@/components/bottomNav";
 import { Box } from "@/components/box";
 import { Header } from "@/components/header";
@@ -24,20 +28,32 @@ const NAME = {
 
 const Explore = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
-  const allPartyResponse = useFetchAllParty();
-  let partyList: PartyInfo[] | undefined;
+  const sort = searchParams.get("sort");
+  const partyTagListParam = searchParams.get("partyTagList");
+  const partyTagList =
+    partyTagListParam !== null ? JSON.parse(partyTagListParam) : undefined;
+  const radiusRange = searchParams.get("radiusRange");
+  const personnelGoe = searchParams.get("personnelGoe");
+  const personnelLoe = searchParams.get("personnelLoe");
+  const ageTagParam = searchParams.get("ageTag");
+  const ageTag = ageTagParam !== null ? JSON.parse(ageTagParam) : undefined;
 
-  if (allPartyResponse?.data) {
-    partyList = allPartyResponse.data.data;
-  }
+  const filteredPartyList = usePartyFilterData({
+    sort,
+    partyTagList,
+    radiusRange,
+    personnelGoe,
+    personnelLoe,
+    ageTag,
+  });
+  const defaultPartyList = useAllPartyData();
+  const joinedPartyList = useJoinedPartyData();
 
-  const joinedPartyResponse = fetchJoinedParty();
-  let joinedPartyList: PartyInfo[] | undefined;
-
-  if (joinedPartyResponse?.data) {
-    joinedPartyList = joinedPartyResponse.data.data;
-  }
+  const partyListToDisplay = filteredPartyList?.length
+    ? filteredPartyList
+    : defaultPartyList;
 
   const handleDday = (date: string) => {
     const [day] = date.split(" ");
@@ -72,8 +88,8 @@ const Explore = () => {
             </Tabs.List>
             <Tabs.Panel name={NAME.FIRST}>
               <List gap="30px" height="calc(100dvh - 68px - 221px)">
-                {partyList
-                  ? partyList.map(partyInfo => (
+                {partyListToDisplay
+                  ? partyListToDisplay.map(partyInfo => (
                       <Link
                         to={`/party-detail/${partyInfo.id}`}
                         key={partyInfo.id}

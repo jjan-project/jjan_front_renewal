@@ -68,3 +68,12 @@ export type UpdatePartyResponseDate = {
   partyTags: string[];
   partyImages: string[];
 };
+
+export type FilterPartyRequestData = {
+  sort: string | null;
+  partyTagList?: string[] | null;
+  radiusRange?: string | null;
+  personnelGoe?: string | null;
+  personnelLoe?: string | null;
+  ageTag?: string[] | null;
+};
