@@ -7,9 +7,11 @@ import { Cluster } from "@/components/cluster";
 import { Typo } from "@/components/typo";
 
 const Selectionbox = (props: SelectionboxProps) => {
-  const { options, onChange } = props;
+  const { options, defaultValues, onChange } = props;
 
-  const [selectedValues, setSelectedValues] = useState<Set<string>>(new Set());
+  const [selectedValues, setSelectedValues] = useState<Set<string>>(
+    defaultValues || new Set(),
+  );
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const updatedSelectedValues = new Set(selectedValues);
