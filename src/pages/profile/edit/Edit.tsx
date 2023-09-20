@@ -1,11 +1,14 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { IconCancel, IconChevronLeftLarge } from "jjan-icon";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { ACCEPTED_IMAGE_TYPES } from "./constants";
 import { ProfileEditSchemaType, profileEditSchema } from "./schema";
 import { UploaderUI } from "./uploaderUi";
 
+import { AuthResponseData } from "@/api/jjan/types";
+import { fetchUserInfo } from "@/api/jjan/userController";
 import { Box } from "@/components/box";
 import { Button } from "@/components/button";
 import { Flex } from "@/components/flex";
@@ -22,28 +25,75 @@ import {
   SLIDER_MIN_VALUE,
   STEP,
 } from "@/pages/signup/capacity/constants";
+import {
+  useUpdateAvatar,
+  useUpdateNickname,
+  useUpdateDrinkCapacity,
+} from "@/query/user/useUpdateProfile";
 
-const HeaderContainer = (
-  <Header leftIcon={<IconChevronLeftLarge />} rightIcon={<IconCancel />}>
-    프로필 수정
-  </Header>
-);
-
-const Edit = () => {
-  // 유저 정보 전역 상태 가져오는 로직 추가해야 함
-  const [localCapacity, setLocalCapacity] = useState<number>(0);
-
-  const handleChange = (formData: ProfileEditSchemaType) => {
-    // eslint-disable-next-line no-console
-    console.log(formData);
-    // eslint-disable-next-line no-console
-    console.log(localCapacity);
-    // 유저 정보 수정 api 호출
-    // 유저 정보 전역 상태 업데이트
-  };
+const HeaderContainer = () => {
+  const navigate = useNavigate();
 
   return (
-    <Layout header={HeaderContainer}>
+    <Header
+      leftIcon={<IconChevronLeftLarge onClick={() => navigate(-1)} />}
+      rightIcon={
+        <IconCancel onClick={() => navigate("/profile", { replace: true })} />
+      }
+    >
+      프로필 수정
+    </Header>
+  );
+};
+
+const Edit = () => {
+  const navigate = useNavigate();
+
+  const mutateAvatar = useUpdateAvatar();
+  const mutateNickname = useUpdateNickname();
+  const mutateDrinkCapacity = useUpdateDrinkCapacity();
+
+  const [userInfo, setUserInfo] = useState<AuthResponseData>();
+  const [localCapacity, setLocalCapacity] = useState(0);
+
+  const onFetchUserInfo = async () => {
+    try {
+      const response = await fetchUserInfo();
+      setUserInfo(response);
+      setLocalCapacity(+response.drinkCapacity);
+    } catch (error) {
+      console.error("Error while verifying JWT Token", error);
+    }
+  };
+
+  useEffect(() => {
+    onFetchUserInfo();
+  }, []);
+
+  const handleChange = (validatedData: ProfileEditSchemaType) => {
+    try {
+      if (userInfo?.nickName !== validatedData.nickname) {
+        mutateNickname.mutate(validatedData.nickname);
+      }
+
+      if (validatedData.avatar[0] !== undefined) {
+        const formDate = new FormData();
+        formDate.append("image", validatedData.avatar[0]);
+        mutateAvatar.mutate(formDate);
+      }
+
+      mutateDrinkCapacity.mutate(localCapacity);
+    } catch (error) {
+      console.error(error);
+    }
+
+    navigate("/profile");
+  };
+
+  if (!userInfo) return;
+
+  return (
+    <Layout header={<HeaderContainer />}>
       <Box padding="0 20px" height="calc(100dvh - 52px - 20px)">
         <Flex flexDirection="column">
           <Stack>
@@ -56,7 +106,12 @@ const Edit = () => {
                 <Form.ImageUploader
                   name="avatar"
                   accept={ACCEPTED_IMAGE_TYPES.join(",")}
-                  render={props => <UploaderUI {...props} />}
+                  render={props => (
+                    <UploaderUI
+                      renderProps={props}
+                      defaultImg={userInfo.profile as string}
+                    />
+                  )}
                 />
               </Box>
               <Spacing direction="vertical" size="28px" />
@@ -64,7 +119,7 @@ const Edit = () => {
                 name="nickname"
                 appearance="underline"
                 type="text"
-                defaultValue={"예시 디폴트 값입니다."}
+                defaultValue={userInfo.nickName}
               />
             </Form>
           </Stack>

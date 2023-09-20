@@ -1,4 +1,5 @@
 import { IconAlertEmpty, IconJjanLogo } from "jjan-icon";
+import { useNavigate } from "react-router-dom";
 
 import { PROFILE_OPTIONS } from "./constants";
 
@@ -20,14 +21,20 @@ const HeaderContainer = (
 );
 
 const Main = () => {
+  const navigate = useNavigate();
+
   return (
     <Layout header={HeaderContainer} bottom={<BottomNav items={NAV_ITEMS} />}>
       <Box padding="0 20px" height="calc(100dvh - 52px - 68px - 20px)">
         <Flex flexDirection="column" gap="22px">
           <ProfileInfo />
           <Flex gap="12px">
-            <Button>프로필 수정</Button>
-            <Button>관심 목록</Button>
+            <Button onClick={() => navigate("/profile-edit")}>
+              프로필 수정
+            </Button>
+            <Button onClick={() => navigate("/profile-watchlist")}>
+              관심 목록
+            </Button>
           </Flex>
           <ProfileOptionPanel options={PROFILE_OPTIONS} />
         </Flex>
