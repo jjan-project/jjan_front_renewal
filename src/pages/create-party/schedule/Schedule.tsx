@@ -1,6 +1,8 @@
 import { IconCancel, IconChevronLeftLarge } from "jjan-icon";
 import { useState } from "react";
 
+import { generateTimeIncrements } from "./utils";
+
 import { Box } from "@/components/box";
 import { Button } from "@/components/button";
 import { Calendar } from "@/components/calendar";
@@ -50,8 +52,10 @@ const Schedule = (props: PartyFormSubPageProps) => {
           모임 만들기
         </Header>
         <Stack>
-          <Typo appearance="header1">우리의 모임 이른은?</Typo>
-          <Typo appearance="body1">모임 날짜와 시간을 선택해주세요</Typo>
+          <Typo appearance="header1">언제 몇시에 만날까요?</Typo>
+          <Typo appearance="body1" color="gray700">
+            모임 날짜와 시간을 선택해주세요
+          </Typo>
         </Stack>
         <Calendar
           selectedDay={selectedDay}
@@ -60,7 +64,7 @@ const Schedule = (props: PartyFormSubPageProps) => {
           isNextMonth
         />
         <ScrollSelect
-          list={["item1", "item2", "item3"]}
+          list={generateTimeIncrements()}
           height={150}
           onSelectedChange={time => setSelectedTime(time as string)}
         />
