@@ -16,6 +16,8 @@ import { useGeoLocation } from "@/hooks/useGeoLocation";
 import { SignupSubPageProps } from "@/pages/signup/types";
 import {
   setAddress,
+  setLatitude,
+  setLongitude,
   useSignupDispatch,
   useSignupState,
 } from "@/store/signupStore";
@@ -39,6 +41,8 @@ const Address = (props: SignupSubPageProps) => {
 
   const handleNext = () => {
     dispatch(setAddress(value));
+    dispatch(setLatitude(latitude));
+    dispatch(setLongitude(longitude));
     onNextStep();
   };
 
