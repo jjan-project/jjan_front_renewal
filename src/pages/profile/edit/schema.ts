@@ -10,7 +10,7 @@ const errorMessages = {
 const { unsupportFile, required } = errorMessages;
 
 const profileEditSchema = z.object({
-  avatar: z.instanceof(FileList).refine(
+  avatar: z.instanceof(Array<File>).refine(
     files => {
       return Array.from(files).every(file =>
         ACCEPTED_IMAGE_TYPES.includes(file.type),

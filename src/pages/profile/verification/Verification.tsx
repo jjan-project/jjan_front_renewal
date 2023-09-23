@@ -1,4 +1,5 @@
 import { IconCancel, IconChevronLeftLarge } from "jjan-icon";
+import { useNavigate } from "react-router-dom";
 
 import { Box } from "@/components/box";
 import { Button } from "@/components/button";
@@ -12,11 +13,20 @@ import { useFindNeighborhoods } from "@/hooks/useFindNeighborhoods";
 import { useGeoLocation } from "@/hooks/useGeoLocation";
 import { Layout } from "@/pages/components/layout";
 
-const HeaderContainer = (
-  <Header leftIcon={<IconChevronLeftLarge />} rightIcon={<IconCancel />}>
-    동네 인증
-  </Header>
-);
+const HeaderContainer = () => {
+  const navigate = useNavigate();
+
+  return (
+    <Header
+      leftIcon={<IconChevronLeftLarge onClick={() => navigate(-1)} />}
+      rightIcon={
+        <IconCancel onClick={() => navigate("/profile", { replace: true })} />
+      }
+    >
+      동네 인증
+    </Header>
+  );
+};
 
 const Verification = () => {
   const {
@@ -34,12 +44,14 @@ const Verification = () => {
     mapLevel: 3,
     mapClickEnabled: false,
     options: {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       markerEnabled: true,
     },
   });
 
   return (
-    <Layout header={HeaderContainer}>
+    <Layout header={<HeaderContainer />}>
       <Box padding="0 20px" height="calc(100dvh - 52px - 20px)">
         <Flex flexDirection="column" gap="36px">
           <Stack>
