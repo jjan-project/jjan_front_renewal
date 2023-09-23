@@ -40,7 +40,7 @@ const MaxPeople = (props: PartyFormSubPageProps) => {
   const [selectedCount, setSelectedCount] = useState(maxPeople);
 
   const handleNext = () => {
-    dispatch(setMaxPeople(selectedCount as number));
+    dispatch(setMaxPeople(selectedCount || ""));
 
     onNextStep();
   };
@@ -69,7 +69,7 @@ const MaxPeople = (props: PartyFormSubPageProps) => {
         <ScrollSelect
           list={PEOPLE_COUNT}
           height={150}
-          onSelectedChange={value => setSelectedCount(value as number)}
+          onSelectedChange={value => setSelectedCount(value as string)}
         />
         <Spacing direction="vertical" fill={true} />
         <Box>

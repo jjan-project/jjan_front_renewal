@@ -14,7 +14,7 @@ export type PartyFormState = Partial<{
   date: Date;
   time: string;
   location: PartyLocation;
-  maxPeople: number;
+  maxPeople: string;
   keywords: Set<string>;
 }>;
 
@@ -25,8 +25,9 @@ type Action =
   | { type: "SET_DATE"; payload: Date }
   | { type: "SET_TIME"; payload: string }
   | { type: "SET_LOCATION"; payload: PartyLocation }
-  | { type: "SET_MAX_PEOPLE"; payload: number }
-  | { type: "SET_KEYWORDS"; payload: Set<string> | undefined };
+  | { type: "SET_MAX_PEOPLE"; payload: string }
+  | { type: "SET_KEYWORDS"; payload: Set<string> | undefined }
+  | { type: "CLEAR" };
 
 export type DispatchType = Dispatch<Action>;
 
@@ -65,13 +66,16 @@ export const setLocation = (location: PartyLocation): Action => ({
   type: "SET_LOCATION",
   payload: location,
 });
-export const setMaxPeople = (maxPeople: number): Action => ({
+export const setMaxPeople = (maxPeople: string): Action => ({
   type: "SET_MAX_PEOPLE",
   payload: maxPeople,
 });
 export const setKeywords = (keywords: Set<string> | undefined): Action => ({
   type: "SET_KEYWORDS",
   payload: keywords,
+});
+export const clearStore = (): Action => ({
+  type: "CLEAR",
 });
 
 const partyFormReducer = (
@@ -95,6 +99,8 @@ const partyFormReducer = (
       return { ...state, maxPeople: action.payload };
     case "SET_KEYWORDS":
       return { ...state, keywords: action.payload };
+    case "CLEAR":
+      return { ...initialPartyFormState };
     default:
       return state;
   }

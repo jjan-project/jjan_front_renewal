@@ -1,12 +1,20 @@
-// import { usePartyFormState } from "@/store/partyStore";
+import { useNavigate } from "react-router-dom";
+
 import { Keywords } from "./keywords";
 import { Location } from "./location";
 import { MaxPeople } from "./max-people";
 import { Schedule } from "./schedule";
 import { Title } from "./title";
 
+import { useCreateParty } from "@/api/jjan/partyController";
 import useProgressBar from "@/components/progressbar/useProgressBar";
 import useFunnel from "@/hooks/useFunnel";
+import {
+  PartyFormState,
+  clearStore,
+  usePartyFormState,
+  usePartyFormDispatch,
+} from "@/store/partyStore";
 
 const STS = {
   Title: "step1",
@@ -32,7 +40,10 @@ const CreateParty = () => {
    * @todo
    * 값 확인용 signup 함수 완성되면 대체할 예정
    */
-  // const partyFormState = usePartyFormState();
+  const partyFormState = usePartyFormState();
+  const dispatch = usePartyFormDispatch();
+  const cratePartyMutation = useCreateParty();
+  const navigate = useNavigate();
 
   const { Funnel, onNextStep, onPreviousStep } = useFunnel(Object.values(STS));
   const { step, setGaugeUp, setGaugeDown } = useProgressBar(
@@ -40,19 +51,70 @@ const CreateParty = () => {
     LAST_STEP,
   );
 
-  const stepUphandler = () => {
+  const convertObjectToData = (obj: PartyFormState) => {
+    const {
+      description,
+      maxPeople,
+      location,
+      date,
+      time,
+      keywords,
+      partyName,
+    } = obj;
+
+    return {
+      title: partyName,
+      content: description,
+      address: location?.address,
+      maxPartyNum: maxPeople?.slice(0, maxPeople.length - 1),
+      partyLatitude: location?.latitude,
+      partyLongitude: location?.longitude,
+      partyDate: `${date?.getFullYear()}/${((date?.getMonth() as number) + 1)
+        .toString()
+        .padStart(2, "0")}/${date
+        ?.getDate()
+        .toString()
+        .padStart(2, "0")} ${time}`,
+      partyTags: Array.from(keywords || []),
+    };
+  };
+
+  const postFormData = async () => {
+    const data = convertObjectToData(partyFormState);
+
+    const formData = new FormData();
+    formData.append(
+      "data",
+      new Blob([JSON.stringify(data)], { type: "application/json" }),
+    );
+
+    partyFormState.photos?.forEach(photo => {
+      formData.append("images", photo);
+    });
+
+    try {
+      await cratePartyMutation.mutateAsync(formData);
+      return true;
+    } catch (e) {
+      /**
+       * @todo
+       * 추후 에러 핸들링 변경
+       */
+    }
+
+    return false;
+  };
+
+  const stepUphandler = async () => {
     if (step !== LAST_STEP) {
       onNextStep();
       setGaugeUp();
     } else {
-      // call signup function
-      // console.log("singup");
-      /**
-       * @todo
-       * 값 확인용 signup 함수 완성되면 대체할 예정
-       * ex signup() or signup(signupState)
-       */
-      // console.log(partyFormState);
+      const isSingupSuccess = await postFormData();
+      if (isSingupSuccess) {
+        dispatch(clearStore());
+        navigate("/");
+      }
     }
   };
 
@@ -61,8 +123,8 @@ const CreateParty = () => {
       onPreviousStep();
       setGaugeDown();
     } else {
-      // cancle signup
-      // console.log("cancle");
+      navigate(-1);
+      dispatch(clearStore());
     }
   };
 
@@ -84,4 +146,4 @@ const CreateParty = () => {
   );
 };
 
-export default CreateParty;
+export { CreateParty };
