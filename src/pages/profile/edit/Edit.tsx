@@ -29,7 +29,7 @@ import {
   useUpdateAvatar,
   useUpdateNickname,
   useUpdateDrinkCapacity,
-} from "@/query/user/useUpdateProfile";
+} from "@/query/user";
 
 const HeaderContainer = () => {
   const navigate = useNavigate();
@@ -82,7 +82,7 @@ const Edit = () => {
         mutateAvatar.mutate(formDate);
       }
 
-      mutateDrinkCapacity.mutate(localCapacity);
+      mutateDrinkCapacity.mutate(localCapacity.toString());
     } catch (error) {
       console.error(error);
     }
