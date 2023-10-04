@@ -36,8 +36,10 @@ const Location = (props: PartyFormSubPageProps) => {
   } = useGeoLocation();
 
   const { mapComponent } = useCreateMap({
-    latitude: localLocation?.latitude ? localLocation.latitude : latitude,
-    longitude: localLocation?.longitude ? localLocation.longitude : longitude,
+    latitude: localLocation?.latitude ? localLocation.latitude : latitude || 0,
+    longitude: localLocation?.longitude
+      ? localLocation.longitude
+      : longitude || 0,
     mapLevel: 3,
     mapClickEnabled: false,
     options: {
@@ -76,10 +78,12 @@ const Location = (props: PartyFormSubPageProps) => {
               모임 만들기
             </Header>
             <Stack>
-              <Typo appearance="header1">우리의 모임 이른은?</Typo>
-              <Typo appearance="header1">모임 날짜와 시간을 선택해주세요</Typo>
+              <Typo appearance="header1">어디에서 만날까요?</Typo>
+              <Typo appearance="body1" color="gray700">
+                모임 장소를 정해주세요.
+              </Typo>
             </Stack>
-            {mapComponent()}
+            <Box height="45dvh">{mapComponent()}</Box>
             <Box onClick={() => setShowSearch(prev => !prev)}>
               <Input
                 appearance="underline"

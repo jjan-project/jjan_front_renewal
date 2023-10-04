@@ -26,6 +26,7 @@ export const partyRoutes = {
   getAllParty: "/api/party",
   getMyParty: "/api/party/my",
   getParty: "/api/party/:partyId",
+  getFilterParty: "/api/party/search",
 
   createParty: "/api/party",
 

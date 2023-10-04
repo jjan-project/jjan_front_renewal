@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { IconCancel, IconChevronLeftLarge } from "jjan-icon";
 
+import { ACCEPTED_IMAGE_TYPES } from "./constants";
 import { partyImageSchema, PartyImageSchemaType } from "./schema";
 import { UploaderUI } from "./uploaderUi";
 
@@ -74,6 +75,7 @@ const Title = (props: PartyFormSubPageProps) => {
               <Typo appearance="header2">모임 대표 사진</Typo>
               <Form.ImageUploader
                 name="photos"
+                accept={ACCEPTED_IMAGE_TYPES.join(",")}
                 render={props => <UploaderUI {...props} />}
                 mode="multiple"
               />

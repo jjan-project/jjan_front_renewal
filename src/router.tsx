@@ -5,6 +5,7 @@ import { fetchUserInfo } from "./api/jjan/userController";
 import { ChatList, ChatRoom } from "./pages/chat";
 import QueryProvider from "./queryProvider";
 
+import { CreateParty } from "@/pages/create-party";
 import { Home } from "@/pages/home";
 import { Landing } from "@/pages/landing";
 import { Loading } from "@/pages/loading";
@@ -16,9 +17,16 @@ import {
   PartyExit,
   PartyJoined,
 } from "@/pages/party";
+import {
+  ProfileEdit,
+  ProfileMain,
+  ProfileVerification,
+  ProfileWatchList,
+} from "@/pages/profile";
 import { Signin } from "@/pages/signin";
 import { Signup } from "@/pages/signup";
 import { SignupComplete } from "@/pages/signup-complete";
+import { PartyFormProvider } from "@/store/partyStore";
 import { SignupProvider } from "@/store/signupStore";
 
 const authRoutes = () => (
@@ -37,9 +45,14 @@ const loggedInRoutes = () => (
     <Route path="/party-filter" element={<PartyFiler />} />
     <Route path="/party-detail/:partyId" element={<PartyDetail />} />
     <Route path="/party-exit/:partyId" element={<PartyExit />} />
+    <Route path="/party-create" element={<CreateParty />} />
     <Route path="/party-joined/:partyId" element={<PartyJoined />} />
     <Route path="chat-list" element={<ChatList />} />
     <Route path="chat-room/:chatId" element={<ChatRoom />} />
+    <Route path="/profile" element={<ProfileMain />} />
+    <Route path="/profile-edit" element={<ProfileEdit />} />
+    <Route path="/profile-verification" element={<ProfileVerification />} />
+    <Route path="/profile-watchlist" element={<ProfileWatchList />} />
   </>
 );
 
@@ -64,10 +77,12 @@ const Router = () => {
 
   if (isLoggedIn) {
     routes = (
-      <Routes>
-        <Route path="/landing" element={<Navigate to="/" />} />
-        {loggedInRoutes()}
-      </Routes>
+      <PartyFormProvider>
+        <Routes>
+          <Route path="/landing" element={<Navigate to="/" />} />
+          {loggedInRoutes()}
+        </Routes>
+      </PartyFormProvider>
     );
   } else {
     routes = (

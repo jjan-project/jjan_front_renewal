@@ -10,6 +10,7 @@ import {
   CreatePartyResponseData,
   UpdatePartyResponseDate,
   PartyDetailInfo,
+  FilterPartyRequestData,
 } from "./types";
 
 import { QUERY_KEY } from "@/constants/queryKeys";
@@ -73,3 +74,9 @@ export const outParty = (partyId: string | undefined) =>
     undefined,
     { withCredentials: true },
   );
+
+export const useFetchFilterParty = () =>
+  serverStateManager.post<FilterPartyRequestData, PartyInfo[]>({
+    url: `${JJAN_URL}${partyRoutes.getFilterParty}`,
+    params: { withCredentials: true },
+  });
