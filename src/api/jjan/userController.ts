@@ -37,6 +37,11 @@ export const useDeleteUserUserEmail = (userEmail: string) =>
     },
   });
 
+export const useFetchUserInfo = () =>
+  serverStateManager.fetch<AuthResponseData>({
+    url: `${JJAN_URL}${userRoutes.userInfo}`,
+  });
+
 export const fetchUserInfo = () =>
   httpService.get<AuthResponseData>(`${JJAN_URL}${userRoutes.userInfo}`, {
     withCredentials: true,
