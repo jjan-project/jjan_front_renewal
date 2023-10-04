@@ -22,9 +22,12 @@ const Avatar = (props: AvatarProps, ref: ForwardedRef<HTMLImageElement>) => {
   };
 
   useEffect(() => {
-    if (src === null) {
+    if (!src) {
       setImageError(true);
+      return;
     }
+
+    setImageError(false);
   }, [src]);
 
   const Component = imageError ? S.ErrorFallback : S.ImageContainer;
