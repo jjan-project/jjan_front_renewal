@@ -2,6 +2,7 @@ import { Suspense, useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import { fetchUserInfo } from "./api/jjan/userController";
+import { ChatList, ChatRoom } from "./pages/chat";
 import QueryProvider from "./queryProvider";
 
 import { Home } from "@/pages/home";
@@ -37,6 +38,8 @@ const loggedInRoutes = () => (
     <Route path="/party-detail/:partyId" element={<PartyDetail />} />
     <Route path="/party-exit/:partyId" element={<PartyExit />} />
     <Route path="/party-joined/:partyId" element={<PartyJoined />} />
+    <Route path="chat-list" element={<ChatList />} />
+    <Route path="chat-room/:chatId" element={<ChatRoom />} />
   </>
 );
 

@@ -1,5 +1,5 @@
 import { IconChevronLeftLarge } from "jjan-icon";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import { BottomButton } from "../../components";
 
@@ -11,13 +11,18 @@ import { Layout } from "@/pages/components/layout";
 
 const Joined = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { partyId } = useParams();
+
+  const params = new URLSearchParams(location.search);
+  const partyTitle = params.get("partyTitle");
   const onChat = () => {
-    navigate("/party-explore");
+    navigate(`/chat-room/${partyId}`);
   };
 
   const HeaderContainer = (
     <Header leftIcon={<IconChevronLeftLarge onClick={() => navigate(-1)} />}>
-      회기 꽃술 6인팟!!
+      {partyTitle ? partyTitle : "모임 제목이 없습니다."}
     </Header>
   );
 
