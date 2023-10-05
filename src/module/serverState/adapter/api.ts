@@ -9,20 +9,22 @@ const token = {
 
 export const api = {
   get: <T>(url: string, params?: RequestConfigType) =>
-    httpService.get<T>(url, { ...params, token }),
+    httpService.get<T>(url, { ...params, token, withCredentials: true }),
 
   post: <T, S>(url: string, data: T | S, params?: RequestConfigType) =>
     httpService.post<ResponseType<S>, T | S>(url, data, {
       ...params,
       token,
+      withCredentials: true,
     }),
 
   patch: <T, S>(url: string, data: T | S, params?: RequestConfigType) =>
     httpService.patch<ResponseType<S>, T | S>(url, data, {
       ...params,
       token,
+      withCredentials: true,
     }),
 
   delete: <T>(url: string, params?: RequestConfigType) =>
-    httpService.delete<T>(url, { ...params, token }),
+    httpService.delete<T>(url, { ...params, token, withCredentials: true }),
 };

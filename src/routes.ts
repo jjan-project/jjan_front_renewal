@@ -38,3 +38,8 @@ export const partyRoutes = {
 
   outParty: "/api/party/:partyId/exit",
 };
+
+export const chatRoutes = {
+  getChatAllRoom: "/api/chat/participants",
+  getChatMessages: "/api/chat/:chatId",
+};

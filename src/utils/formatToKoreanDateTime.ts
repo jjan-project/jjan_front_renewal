@@ -26,4 +26,14 @@ const formatToKoreanDateTime = (dateStr: string) => {
   } ${day}일 ${amPm} ${formattedHour}시 ${minute}분`;
 };
 
-export { formatToKoreanDateTime };
+const formatToKoreanTime = (dateStr: string) => {
+  const [date, time] = dateStr.split(" ");
+  const [, ,] = date.split("-");
+  const [hour, minute] = time.split(":").map(Number);
+
+  const amPm = hour >= 12 ? "오후" : "오전";
+  const formattedHour = hour > 12 ? hour - 12 : hour;
+  return `${amPm} ${formattedHour}시 ${minute}분`;
+};
+
+export { formatToKoreanDateTime, formatToKoreanTime };

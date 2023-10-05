@@ -47,7 +47,9 @@ const Detail = () => {
   const onJoined = async () => {
     try {
       await joinParty(partyId);
-      navigate(`/party-joined/${partyId}`);
+      navigate(
+        `/party-joined/${partyId}?partyTitle=${responseDetail?.data.title}`,
+      );
     } catch (e) {
       console.error(e);
     }

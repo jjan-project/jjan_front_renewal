@@ -69,7 +69,23 @@ export type UpdatePartyResponseDate = {
   partyImages: string[];
 };
 
-export type FilterPartyRequestData = {
+export type ChatMessageResponseDate = {
+  chatId: string;
+  sender: string;
+  senderImage: string;
+  message: string;
+  sendTime: string;
+};
+
+export type ChatAllRoomResponseData = {
+  chatId: number;
+  lastChat: string | null;
+  partyId: number;
+  partyImages: string | null;
+  partyTitle: string;
+}
+
+  export type FilterPartyRequestData = {
   sort: string | null;
   partyTagList?: string[] | null;
   radiusRange?: string | null;
