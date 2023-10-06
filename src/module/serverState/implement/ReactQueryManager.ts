@@ -7,8 +7,7 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 
-import { api } from "../adapter";
-import ServerStateManager from "../interface";
+import { ServerStateManager, ApiServiceInterface } from "../interface";
 import type { ResponseType, ErrorType } from "../type/httpTypes";
 import type {
   QueryKeyT,
@@ -20,6 +19,11 @@ import type {
 
 export class ReactQueryManager implements ServerStateManager {
   private url: string | null = null;
+  private apiService: ApiServiceInterface;
+
+  constructor(apiService: ApiServiceInterface) {
+    this.apiService = apiService;
+  }
 
   private fetcher<T>({
     queryKey,
@@ -27,7 +31,7 @@ export class ReactQueryManager implements ServerStateManager {
   }: QueryFunctionContext<QueryKeyT>): Promise<T> {
     const [url, params] = queryKey;
 
-    return api.get<T>(this.url ? this.url : url, {
+    return this.apiService.get<T>(this.url ? this.url : url, {
       params: { ...params, page: pageParam },
     });
   }
@@ -118,7 +122,7 @@ export class ReactQueryManager implements ServerStateManager {
     const { url, params } = props;
 
     return this.genericMutation<T, S>({
-      func: data => api.post<T, S>(url, data, params),
+      func: data => this.apiService.post<T, S>(url, data, params),
       ...props,
     });
   }
@@ -127,7 +131,7 @@ export class ReactQueryManager implements ServerStateManager {
     const { url, params } = props;
 
     return this.genericMutation<T, S>({
-      func: data => api.patch<T, S>(url, data, params),
+      func: data => this.apiService.patch<T, S>(url, data, params),
       ...props,
     });
   }
@@ -136,7 +140,7 @@ export class ReactQueryManager implements ServerStateManager {
     const { url, params } = props;
 
     return this.genericMutation<T>({
-      func: () => api.delete<T>(url, params),
+      func: () => this.apiService.delete<T>(url, params),
       ...props,
     });
   }

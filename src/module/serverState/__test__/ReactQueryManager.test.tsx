@@ -3,7 +3,7 @@ import { waitFor } from "@testing-library/dom";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, test, beforeEach } from "vitest";
 
-import { ReactQueryManager } from "../implement/ReactQueryManager";
+import { serverStateManager } from "../";
 
 import { fakeUsers } from "./dummyData";
 
@@ -29,7 +29,6 @@ const DATA = {
 
 const URL = `${testBaseURL}/users`;
 
-const serverStateManager = new ReactQueryManager();
 const queryClient = new QueryClient();
 
 const setupQueryClient = () => {
