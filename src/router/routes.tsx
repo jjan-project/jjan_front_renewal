@@ -23,6 +23,8 @@ import { Signin } from "@/pages/signin";
 import { Signup } from "@/pages/signup";
 import { SignupComplete } from "@/pages/signup-complete";
 
+import { Home } from "@/pages/home";
+
 const routes: Routes = [
   {
     path: "/landing",
@@ -46,7 +48,7 @@ const routes: Routes = [
   },
   {
     path: "/",
-    element: <Navigate to="/landing" />,
+    element: <Home />,
     isPublic: false,
   },
   {

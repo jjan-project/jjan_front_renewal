@@ -3,7 +3,8 @@ import { Route, Routes } from "react-router-dom";
 
 import { PrivateRoute, PublicRoute, routes } from "./routes";
 
-import { fetchUserInfo } from "@/api/jjan/userController";
+import { fetchUserInfo } from "@/services/internal/user/http";
+import { SignupProvider } from "@/store/signupStore";
 
 const RouterClient = () => {
   // todo change to useAuth
@@ -31,9 +32,11 @@ const RouterClient = () => {
           path={path}
           element={
             isPublic ? (
-              <PublicRoute isAuthenticated={isLoggedIn} link="/">
-                {element}
-              </PublicRoute>
+              <SignupProvider>
+                <PublicRoute isAuthenticated={isLoggedIn} link="/">
+                  {element}
+                </PublicRoute>
+              </SignupProvider>
             ) : (
               <PrivateRoute isAuthenticated={isLoggedIn} link="/landing">
                 {element}
