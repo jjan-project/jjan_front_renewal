@@ -39,7 +39,6 @@ interface MutationProps<T, S = unknown> {
   params?: RequestConfigType;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   config?: UseMutationOptions<ResponseType<S> | any, ErrorType, T | S>;
-  customQueryKey?: string;
 }
 
 export type {

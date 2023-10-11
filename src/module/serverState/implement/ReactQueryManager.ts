@@ -18,7 +18,6 @@ import type {
 } from "../type/ReactQueryManager";
 
 export class ReactQueryManager implements ServerStateManager {
-  private url: string | null = null;
   private apiService: ApiServiceInterface;
 
   constructor(apiService: ApiServiceInterface) {
@@ -30,19 +29,16 @@ export class ReactQueryManager implements ServerStateManager {
     pageParam,
   }: QueryFunctionContext<QueryKeyT>): Promise<T> {
     const [url, params] = queryKey;
-
-    return this.apiService.get<T>(this.url ? this.url : url, {
+    return this.apiService.get<T>(url, {
       params: { ...params, page: pageParam },
     });
   }
 
   fetch<T>(props: QueryProps<T>) {
-    const { url, params, config, customQueryKey } = props;
-
-    this.url = url;
+    const { url, params, config } = props;
 
     return useQuery<T, Error, T, QueryKeyT>({
-      queryKey: customQueryKey ? [customQueryKey, params] : [url!, params],
+      queryKey: [url!, params],
       queryFn: (context: QueryFunctionContext<QueryKeyT>) =>
         this.fetcher<T>(context),
       enabled: !!url,
@@ -51,7 +47,7 @@ export class ReactQueryManager implements ServerStateManager {
   }
 
   preFetch<T>(props: Omit<QueryProps<T>, "config">) {
-    const { url, params, customQueryKey } = props;
+    const { url, params } = props;
     const queryClient = useQueryClient();
 
     return () => {
@@ -59,10 +55,8 @@ export class ReactQueryManager implements ServerStateManager {
         return;
       }
 
-      this.url = url;
-
       queryClient.prefetchQuery<T, Error, T, QueryKeyT>({
-        queryKey: customQueryKey ? [customQueryKey, params] : [url!, params],
+        queryKey: [url!, params],
         queryFn: (context: QueryFunctionContext<QueryKeyT>) =>
           this.fetcher(context),
       });
@@ -70,9 +64,7 @@ export class ReactQueryManager implements ServerStateManager {
   }
 
   loadMore<T>(props: InfinitePagesProps<T>) {
-    const { url, params, config, customQueryKey } = props;
-
-    this.url = url;
+    const { url, params, config } = props;
 
     return useInfiniteQuery<
       GetInfinitePagesInterface<T>,
@@ -80,7 +72,7 @@ export class ReactQueryManager implements ServerStateManager {
       GetInfinitePagesInterface<T>,
       QueryKeyT
     >({
-      queryKey: customQueryKey ? [customQueryKey, params] : [url!, params],
+      queryKey: [url!, params],
       queryFn: (context: QueryFunctionContext<QueryKeyT>) => {
         context.pageParam = context.pageParam || 1;
         return this.fetcher(context);
