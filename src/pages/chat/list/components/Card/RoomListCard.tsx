@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { CardImage } from "./CardImage";
 import { CardInfo } from "./CardInfo";
 
-import { ChatAllRoomResponseData } from "@/api/jjan/types";
 import { Box } from "@/components/box";
 import { CheckBox } from "@/components/checkBox";
 import { Flex } from "@/components/flex";
+import { ChatAllRoomResponseData } from "@/services/internal/types";
 
 const RoomListCard = ({
   showMenu,

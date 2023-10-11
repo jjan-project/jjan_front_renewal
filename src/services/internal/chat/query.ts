@@ -1,7 +1,7 @@
 import { chatRoutes } from "@/routes";
 
-import { JJAN_URL } from "./domain";
-import { ChatAllRoomResponseData, ChatMessageResponseDate } from "./types";
+import { JJAN_URL } from "../domain";
+import { ChatAllRoomResponseData, ChatMessageResponseDate } from "../types";
 
 import { serverStateManager } from "@/module/serverState";
 import { pathToUrl } from "@/utils/pathToURL";

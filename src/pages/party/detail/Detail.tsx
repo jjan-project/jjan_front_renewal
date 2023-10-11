@@ -12,7 +12,6 @@ import { BottomButton } from "../../components/layout";
 import { TagBox } from "./TagBox";
 import { useDetailData } from "./useDetailData";
 
-import { joinParty } from "@/api/jjan/partyController";
 import { Avatar } from "@/components/avatar";
 import { Box } from "@/components/box";
 import { Cluster } from "@/components/cluster";
@@ -25,6 +24,7 @@ import { Spacing } from "@/components/spacing";
 import { Stack } from "@/components/stack";
 import { Typo } from "@/components/typo";
 import { Layout } from "@/pages/components/layout";
+import { joinParty } from "@/services/internal/party/http";
 import { formatToKoreanDateTime } from "@/utils/formatToKoreanDateTime";
 
 const PartyImages = ({ images }: { images?: string[] }) => (

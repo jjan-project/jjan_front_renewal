@@ -1,8 +1,6 @@
 import { IconCancel, IconChevronLeftLarge } from "jjan-icon";
 import { Link, useNavigate } from "react-router-dom";
 
-import { fetchJoinedParty } from "@/api/jjan/partyController";
-import { PartyInfo } from "@/api/jjan/types";
 import { Box } from "@/components/box";
 import { Header } from "@/components/header";
 import { Hr } from "@/components/hr";
@@ -11,6 +9,8 @@ import { Spacing } from "@/components/spacing";
 import { Typo } from "@/components/typo";
 import { PartyCard } from "@/pages/components";
 import { Layout } from "@/pages/components/layout";
+import { useFetchJoinedParty } from "@/services/internal/party/query";
+import { PartyInfo } from "@/services/internal/types";
 import { calculateDday } from "@/utils/calculateDday";
 
 const HeaderContainer = () => {
@@ -29,11 +29,12 @@ const HeaderContainer = () => {
 };
 
 const WatchList = () => {
-  const joinedPartyResponse = fetchJoinedParty();
   let joinedPartyList: PartyInfo[] | undefined;
 
+  const { data: joinedPartyResponse } = useFetchJoinedParty();
+
   if (joinedPartyResponse?.data) {
-    joinedPartyList = joinedPartyResponse.data.data;
+    joinedPartyList = joinedPartyResponse.data;
   }
 
   const handleDday = (date: string) => {

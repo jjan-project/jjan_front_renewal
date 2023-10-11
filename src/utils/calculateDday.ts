@@ -7,6 +7,5 @@ export const calculateDday = (targetDateString: string) => {
 
   const diffInMilliseconds = targetDate.getTime() - today.getTime();
   const diffInDays = diffInMilliseconds / (1000 * 60 * 60 * 24);
-
   return diffInDays;
 };

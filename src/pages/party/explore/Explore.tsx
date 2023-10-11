@@ -3,11 +3,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
 import { NAV_ITEMS } from "../constants";
 
-import {
-  useAllPartyData,
-  useJoinedPartyData,
-  usePartyFilterData,
-} from "./hooks/";
+import { usePartyFilterData } from "./hooks";
 
 import { BottomNav } from "@/components/bottomNav";
 import { Box } from "@/components/box";
@@ -19,6 +15,10 @@ import { Tabs } from "@/components/tabs";
 import { Typo } from "@/components/typo";
 import { PartyCard } from "@/pages/components";
 import { Layout } from "@/pages/components/layout";
+import {
+  useFetchAllParty,
+  useFetchJoinedParty,
+} from "@/services/internal/party/query";
 import { calculateDday } from "@/utils/calculateDday";
 
 const NAME = {
@@ -48,12 +48,12 @@ const Explore = () => {
     personnelLoe,
     ageTag,
   });
-  const defaultPartyList = useAllPartyData();
-  const joinedPartyList = useJoinedPartyData();
+  const { data: allPartyResponse } = useFetchAllParty();
+  const { data: joinedPartyResponse } = useFetchJoinedParty();
 
   const partyListToDisplay = filteredPartyList?.length
     ? filteredPartyList
-    : defaultPartyList;
+    : allPartyResponse && allPartyResponse.data;
 
   const handleDday = (date: string) => {
     const [day] = date.split(" ");
@@ -110,8 +110,8 @@ const Explore = () => {
             </Tabs.Panel>
             <Tabs.Panel name={NAME.SECOND}>
               <List gap="30px" height="calc(100dvh - 68px - 221px)">
-                {joinedPartyList
-                  ? joinedPartyList.map(partyInfo => (
+                {joinedPartyResponse && joinedPartyResponse.data
+                  ? joinedPartyResponse.data.map(partyInfo => (
                       <Link
                         to={`/party-detail/${partyInfo.id}`}
                         key={partyInfo.id}

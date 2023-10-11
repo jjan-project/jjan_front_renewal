@@ -36,7 +36,7 @@ export const partyRoutes = {
 
   joinParty: "/api/party/:partyId/join",
 
-  outParty: "/api/party/:partyId/exit",
+  exitParty: "/api/party/:partyId/exit",
 };
 
 export const chatRoutes = {

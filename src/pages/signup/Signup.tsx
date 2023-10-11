@@ -10,9 +10,9 @@ import { Email } from "./email";
 import { Gender } from "./gender";
 import { Nickname } from "./nickname";
 
-import { useSignupApi } from "@/api/jjan/joinController";
 import useProgressBar from "@/components/progressbar/useProgressBar";
 import useFunnel from "@/hooks/useFunnel";
+import { useSignup } from "@/services/internal/auth/query";
 import { useSignupState, State as SignupStateType } from "@/store/signupStore";
 import { getFormattedBirthday } from "@/utils/getFormattedBirthday";
 
@@ -41,7 +41,7 @@ const LAST_STEP = Object.keys(STS).length;
 
 const Signup = () => {
   const signupState = useSignupState();
-  const signupMutation = useSignupApi();
+  const signupMutation = useSignup();
   const navigate = useNavigate();
 
   const { Funnel, onNextStep, onPreviousStep } = useFunnel(Object.values(STS));

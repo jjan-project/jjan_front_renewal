@@ -1,19 +1,17 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 
 import { partyRoutes } from "@/routes";
 
+import { JJAN_URL } from "../domain";
 import { Response } from "../types";
-
-import { JJAN_URL } from "./domain";
 import {
   PartyInfo,
   CreatePartyResponseData,
   UpdatePartyResponseDate,
   PartyDetailInfo,
   FilterPartyRequestData,
-} from "./types";
+} from "../types";
 
-import { QUERY_KEY } from "@/constants/queryKeys";
 import { httpService } from "@/module/http";
 import { serverStateManager } from "@/module/serverState";
 import { ErrorType } from "@/module/serverState/type/httpTypes";
@@ -24,13 +22,9 @@ export const useFetchAllParty = () =>
     url: `${JJAN_URL}${partyRoutes.getAllParty}`,
   });
 
-export const fetchJoinedParty = () =>
-  useQuery<Response<PartyInfo[]>, ErrorType, Response<PartyInfo[]>, string[]>({
-    queryKey: [QUERY_KEY.joinPartyList],
-    queryFn: async () =>
-      await httpService.get(`${JJAN_URL}${partyRoutes.getMyParty}`, {
-        withCredentials: true,
-      }),
+export const useFetchJoinedParty = () =>
+  serverStateManager.fetch<Response<PartyInfo[]>>({
+    url: `${JJAN_URL}${partyRoutes.getMyParty}`,
   });
 
 export const useFetchDetailParty = (partyId: string | undefined) =>
@@ -39,12 +33,9 @@ export const useFetchDetailParty = (partyId: string | undefined) =>
   });
 
 export const useCreateParty = () =>
-  useMutation<Response<CreatePartyResponseData>, ErrorType, FormData>({
-    mutationFn: (formData: FormData) =>
-      httpService.post(`${JJAN_URL}${partyRoutes.createParty}`, formData, {
-        withCredentials: true,
-      }),
-    useErrorBoundary: true,
+  serverStateManager.post<FormData, Response<CreatePartyResponseData>>({
+    url: `${JJAN_URL}${partyRoutes.createParty}`,
+    config: { useErrorBoundary: true },
   });
 
 export const useUpdateParty = () =>
@@ -60,20 +51,6 @@ export const useDeleteParty = () =>
   serverStateManager.delete<Response<null>>({
     url: `${JJAN_URL}${partyRoutes.deleteParty}`,
   });
-
-export const joinParty = (partyId: string | undefined) =>
-  httpService.post<Response<null>>(
-    `${JJAN_URL}${pathToUrl(partyRoutes.joinParty, { partyId })}`,
-    undefined,
-    { withCredentials: true },
-  );
-
-export const outParty = (partyId: string | undefined) =>
-  httpService.post<Response<null>>(
-    `${JJAN_URL}${pathToUrl(partyRoutes.outParty, { partyId })}`,
-    undefined,
-    { withCredentials: true },
-  );
 
 export const useFetchFilterParty = () =>
   serverStateManager.post<FilterPartyRequestData, PartyInfo[]>({

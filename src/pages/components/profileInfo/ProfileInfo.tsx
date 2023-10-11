@@ -1,29 +1,14 @@
 import { IconLocationPlus } from "jjan-icon";
-import { useEffect, useState } from "react";
 
-import { AuthResponseData } from "@/api/jjan/types";
-import { fetchUserInfo } from "@/api/jjan/userController";
 import { Avatar } from "@/components/avatar";
 import { Box } from "@/components/box";
 import { Flex } from "@/components/flex";
 import { Stack } from "@/components/stack";
 import { Typo } from "@/components/typo";
+import { useFetchUserInfo } from "@/services/internal/user/query";
 
 const ProfileInfo = () => {
-  const [userInfo, setUserInfo] = useState<AuthResponseData>();
-
-  const onFetchUserInfo = async () => {
-    try {
-      const response = await fetchUserInfo();
-      setUserInfo(response);
-    } catch (error) {
-      console.error("Error while verifying JWT Token", error);
-    }
-  };
-
-  useEffect(() => {
-    onFetchUserInfo();
-  }, []);
+  const { data: userInfo } = useFetchUserInfo();
 
   if (!userInfo) return;
 

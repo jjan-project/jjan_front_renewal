@@ -14,7 +14,7 @@ import type { RequestConfig } from "../type";
 import { getRequestHeader } from "../util";
 import { extractDomain } from "../util";
 
-import { JJAN_URL } from "@/api/jjan/domain";
+import { JJAN_URL } from "@/services/internal/domain";
 import { mergeObjects } from "@/utils/objects";
 
 type AxiosRequestConfigAdaptor = Partial<AxiosRequestConfig> & RequestConfig;
@@ -42,7 +42,6 @@ class AxiosHttpHandler implements HttpHandler {
             }),
           );
         }
-
         return Promise.reject(error);
       },
     );
@@ -92,19 +91,13 @@ class AxiosHttpHandler implements HttpHandler {
     url: string,
     config?: AxiosRequestConfigAdaptor,
   ): AxiosRequestConfig {
-    if (!config) return {};
     const defaultConfig: AxiosRequestConfig = {
-      headers: getRequestHeader(
-        requestHeaderMap,
-        extractDomain(url),
-        config.token,
-      ),
+      headers: getRequestHeader(requestHeaderMap, extractDomain(url)),
       /**
        * params: getRequestHeader(this.domain),
        * more...
        */
     };
-
     return mergeObjects(defaultConfig, config);
   }
 }

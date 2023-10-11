@@ -10,13 +10,13 @@ import {
 import { HEADER_BOTTOM_HEIGHT } from "./constants";
 import { useWebSocket } from "./hooks";
 
-import { useFetchChatMessages } from "@/api/jjan/chatController";
-import { ChatMessageResponseDate } from "@/api/jjan/types";
-import { useFetchUserInfo } from "@/api/jjan/userController";
 import { Box } from "@/components/box";
 import { Header } from "@/components/header";
 import { List } from "@/components/list";
 import { Layout } from "@/pages/components/layout";
+import { useFetchChatMessages } from "@/services/internal/chat/query";
+import { ChatMessageResponseDate } from "@/services/internal/types";
+import { useFetchUserInfo } from "@/services/internal/user/query";
 
 type MessageListProps = {
   chatMessageList?: ChatMessageResponseDate[];

@@ -8,13 +8,10 @@ import {
   IconMascot3,
   IconMascot4,
 } from "jjan-icon";
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { NAV_ITEMS } from "./constants";
 
-import { AuthResponseData } from "@/api/jjan/types";
-import { fetchUserInfo } from "@/api/jjan/userController";
 import { Avatar } from "@/components/avatar";
 import { BottomNav } from "@/components/bottomNav";
 import { Box } from "@/components/box";
@@ -24,6 +21,7 @@ import { Header } from "@/components/header";
 import { Spacing } from "@/components/spacing";
 import { Stack } from "@/components/stack";
 import { Typo } from "@/components/typo";
+import { useFetchUserInfo } from "@/services/internal/user/query";
 
 const Cards = () => {
   const navigate = useNavigate();
@@ -132,20 +130,7 @@ const Cards = () => {
 
 const Home = () => {
   const navigate = useNavigate();
-  const [userInfo, setUserInfo] = useState<AuthResponseData>();
-
-  const onFetchUserInfo = async () => {
-    try {
-      const response = await fetchUserInfo();
-      setUserInfo(response);
-    } catch (error) {
-      console.error("Error while verifying JWT Token", error);
-    }
-  };
-
-  useEffect(() => {
-    onFetchUserInfo();
-  }, []);
+  const { data: userInfo } = useFetchUserInfo();
 
   return (
     <Box height="100dvh">

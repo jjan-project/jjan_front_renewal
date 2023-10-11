@@ -2,7 +2,7 @@ import { z } from "zod";
 
 import { jjanError } from "@/errors";
 
-import { isNicknameExistedApi } from "@/api/jjan/joinController";
+import { isNicknameExistedApi } from "@/services/internal/auth/http";
 
 const isNicknameExists = async (nickname: string) => {
   try {

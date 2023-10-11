@@ -6,7 +6,6 @@ import { FORM_DATA } from "./constants";
 import { signinSchema } from "./schema";
 import type { SigninSchemaType } from "./schema";
 
-import { useSigninApi } from "@/api/jjan/joinController";
 import { Box } from "@/components/box";
 import { Button } from "@/components/button";
 import { Flex } from "@/components/flex";
@@ -14,10 +13,11 @@ import { Form } from "@/components/form/Form";
 import { Header } from "@/components/header";
 import { Spacing } from "@/components/spacing";
 import { Stack } from "@/components/stack";
+import { useSignin } from "@/services/internal/auth/query";
 
 const Signin = () => {
   const navigate = useNavigate();
-  const signinMutation = useSigninApi();
+  const signinMutation = useSignin();
 
   const handlePrev = () => {
     navigate("/landing", {

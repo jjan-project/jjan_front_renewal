@@ -6,9 +6,9 @@ import { MaxPeople } from "./max-people";
 import { Schedule } from "./schedule";
 import { Title } from "./title";
 
-import { useCreateParty } from "@/api/jjan/partyController";
 import useProgressBar from "@/components/progressbar/useProgressBar";
 import useFunnel from "@/hooks/useFunnel";
+import { useCreateParty } from "@/services/internal/party/query";
 import {
   PartyFormState,
   clearStore,

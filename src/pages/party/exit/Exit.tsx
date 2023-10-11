@@ -4,7 +4,6 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { BottomButton } from "../../components";
 
-import { outParty } from "@/api/jjan/partyController";
 import { Box } from "@/components/box";
 import { Header } from "@/components/header";
 import { Spacing } from "@/components/spacing";
@@ -12,6 +11,7 @@ import { Stack } from "@/components/stack";
 import { TextArea } from "@/components/textField";
 import { Typo } from "@/components/typo";
 import { Layout } from "@/pages/components/layout";
+import { exitParty } from "@/services/internal/party/http";
 
 const Exit = () => {
   const { partyId } = useParams();
@@ -30,7 +30,7 @@ const Exit = () => {
     }
 
     try {
-      await outParty(partyId);
+      await exitParty(partyId);
       navigate("/party-explore");
     } catch (e) {
       console.error(e);
