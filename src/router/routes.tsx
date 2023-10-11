@@ -4,6 +4,7 @@ import { AuthRoute, Routes } from "./types";
 
 import { ChatList, ChatRoom } from "@/pages/chat";
 import { CreateParty } from "@/pages/create-party";
+import { Home } from "@/pages/home";
 import { Landing } from "@/pages/landing";
 import { Notifications } from "@/pages/notifications";
 import {
@@ -22,8 +23,6 @@ import {
 import { Signin } from "@/pages/signin";
 import { Signup } from "@/pages/signup";
 import { SignupComplete } from "@/pages/signup-complete";
-
-import { Home } from "@/pages/home";
 
 const routes: Routes = [
   {
