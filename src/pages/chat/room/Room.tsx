@@ -15,8 +15,8 @@ import { ChatMessageResponseDate } from "@/api/jjan/types";
 import { useFetchUserInfo } from "@/api/jjan/userController";
 import { Box } from "@/components/box";
 import { Header } from "@/components/header";
+import { Layout } from "@/components/layout";
 import { List } from "@/components/list";
-import { Layout } from "@/pages/components/layout";
 
 type MessageListProps = {
   chatMessageList?: ChatMessageResponseDate[];
@@ -81,19 +81,17 @@ const Room = () => {
     }
   }, [userInfo, ws, socketConnected]);
 
-  const HeaderContainer = (
-    <Header
-      leftIcon={<IconChevronLeftLarge onClick={() => navigate(-1)} />}
-      rightIcon={<IconCancel onClick={() => navigate("/party-explore")} />}
-    >
-      채팅
-    </Header>
-  );
-
   return (
     <Layout
-      header={HeaderContainer}
-      bottom={
+      header={
+        <Header
+          leftIcon={<IconChevronLeftLarge onClick={() => navigate(-1)} />}
+          rightIcon={<IconCancel onClick={() => navigate("/party-explore")} />}
+        >
+          채팅
+        </Header>
+      }
+      footer={
         <BottomChatInputBar
           ws={ws}
           chatId={chatId}
@@ -101,6 +99,7 @@ const Room = () => {
           userInfo={userInfo}
         />
       }
+      paddingFooter={false}
     >
       <Box padding="0 20px">
         {userInfo?.nickName && (

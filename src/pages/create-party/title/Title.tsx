@@ -10,8 +10,8 @@ import { Button } from "@/components/button";
 import { Flex } from "@/components/flex";
 import { Form } from "@/components/form/Form";
 import { Header } from "@/components/header";
+import { Layout } from "@/components/layout";
 import { ProgressBar } from "@/components/progressbar";
-import { Spacing } from "@/components/spacing";
 import { Stack } from "@/components/stack";
 import { Typo } from "@/components/typo";
 import { PartyFormSubPageProps } from "@/pages/create-party/types";
@@ -45,8 +45,8 @@ const Title = (props: PartyFormSubPageProps) => {
   };
 
   return (
-    <Box height="100vh" padding="0 20px">
-      <Flex flexDirection="column" gap="5dvh">
+    <Layout
+      header={
         <Header
           leftIcon={
             <IconChevronLeftLarge
@@ -57,43 +57,49 @@ const Title = (props: PartyFormSubPageProps) => {
           }
           rightIcon={<IconCancel width="22px" height="22px" />}
         >
-          모임 만들기
+          모임만들기
         </Header>
-        <Box>
-          <Typo appearance="header1">우리의 모임 이름은?</Typo>
-        </Box>
-        <Form
-          onSubmit={handleNext}
-          resolver={zodResolver(partyImageSchema)}
-          defaultValues={defaultValues}
-          mode="onChange"
-          id="partyTitleForm"
-        >
-          <Stack space="space08">
-            <Form.Input name="partyName" appearance="underline" type="text" />
-            <Stack space="space04">
-              <Typo appearance="header2">모임 대표 사진</Typo>
-              <Form.ImageUploader
-                name="photos"
-                accept={ACCEPTED_IMAGE_TYPES.join(",")}
-                render={props => <UploaderUI {...props} />}
-                mode="multiple"
-              />
-            </Stack>
-            <Form.Textarea name="description" width="100%" />
+      }
+      footer={
+        <Button type="submit" form="partyTitleForm">
+          다음
+        </Button>
+      }
+    >
+      <Box padding="0 20px" height="calc(100dvh - 174px)">
+        <Flex flexDirection="column" gap="42px" justifyContent="space-between">
+          <Stack space="space11">
+            <Typo appearance="header1">우리의 모임 이름은?</Typo>
+            <Form
+              onSubmit={handleNext}
+              resolver={zodResolver(partyImageSchema)}
+              defaultValues={defaultValues}
+              mode="onChange"
+              id="partyTitleForm"
+            >
+              <Stack space="space08">
+                <Form.Input
+                  name="partyName"
+                  appearance="underline"
+                  type="text"
+                />
+                <Stack space="space04">
+                  <Typo appearance="header2">모임 대표 사진</Typo>
+                  <Form.ImageUploader
+                    name="photos"
+                    accept={ACCEPTED_IMAGE_TYPES.join(",")}
+                    render={props => <UploaderUI {...props} />}
+                    mode="multiple"
+                  />
+                </Stack>
+                <Form.Textarea name="description" width="100%" />
+              </Stack>
+            </Form>
           </Stack>
-        </Form>
-        <Spacing direction="vertical" fill={true} />
-        <Box>
           <ProgressBar curStep={curStep} totalSteps={lastStep} />
-          <Spacing direction="vertical" size="5dvh" />
-          <Button type="submit" form="partyTitleForm">
-            다음
-          </Button>
-          <Spacing direction="vertical" size="3dvh" />
-        </Box>
-      </Flex>
-    </Box>
+        </Flex>
+      </Box>
+    </Layout>
   );
 };
 

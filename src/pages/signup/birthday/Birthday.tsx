@@ -9,6 +9,7 @@ import { Box } from "@/components/box";
 import { Button } from "@/components/button";
 import { Flex } from "@/components/flex";
 import { Header } from "@/components/header";
+import { Layout } from "@/components/layout";
 import { ProgressBar } from "@/components/progressbar";
 import { Select } from "@/components/select";
 import { Spacing } from "@/components/spacing";
@@ -23,15 +24,11 @@ import {
 
 const Birthday = (props: SignupSubPageProps) => {
   const { birthday: defaultBirthDay } = useSignupState();
-  const { curStep, lastStep, onNextStep, onPrevStep } = props;
+  const { curStep, lastStep, onPrevStep, onNextStep } = props;
   const dispatch = useSignupDispatch();
 
   const [birthday, handleBirthdayChange] = useBirthday(defaultBirthDay);
   const { year, month, day } = birthday;
-
-  const handlePrev = () => {
-    onPrevStep();
-  };
 
   const handleNext = () => {
     dispatch(setBirthday({ year, month, day }));
@@ -39,12 +36,12 @@ const Birthday = (props: SignupSubPageProps) => {
   };
 
   return (
-    <Box height="100vh" padding="0 20px">
-      <Flex flexDirection="column" gap="42px">
+    <Layout
+      header={
         <Header
           leftIcon={
             <IconChevronLeftLarge
-              onClick={handlePrev}
+              onClick={onPrevStep}
               width="14px"
               height="24px"
             />
@@ -52,50 +49,54 @@ const Birthday = (props: SignupSubPageProps) => {
         >
           회원가입
         </Header>
-        <Stack>
-          <Typo appearance="header2">성별을 알려주세요.</Typo>
-          <Spacing direction="vertical" size="120px" />
-          <Flex justifyContent="center" alignItems="center">
-            <Select
-              options={YEARS}
-              value={year}
-              onChange={value =>
-                handleBirthdayChange(value as BirthdaySelectOption, "year")
-              }
+      }
+      footer={
+        <Button type="submit" onClick={handleNext}>
+          다음
+        </Button>
+      }
+    >
+      <Box padding="0 20px" height="calc(100dvh - 174px)">
+        <Flex flexDirection="column" gap="42px" justifyContent="space-between">
+          <Stack>
+            <Typo appearance="header2">성별을 알려주세요.</Typo>
+            <Spacing direction="vertical" size="120px" />
+            <Flex justifyContent="center" alignItems="center">
+              <Select
+                options={YEARS}
+                value={year}
+                onChange={value =>
+                  handleBirthdayChange(value as BirthdaySelectOption, "year")
+                }
+              />
+              <Select
+                options={getMonths()}
+                value={month}
+                onChange={value =>
+                  handleBirthdayChange(value as BirthdaySelectOption, "month")
+                }
+              />
+              <Select
+                options={getDays(month.value, year.value)}
+                value={day}
+                onChange={value =>
+                  handleBirthdayChange(value as BirthdaySelectOption, "day")
+                }
+              />
+            </Flex>
+            <hr
+              style={{
+                padding: "0px",
+                margin: "0px",
+                borderTop: "1px solid #bbb",
+                width: "100%",
+              }}
             />
-            <Select
-              options={getMonths()}
-              value={month}
-              onChange={value =>
-                handleBirthdayChange(value as BirthdaySelectOption, "month")
-              }
-            />
-            <Select
-              options={getDays(month.value, year.value)}
-              value={day}
-              onChange={value =>
-                handleBirthdayChange(value as BirthdaySelectOption, "day")
-              }
-            />
-          </Flex>
-          <hr
-            style={{
-              padding: "0px",
-              margin: "0px",
-              borderTop: "1px solid #bbb",
-              width: "100%",
-            }}
-          />
-        </Stack>
-        <Spacing direction="vertical" fill={true} />
-        <Box>
+          </Stack>
           <ProgressBar curStep={curStep} totalSteps={lastStep} />
-          <Spacing direction="vertical" size="42px" />
-          <Button onClick={handleNext}>다음</Button>
-          <Spacing direction="vertical" size="32px" />
-        </Box>
-      </Flex>
-    </Box>
+        </Flex>
+      </Box>
+    </Layout>
   );
 };
 

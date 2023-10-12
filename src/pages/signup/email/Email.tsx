@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { IconChevronLeftLarge, IconCheck } from "jjan-icon";
+import { IconCheck, IconChevronLeftLarge } from "jjan-icon";
 
 import { FORM_DATA } from "./constants";
 import { SignupSchemaType, signupSchema } from "./schema";
@@ -9,8 +9,8 @@ import { Button } from "@/components/button";
 import { Flex } from "@/components/flex";
 import { Form } from "@/components/form/Form";
 import { Header } from "@/components/header";
+import { Layout } from "@/components/layout";
 import { ProgressBar } from "@/components/progressbar";
-import { Spacing } from "@/components/spacing";
 import { Stack } from "@/components/stack";
 import { SignupSubPageProps } from "@/pages/signup/types";
 import {
@@ -23,7 +23,7 @@ import {
 const Email = (props: SignupSubPageProps) => {
   const { email } = useSignupState();
   const dispatch = useSignupDispatch();
-  const { curStep, lastStep, onNextStep, onPrevStep } = props;
+  const { curStep, lastStep, onPrevStep, onNextStep } = props;
 
   const defaultValues = {
     email,
@@ -39,8 +39,8 @@ const Email = (props: SignupSubPageProps) => {
   };
 
   return (
-    <Box height="100vh" padding="0 20px">
-      <Flex flexDirection="column" gap="42px">
+    <Layout
+      header={
         <Header
           leftIcon={
             <IconChevronLeftLarge
@@ -52,39 +52,41 @@ const Email = (props: SignupSubPageProps) => {
         >
           회원가입
         </Header>
-        <Form
-          onSubmit={handleNext}
-          resolver={zodResolver(signupSchema)}
-          defaultValues={defaultValues}
-          mode="onChange"
-          id="emailForm"
-        >
-          <Stack space="space08">
-            {FORM_DATA.map((input, index) => (
-              <Form.Input
-                key={index}
-                appearance="underline"
-                type={input.type as "email" | "password" | "text"}
-                name={input.name}
-                label={input.label}
-                icon={<IconCheck />}
-                isValidationMode
-                autoComplete={input.autoComplete}
-              />
-            ))}
-          </Stack>
-        </Form>
-        <Spacing direction="vertical" fill={true} />
-        <Box>
+      }
+      footer={
+        <Button type="submit" form="emailForm">
+          다음
+        </Button>
+      }
+    >
+      <Box padding="0 20px" height="calc(100dvh - 174px)">
+        <Flex flexDirection="column" gap="42px" justifyContent="space-between">
+          <Form
+            onSubmit={handleNext}
+            resolver={zodResolver(signupSchema)}
+            defaultValues={defaultValues}
+            mode="onChange"
+            id="emailForm"
+          >
+            <Stack space="space08">
+              {FORM_DATA.map((input, index) => (
+                <Form.Input
+                  key={index}
+                  appearance="underline"
+                  type={input.type as "email" | "password" | "text"}
+                  name={input.name}
+                  label={input.label}
+                  icon={<IconCheck />}
+                  isValidationMode
+                  autoComplete={input.autoComplete}
+                />
+              ))}
+            </Stack>
+          </Form>
           <ProgressBar curStep={curStep} totalSteps={lastStep} />
-          <Spacing direction="vertical" size="42px" />
-          <Button type="submit" form="emailForm">
-            다음
-          </Button>
-          <Spacing direction="vertical" size="32px" />
-        </Box>
-      </Flex>
-    </Box>
+        </Flex>
+      </Box>
+    </Layout>
   );
 };
 

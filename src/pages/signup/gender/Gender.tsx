@@ -8,6 +8,7 @@ import { Box } from "@/components/box";
 import { Button } from "@/components/button";
 import { Flex } from "@/components/flex";
 import { Header } from "@/components/header";
+import { Layout } from "@/components/layout";
 import { ProgressBar } from "@/components/progressbar";
 import { Select } from "@/components/select";
 import { Spacing } from "@/components/spacing";
@@ -22,13 +23,9 @@ import {
 
 const Gender = (props: SignupSubPageProps) => {
   const { gender: defaultGender } = useSignupState();
-  const { curStep, lastStep, onNextStep, onPrevStep } = props;
+  const { curStep, lastStep, onNextStep } = props;
   const [gender, setGenderState] = useState<GenderState>(defaultGender);
   const dispatch = useSignupDispatch();
-
-  const handlePrev = () => {
-    onPrevStep();
-  };
 
   const handleNext = () => {
     dispatch(setGender(gender));
@@ -36,12 +33,12 @@ const Gender = (props: SignupSubPageProps) => {
   };
 
   return (
-    <Box height="100vh" padding="0 20px">
-      <Flex flexDirection="column" gap="42px">
+    <Layout
+      header={
         <Header
           leftIcon={
             <IconChevronLeftLarge
-              onClick={handlePrev}
+              onClick={handleNext}
               width="14px"
               height="24px"
             />
@@ -49,38 +46,42 @@ const Gender = (props: SignupSubPageProps) => {
         >
           회원가입
         </Header>
-        <Stack>
-          <Typo appearance="header2">성별을 알려주세요.</Typo>
-          <Spacing direction="vertical" size="120px" />
-          <Flex
-            flexDirection="column"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <Select
-              options={GENDERS}
-              value={gender}
-              onChange={value => setGenderState(value as GenderSelectOption)}
-            />
-            <hr
-              style={{
-                padding: "0px",
-                margin: "0px",
-                borderTop: "1px solid #bbb",
-                width: "100%",
-              }}
-            />
-          </Flex>
-        </Stack>
-        <Spacing direction="vertical" fill={true} />
-        <Box>
+      }
+      footer={
+        <Button type="submit" onClick={handleNext}>
+          다음
+        </Button>
+      }
+    >
+      <Box padding="0 20px" height="calc(100dvh - 174px)">
+        <Flex flexDirection="column" gap="42px" justifyContent="space-between">
+          <Stack>
+            <Typo appearance="header2">성별을 알려주세요.</Typo>
+            <Spacing direction="vertical" size="120px" />
+            <Flex
+              flexDirection="column"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Select
+                options={GENDERS}
+                value={gender}
+                onChange={value => setGenderState(value as GenderSelectOption)}
+              />
+              <hr
+                style={{
+                  padding: "0px",
+                  margin: "0px",
+                  borderTop: "1px solid #bbb",
+                  width: "100%",
+                }}
+              />
+            </Flex>
+          </Stack>
           <ProgressBar curStep={curStep} totalSteps={lastStep} />
-          <Spacing direction="vertical" size="42px" />
-          <Button onClick={handleNext}>다음</Button>
-          <Spacing direction="vertical" size="32px" />
-        </Box>
-      </Flex>
-    </Box>
+        </Flex>
+      </Box>
+    </Layout>
   );
 };
 

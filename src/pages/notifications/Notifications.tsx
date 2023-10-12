@@ -1,11 +1,10 @@
 import { IconChevronLeftLarge, IconPeopleGroup } from "jjan-icon";
 import { useNavigate } from "react-router-dom";
 
-import { Layout } from "../components/layout";
-
 import { Box } from "@/components/box";
 import { Flex } from "@/components/flex";
 import { Header } from "@/components/header";
+import { Layout } from "@/components/layout";
 import { List } from "@/components/list";
 import { Stack } from "@/components/stack";
 import { Typo } from "@/components/typo";

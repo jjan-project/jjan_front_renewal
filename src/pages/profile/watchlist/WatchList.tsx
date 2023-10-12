@@ -6,11 +6,11 @@ import { PartyInfo } from "@/api/jjan/types";
 import { Box } from "@/components/box";
 import { Header } from "@/components/header";
 import { Hr } from "@/components/hr";
+import { Layout } from "@/components/layout";
 import { List } from "@/components/list";
 import { Spacing } from "@/components/spacing";
 import { Typo } from "@/components/typo";
 import { PartyCard } from "@/pages/components";
-import { Layout } from "@/pages/components/layout";
 import { calculateDday } from "@/utils/calculateDday";
 
 const HeaderContainer = () => {
