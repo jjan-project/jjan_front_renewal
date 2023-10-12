@@ -8,4 +8,18 @@ export const List = styled.div<ListProps>`
   gap: ${props => props.gap || 0};
   height: ${props => props.height || "100%"};
   overflow: ${props => props.overflow || "auto"};
+
+  ${props =>
+    props.hideScrollbar &&
+    `
+    /* Chrome, Safari, Edge */
+    ::-webkit-scrollbar {
+      display: none;
+    } 
+    /* IE and Edge */
+    -ms-overflow-style: none;
+
+    /* Firefox */
+    scrollbar-width: none;
+  `}
 `;

@@ -34,6 +34,8 @@ type ListProps = {
    * A render prop is a function prop that a component uses to know what to render.
    */
   children?: ReactNode;
+
+  hideScrollbar?: boolean;
 };
 
 export type { Overflow, ListProps };
