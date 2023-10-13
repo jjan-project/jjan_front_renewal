@@ -49,7 +49,7 @@ const WatchList = () => {
         <Spacing direction="vertical" size="78px" />
         <Hr type="solid" backgroundColor="violet100" />
         <Spacing direction="vertical" size="36px" />
-        <List gap="30px" height="calc(100dvh - 68px - 221px)">
+        <List gap="30px" height="calc(100dvh - 68px - 221px)" hideScrollbar>
           {joinedPartyList
             ? joinedPartyList.map(partyInfo => (
                 <Link to={`/party-detail/${partyInfo.id}`} key={partyInfo.id}>

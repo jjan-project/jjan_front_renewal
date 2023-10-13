@@ -74,7 +74,7 @@ const Address = (props: SignupSubPageProps) => {
           {isLoading && (
             <Typo appearance="body1">동네를 불러오는중입니다...</Typo>
           )}
-          <List height="40vh" overflow="scroll" gap="18px">
+          <List height="40vh" overflow="scroll" gap="18px" hideScrollbar>
             {addresses &&
               addresses.map((address_name, index) => (
                 <Fragment key={index}>
