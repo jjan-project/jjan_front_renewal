@@ -4,6 +4,7 @@ import { AuthRoute, Routes } from "./types";
 
 import { ChatList, ChatRoom } from "@/pages/chat";
 import { CreateParty } from "@/pages/create-party";
+import { Home } from "@/pages/home";
 import { Landing } from "@/pages/landing";
 import { Notifications } from "@/pages/notifications";
 import {
@@ -47,6 +48,11 @@ const routes: Routes = [
   {
     path: "/",
     element: <Navigate to="/landing" />,
+    isPublic: true,
+  },
+  {
+    path: "/home",
+    element: <Home />,
     isPublic: false,
   },
   {
@@ -120,7 +126,7 @@ const freezedRoutes = Object.freeze(routes);
 
 const PrivateRoute: React.FC<AuthRoute> = props => {
   const { isAuthenticated, link, children } = props;
-  return isAuthenticated ? <>{children}</> : <Navigate to={link} />;
+  return isAuthenticated ? children : <Navigate to={link} />;
 };
 
 const PublicRoute: React.FC<AuthRoute> = props => {
