@@ -120,7 +120,7 @@ const Detail = () => {
               </Typo>
             </Flex>
 
-            <List gap="5px" direction="row">
+            <List gap="5px" direction="row" hideScrollbar>
               {responseDetail
                 ? responseDetail?.data.joinUser.map((userInfo, index) => (
                     <Avatar

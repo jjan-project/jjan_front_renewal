@@ -67,7 +67,7 @@ const Notifications = () => {
   return (
     <Layout header={HeaderContainer}>
       <Box padding="0 20px">
-        <List gap="30px" height="calc(100dvh - 20px)">
+        <List gap="30px" height="calc(100dvh - 20px)" hideScrollbar>
           {Array.from({ length: 10 }).map((_, index) => (
             <Card key={index} />
           ))}
