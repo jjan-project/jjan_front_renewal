@@ -15,7 +15,6 @@ const RouterClient = () => {
       await fetchUserInfo();
       setIsLoggedIn(true);
     } catch (error) {
-      console.error("Error while verifying JWT Token", error);
       setIsLoggedIn(false);
     }
   };
@@ -32,11 +31,9 @@ const RouterClient = () => {
           path={path}
           element={
             isPublic ? (
-              <SignupProvider>
-                <PublicRoute isAuthenticated={isLoggedIn} link="/">
-                  {element}
-                </PublicRoute>
-              </SignupProvider>
+              <PublicRoute isAuthenticated={isLoggedIn} link="/home">
+                {element}
+              </PublicRoute>
             ) : (
               <PrivateRoute isAuthenticated={isLoggedIn} link="/landing">
                 {element}

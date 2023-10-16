@@ -23,6 +23,8 @@ import {
 import { Signin } from "@/pages/signin";
 import { Signup } from "@/pages/signup";
 import { SignupComplete } from "@/pages/signup-complete";
+import { PartyFormProvider } from "@/store/partyStore";
+import { SignupProvider } from "@/store/signupStore";
 
 const routes: Routes = [
   {
@@ -37,7 +39,11 @@ const routes: Routes = [
   },
   {
     path: "/auth/signup",
-    element: <Signup />,
+    element: (
+      <SignupProvider>
+        <Signup />
+      </SignupProvider>
+    ),
     isPublic: true,
   },
   {
@@ -47,6 +53,11 @@ const routes: Routes = [
   },
   {
     path: "/",
+    element: <Navigate to="/landing" />,
+    isPublic: true,
+  },
+  {
+    path: "/home",
     element: <Home />,
     isPublic: false,
   },
@@ -77,7 +88,11 @@ const routes: Routes = [
   },
   {
     path: "/party-create",
-    element: <CreateParty />,
+    element: (
+      <PartyFormProvider>
+        <CreateParty />
+      </PartyFormProvider>
+    ),
     isPublic: false,
   },
   {
@@ -121,7 +136,7 @@ const freezedRoutes = Object.freeze(routes);
 
 const PrivateRoute: React.FC<AuthRoute> = props => {
   const { isAuthenticated, link, children } = props;
-  return isAuthenticated ? <>{children}</> : <Navigate to={link} />;
+  return isAuthenticated ? children : <Navigate to={link} />;
 };
 
 const PublicRoute: React.FC<AuthRoute> = props => {
