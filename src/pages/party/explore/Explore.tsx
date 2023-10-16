@@ -87,7 +87,11 @@ const Explore = () => {
               <Tabs.Tab name={NAME.SECOND}>{NAME.SECOND}</Tabs.Tab>
             </Tabs.List>
             <Tabs.Panel name={NAME.FIRST}>
-              <List gap="30px" height="calc(100dvh - 68px - 198px)" hideScrollbar>
+              <List
+                gap="30px"
+                height="calc(100dvh - 68px - 198px)"
+                hideScrollbar
+              >
                 {partyListToDisplay
                   ? partyListToDisplay.map(partyInfo => (
                       <Link
@@ -110,8 +114,8 @@ const Explore = () => {
             </Tabs.Panel>
             <Tabs.Panel name={NAME.SECOND}>
               <List gap="30px" hideScrollbar>
-                {joinedPartyList
-                  ? joinedPartyList.map(partyInfo => (
+                {joinedPartyResponse
+                  ? joinedPartyResponse.data.map(partyInfo => (
                       <Link
                         to={`/party-detail/${partyInfo.id}`}
                         key={partyInfo.id}
