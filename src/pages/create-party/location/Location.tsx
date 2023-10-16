@@ -8,8 +8,8 @@ import { Button } from "@/components/button";
 import { Flex } from "@/components/flex";
 import { Header } from "@/components/header";
 import { Input } from "@/components/input";
+import { Layout } from "@/components/layout";
 import { ProgressBar } from "@/components/progressbar";
-import { Spacing } from "@/components/spacing";
 import { Stack } from "@/components/stack";
 import { Typo } from "@/components/typo";
 import { useCreateMap } from "@/hooks/maps";
@@ -63,8 +63,8 @@ const Location = (props: PartyFormSubPageProps) => {
         />
       )}
       {!showSearch && (
-        <Box height="100vh" padding="0 20px">
-          <Flex flexDirection="column" gap="5dvh">
+        <Layout
+          header={
             <Header
               leftIcon={
                 <IconChevronLeftLarge
@@ -77,32 +77,43 @@ const Location = (props: PartyFormSubPageProps) => {
             >
               모임 만들기
             </Header>
-            <Stack>
-              <Typo appearance="header1">어디에서 만날까요?</Typo>
-              <Typo appearance="body1" color="gray700">
-                모임 장소를 정해주세요.
-              </Typo>
-            </Stack>
-            <Box height="45dvh">{mapComponent()}</Box>
-            <Box onClick={() => setShowSearch(prev => !prev)}>
-              <Input
-                appearance="underline"
-                placeholder="장소 검색"
-                value={localLocation ? localLocation.place : undefined}
-                icon={<IconSearch />}
-                disabled
-                isValid
-              />
-            </Box>
-            <Spacing direction="vertical" fill={true} />
-            <Box>
-              <ProgressBar curStep={curStep} totalSteps={lastStep} />
-              <Spacing direction="vertical" size="5dvh" />
-              <Button onClick={handleNext}>다음</Button>
-              <Spacing direction="vertical" size="3dvh" />
-            </Box>
-          </Flex>
-        </Box>
+          }
+          footer={<Button onClick={handleNext}>다음</Button>}
+        >
+          <Box height="calc(100dvh - 174px)">
+            <Flex
+              flexDirection="column"
+              gap="42px"
+              justifyContent="space-between"
+            >
+              <Box padding="0 20px">
+                <Stack>
+                  <Typo appearance="header1">어디에서 만날까요?</Typo>
+                  <Typo appearance="body1" color="gray700">
+                    모임 장소를 정해주세요.
+                  </Typo>
+                </Stack>
+              </Box>
+              <Box height="45dvh">{mapComponent()}</Box>
+              <Box
+                padding="0 20px"
+                onClick={() => setShowSearch(prev => !prev)}
+              >
+                <Input
+                  appearance="underline"
+                  placeholder="장소 검색"
+                  value={localLocation ? localLocation.place : undefined}
+                  icon={<IconSearch />}
+                  disabled
+                  isValid
+                />
+              </Box>
+              <Box padding="0 20px">
+                <ProgressBar curStep={curStep} totalSteps={lastStep} />
+              </Box>
+            </Flex>
+          </Box>
+        </Layout>
       )}
     </>
   );

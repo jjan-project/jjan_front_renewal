@@ -14,11 +14,11 @@ import { Button } from "@/components/button";
 import { Flex } from "@/components/flex";
 import { Form } from "@/components/form/Form";
 import { Header } from "@/components/header";
+import { Layout } from "@/components/layout";
 import { Slider } from "@/components/slider";
 import { Spacing } from "@/components/spacing";
 import { Stack } from "@/components/stack";
 import { Typo } from "@/components/typo";
-import { Layout } from "@/pages/components/layout";
 import {
   DISPLAY_TEXT_MAP,
   SLIDER_MAX_VALUE,
@@ -93,8 +93,15 @@ const Edit = () => {
   if (!userInfo) return;
 
   return (
-    <Layout header={<HeaderContainer />}>
-      <Box padding="0 20px" height="calc(100dvh - 52px - 20px)">
+    <Layout
+      header={<HeaderContainer />}
+      footer={
+        <Button appearance="primary" type="submit" form="profileEditForm">
+          수정
+        </Button>
+      }
+    >
+      <Box padding="0 20px" height="calc(100dvh - 174px)">
         <Flex flexDirection="column">
           <Stack>
             <Form
@@ -139,11 +146,6 @@ const Edit = () => {
               setValue={setLocalCapacity}
             />
           </Stack>
-          <Spacing direction="vertical" fill={true} />
-          <Button appearance="primary" type="submit" form="profileEditForm">
-            수정
-          </Button>
-          <Spacing direction="vertical" size="32px" />
         </Flex>
       </Box>
     </Layout>
