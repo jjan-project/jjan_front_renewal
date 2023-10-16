@@ -23,6 +23,8 @@ import {
 import { Signin } from "@/pages/signin";
 import { Signup } from "@/pages/signup";
 import { SignupComplete } from "@/pages/signup-complete";
+import { PartyFormProvider } from "@/store/partyStore";
+import { SignupProvider } from "@/store/signupStore";
 
 const routes: Routes = [
   {
@@ -37,7 +39,11 @@ const routes: Routes = [
   },
   {
     path: "/auth/signup",
-    element: <Signup />,
+    element: (
+      <SignupProvider>
+        <Signup />
+      </SignupProvider>
+    ),
     isPublic: true,
   },
   {
@@ -82,7 +88,11 @@ const routes: Routes = [
   },
   {
     path: "/party-create",
-    element: <CreateParty />,
+    element: (
+      <PartyFormProvider>
+        <CreateParty />
+      </PartyFormProvider>
+    ),
     isPublic: false,
   },
   {
