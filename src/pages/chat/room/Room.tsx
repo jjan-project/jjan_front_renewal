@@ -33,7 +33,11 @@ const MessageList = ({ chatMessageList, currentUser }: MessageListProps) => {
   }, [chatMessageList]);
 
   return (
-    <List gap="30px" height={`calc(100dvh - ${HEADER_BOTTOM_HEIGHT}px)`}>
+    <List
+      gap="30px"
+      height={`calc(100dvh - ${HEADER_BOTTOM_HEIGHT}px)`}
+      hideScrollbar
+    >
       {chatMessageList?.length
         ? chatMessageList?.map((data, index) => {
             const CardComponent =
