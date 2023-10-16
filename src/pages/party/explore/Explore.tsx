@@ -1,4 +1,4 @@
-import { IconChevronLeftLarge, IconMenu } from "jjan-icon";
+import { IconChevronLeftLarge, IconMenu, IconPensil } from "jjan-icon";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
 import { NAV_ITEMS } from "../constants";
@@ -7,6 +7,7 @@ import { usePartyFilterData } from "./hooks";
 
 import { BottomNav } from "@/components/bottomNav";
 import { Box } from "@/components/box";
+import { Fab } from "@/components/fab";
 import { Header } from "@/components/header";
 import { Layout } from "@/components/layout";
 import { List } from "@/components/list";
@@ -72,7 +73,18 @@ const Explore = () => {
       footer={<BottomNav items={NAV_ITEMS} />}
       paddingFooter={false}
     >
-      <Box padding="0 20px">
+      <Box padding="0 20px" style={{ position: "relative" }}>
+        <Link to="/party-create">
+          <Fab
+            width="61px"
+            height="61px"
+            location="auto 20 20 auto"
+            boxShadow="0 4px 5px 1px rgba(0, 0, 0, 0.3)"
+            color="white"
+          >
+            <IconPensil width="60%" height="60%" />
+          </Fab>
+        </Link>
         <Stack>
           <Typo appearance="header2" style={{ fontWeight: "bold" }}>
             오늘은 무슨 모임이 있을까요?
