@@ -1,5 +1,7 @@
 import { forwardRef, ForwardedRef, useState, useEffect } from "react";
 
+import { Skeleton } from "../skeleton";
+
 import * as S from "./Avatar.styled";
 import type { AvatarProps } from "./types";
 
@@ -12,6 +14,7 @@ const Avatar = (props: AvatarProps, ref: ForwardedRef<HTMLImageElement>) => {
     isCircle = false,
     src,
     testId,
+    isLoading,
     ...otherProps
   } = props;
 
@@ -31,6 +34,12 @@ const Avatar = (props: AvatarProps, ref: ForwardedRef<HTMLImageElement>) => {
   }, [src]);
 
   const Component = imageError ? S.ErrorFallback : S.ImageContainer;
+
+  if (isLoading) {
+    return (
+      <Skeleton width={width} height={height} radius={isCircle ? "50%" : ""} />
+    );
+  }
 
   return (
     <Component
