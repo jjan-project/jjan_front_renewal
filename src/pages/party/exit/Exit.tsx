@@ -2,7 +2,6 @@ import { IconChevronLeftLarge } from "jjan-icon";
 import { useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { outParty } from "@/api/jjan/partyController";
 import { Box } from "@/components/box";
 import { Button } from "@/components/button";
 import { Header } from "@/components/header";

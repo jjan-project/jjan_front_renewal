@@ -8,7 +8,7 @@ import {
   IconMascot3,
   IconMascot4,
 } from "jjan-icon";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import { NAV_ITEMS } from "./constants";
 
@@ -74,36 +74,40 @@ const Cards = () => {
           </Box>
         </Flex.Item>
         <Flex.Item flex="1.6 1 0">
-          <Box
-            padding="16px"
-            backgroundColor="green175"
-            borderRadius="15px"
-            height="26dvh"
-          >
-            <Stack space="space08">
-              <Typo appearance="body1">모임 만들기</Typo>
-              <Box centerContent>
-                <IconMascot3 width={85} height={85} />
-              </Box>
-            </Stack>
-          </Box>
+          <Link to="/party-create">
+            <Box
+              padding="16px"
+              backgroundColor="green175"
+              borderRadius="15px"
+              height="26dvh"
+            >
+              <Stack space="space08">
+                <Typo appearance="body1">모임 만들기</Typo>
+                <Box centerContent>
+                  <IconMascot3 width={85} height={85} />
+                </Box>
+              </Stack>
+            </Box>
+          </Link>
         </Flex.Item>
       </Flex>
       <Flex gap="12px">
         <Flex.Item flex="1.6 1 0">
-          <Box
-            padding="16px"
-            backgroundColor="green175"
-            borderRadius="15px"
-            height="26dvh"
-          >
-            <Stack space="space08">
-              <Typo appearance="body1">나의 모임</Typo>
-              <Stack align="end">
-                <IconMascot2 width={100} height={100} />
+          <Link to="/profile-watchlist">
+            <Box
+              padding="16px"
+              backgroundColor="green175"
+              borderRadius="15px"
+              height="26dvh"
+            >
+              <Stack space="space08">
+                <Typo appearance="body1">나의 모임</Typo>
+                <Stack align="end">
+                  <IconMascot2 width={100} height={100} />
+                </Stack>
               </Stack>
-            </Stack>
-          </Box>
+            </Box>
+          </Link>
         </Flex.Item>
         <Flex.Item flex="2 1 0">
           <Box

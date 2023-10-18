@@ -1,4 +1,4 @@
-import { IconChevronLeftLarge, IconMenu } from "jjan-icon";
+import { IconChevronLeftLarge, IconMenu, IconPensil } from "jjan-icon";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
 import { NAV_ITEMS } from "../constants";
@@ -7,6 +7,7 @@ import { usePartyFilterData } from "./hooks";
 
 import { BottomNav } from "@/components/bottomNav";
 import { Box } from "@/components/box";
+import { Fab } from "@/components/fab";
 import { Header } from "@/components/header";
 import { Layout } from "@/components/layout";
 import { List } from "@/components/list";
@@ -72,7 +73,18 @@ const Explore = () => {
       footer={<BottomNav items={NAV_ITEMS} />}
       paddingFooter={false}
     >
-      <Box padding="0 20px">
+      <Box padding="0 20px" style={{ position: "relative" }}>
+        <Link to="/party-create">
+          <Fab
+            width="61px"
+            height="61px"
+            location="auto 20 20 auto"
+            boxShadow="0 4px 5px 1px rgba(0, 0, 0, 0.3)"
+            color="white"
+          >
+            <IconPensil width="60%" height="60%" />
+          </Fab>
+        </Link>
         <Stack>
           <Typo appearance="header2" style={{ fontWeight: "bold" }}>
             오늘은 무슨 모임이 있을까요?
@@ -87,7 +99,11 @@ const Explore = () => {
               <Tabs.Tab name={NAME.SECOND}>{NAME.SECOND}</Tabs.Tab>
             </Tabs.List>
             <Tabs.Panel name={NAME.FIRST}>
-              <List gap="30px" height="calc(100dvh - 68px - 198px)" hideScrollbar>
+              <List
+                gap="30px"
+                height="calc(100dvh - 68px - 198px)"
+                hideScrollbar
+              >
                 {partyListToDisplay
                   ? partyListToDisplay.map(partyInfo => (
                       <Link
@@ -109,9 +125,13 @@ const Explore = () => {
               </List>
             </Tabs.Panel>
             <Tabs.Panel name={NAME.SECOND}>
-              <List gap="30px" hideScrollbar>
-                {joinedPartyList
-                  ? joinedPartyList.map(partyInfo => (
+              <List
+                gap="30px"
+                height="calc(100dvh - 68px - 198px)"
+                hideScrollbar
+              >
+                {joinedPartyResponse
+                  ? joinedPartyResponse.data.map(partyInfo => (
                       <Link
                         to={`/party-detail/${partyInfo.id}`}
                         key={partyInfo.id}

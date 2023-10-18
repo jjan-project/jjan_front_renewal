@@ -84,7 +84,7 @@ const CardImage = ({
       <Box
         width="41px"
         height="18px"
-        backgroundColor="green175"
+        backgroundColor={dDay > -1 ? "green175" : "orange300"}
         style={{
           position: "absolute",
           top: "0",
@@ -93,7 +93,9 @@ const CardImage = ({
           alignItems: "center",
         }}
       >
-        <Typo appearance="info1">{`D-${dDay}`}</Typo>
+        <Typo appearance="info1" color={dDay > -1 ? "black" : "white"}>
+          {dDay > -1 ? `D-${dDay}` : "DONE"}
+        </Typo>
       </Box>
     </Box>
   );
