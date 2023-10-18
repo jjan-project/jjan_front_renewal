@@ -125,7 +125,11 @@ const Explore = () => {
               </List>
             </Tabs.Panel>
             <Tabs.Panel name={NAME.SECOND}>
-              <List gap="30px" hideScrollbar>
+              <List
+                gap="30px"
+                height="calc(100dvh - 68px - 198px)"
+                hideScrollbar
+              >
                 {joinedPartyResponse
                   ? joinedPartyResponse.data.map(partyInfo => (
                       <Link
