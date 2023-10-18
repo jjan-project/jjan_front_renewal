@@ -7,23 +7,22 @@ import {
 } from "jjan-icon";
 import { useParams, useNavigate } from "react-router-dom";
 
-import { BottomButton } from "../../components/layout";
-
 import { TagBox } from "./TagBox";
 import { useDetailData } from "./useDetailData";
 
 import { Avatar } from "@/components/avatar";
 import { Box } from "@/components/box";
+import { Button } from "@/components/button";
 import { Cluster } from "@/components/cluster";
 import { Flex } from "@/components/flex";
 import { Header } from "@/components/header";
 import { Hr } from "@/components/hr";
 import { ImageCarousel } from "@/components/imageCarousel";
+import { Layout } from "@/components/layout";
 import { List } from "@/components/list";
 import { Spacing } from "@/components/spacing";
 import { Stack } from "@/components/stack";
 import { Typo } from "@/components/typo";
-import { Layout } from "@/pages/components/layout";
 import { joinParty } from "@/services/internal/party/http";
 import { formatToKoreanDateTime } from "@/utils/formatToKoreanDateTime";
 
@@ -59,23 +58,20 @@ const Detail = () => {
     navigate(`/party-exit/${partyId}`);
   };
 
-  const HeaderContainer = (
-    <Header
-      leftIcon={<IconChevronLeftLarge onClick={() => navigate(-1)} />}
-      rightIcon={<IconBookmark />}
-    >
-      {responseDetail?.data.title || ""}
-    </Header>
-  );
-
   return (
     <Layout
-      header={HeaderContainer}
-      bottom={
-        <BottomButton
-          text={isJoined ? "참여 취소" : "참여"}
-          onClick={isJoined ? onExit : onJoined}
-        />
+      header={
+        <Header
+          leftIcon={<IconChevronLeftLarge onClick={() => navigate(-1)} />}
+          rightIcon={<IconBookmark />}
+        >
+          {responseDetail?.data.title || ""}
+        </Header>
+      }
+      footer={
+        <Button onClick={isJoined ? onExit : onJoined}>
+          {isJoined ? "참여 취소" : "참여"}
+        </Button>
       }
     >
       <PartyImages images={responseDetail?.data.partyImages} />

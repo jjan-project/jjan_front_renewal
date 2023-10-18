@@ -8,13 +8,12 @@ import { usePartyFilterData } from "./hooks";
 import { BottomNav } from "@/components/bottomNav";
 import { Box } from "@/components/box";
 import { Header } from "@/components/header";
+import { Layout } from "@/components/layout";
 import { List } from "@/components/list";
-import { Spacing } from "@/components/spacing";
 import { Stack } from "@/components/stack";
 import { Tabs } from "@/components/tabs";
 import { Typo } from "@/components/typo";
 import { PartyCard } from "@/pages/components";
-import { Layout } from "@/pages/components/layout";
 import {
   useFetchAllParty,
   useFetchJoinedParty,
@@ -60,17 +59,19 @@ const Explore = () => {
     return calculateDday(day);
   };
 
-  const HeaderContainer = (
-    <Header
-      leftIcon={<IconChevronLeftLarge onClick={() => navigate(-1)} />}
-      rightIcon={<IconMenu onClick={() => navigate("/party-filter")} />}
-    >
-      탐색하기
-    </Header>
-  );
-
   return (
-    <Layout header={HeaderContainer} bottom={<BottomNav items={NAV_ITEMS} />}>
+    <Layout
+      header={
+        <Header
+          leftIcon={<IconChevronLeftLarge onClick={() => navigate(-1)} />}
+          rightIcon={<IconMenu onClick={() => navigate("/party-filter")} />}
+        >
+          탐색하기
+        </Header>
+      }
+      footer={<BottomNav items={NAV_ITEMS} />}
+      paddingFooter={false}
+    >
       <Box padding="0 20px">
         <Stack>
           <Typo appearance="header2" style={{ fontWeight: "bold" }}>
@@ -79,7 +80,6 @@ const Explore = () => {
           <Typo appearance="body2" color="gray700">
             필터를 이용해 원하는 술자리를 고를 수 있어요.
           </Typo>
-          <Spacing direction="vertical" size="25px" />
 
           <Tabs defaultName={NAME.FIRST}>
             <Tabs.List>
@@ -87,11 +87,7 @@ const Explore = () => {
               <Tabs.Tab name={NAME.SECOND}>{NAME.SECOND}</Tabs.Tab>
             </Tabs.List>
             <Tabs.Panel name={NAME.FIRST}>
-              <List
-                gap="30px"
-                height="calc(100dvh - 68px - 221px)"
-                hideScrollbar
-              >
+              <List gap="30px" height="calc(100dvh - 68px - 198px)" hideScrollbar>
                 {partyListToDisplay
                   ? partyListToDisplay.map(partyInfo => (
                       <Link
@@ -113,11 +109,7 @@ const Explore = () => {
               </List>
             </Tabs.Panel>
             <Tabs.Panel name={NAME.SECOND}>
-              <List
-                gap="30px"
-                height="calc(100dvh - 68px - 221px)"
-                hideScrollbar
-              >
+              <List gap="30px" hideScrollbar>
                 {joinedPartyList
                   ? joinedPartyList.map(partyInfo => (
                       <Link

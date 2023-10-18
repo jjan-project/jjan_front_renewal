@@ -2,15 +2,15 @@ import { IconChevronLeftLarge } from "jjan-icon";
 import { useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { BottomButton } from "../../components";
-
+import { outParty } from "@/api/jjan/partyController";
 import { Box } from "@/components/box";
+import { Button } from "@/components/button";
 import { Header } from "@/components/header";
+import { Layout } from "@/components/layout";
 import { Spacing } from "@/components/spacing";
 import { Stack } from "@/components/stack";
 import { TextArea } from "@/components/textField";
 import { Typo } from "@/components/typo";
-import { Layout } from "@/pages/components/layout";
 import { exitParty } from "@/services/internal/party/http";
 
 const Exit = () => {
@@ -37,16 +37,16 @@ const Exit = () => {
     }
   };
 
-  const HeaderContainer = (
-    <Header leftIcon={<IconChevronLeftLarge onClick={() => navigate(-1)} />}>
-      모임 나가기
-    </Header>
-  );
-
   return (
     <Layout
-      header={HeaderContainer}
-      bottom={<BottomButton text="완료" onClick={onValidate} />}
+      header={
+        <Header
+          leftIcon={<IconChevronLeftLarge onClick={() => navigate(-1)} />}
+        >
+          모임 나가기
+        </Header>
+      }
+      footer={<Button onClick={onValidate}>완료</Button>}
     >
       <Box padding="0 20px">
         <Stack>

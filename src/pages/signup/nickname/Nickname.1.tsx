@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import { NicknameSchemaType, nicknameSchema } from "./schema";
 
+import { useFetchRandomNickname } from "@/api/jjan/joinController";
 import { Box } from "@/components/box";
 import { Button } from "@/components/button";
 import { Flex } from "@/components/flex";
@@ -15,7 +16,6 @@ import { Spacing } from "@/components/spacing";
 import { Stack } from "@/components/stack";
 import { Typo } from "@/components/typo";
 import { SignupSubPageProps } from "@/pages/signup/types";
-import { useFetchRandomNickname } from "@/services/internal/auth/query";
 import {
   setNickname,
   useSignupDispatch,

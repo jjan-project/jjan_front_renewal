@@ -8,10 +8,9 @@ import type { SigninSchemaType } from "./schema";
 
 import { Box } from "@/components/box";
 import { Button } from "@/components/button";
-import { Flex } from "@/components/flex";
 import { Form } from "@/components/form/Form";
 import { Header } from "@/components/header";
-import { Spacing } from "@/components/spacing";
+import { Layout } from "@/components/layout";
 import { Stack } from "@/components/stack";
 import { useSignin } from "@/services/internal/auth/query";
 
@@ -34,8 +33,8 @@ const Signin = () => {
   };
 
   return (
-    <Box height="100vh" padding="0 20px">
-      <Flex flexDirection="column" gap="42px">
+    <Layout
+      header={
         <Header
           leftIcon={
             <IconChevronLeftLarge
@@ -47,6 +46,14 @@ const Signin = () => {
         >
           로그인
         </Header>
+      }
+      footer={
+        <Button type="submit" form="signinForm">
+          로그인
+        </Button>
+      }
+    >
+      <Box padding="0 20px">
         <Form
           onSubmit={handleSignin}
           resolver={zodResolver(signinSchema)}
@@ -66,15 +73,8 @@ const Signin = () => {
             ))}
           </Stack>
         </Form>
-        <Spacing direction="vertical" fill={true} />
-        <Box>
-          <Button type="submit" form="signinForm">
-            로그인
-          </Button>
-          <Spacing direction="vertical" size="32px" />
-        </Box>
-      </Flex>
-    </Box>
+      </Box>
+    </Layout>
   );
 };
 

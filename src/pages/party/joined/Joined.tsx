@@ -1,13 +1,12 @@
 import { IconChevronLeftLarge } from "jjan-icon";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
-import { BottomButton } from "../../components";
-
 import { Box } from "@/components/box";
+import { Button } from "@/components/button";
 import { Header } from "@/components/header";
+import { Layout } from "@/components/layout";
 import { Stack } from "@/components/stack";
 import { Typo } from "@/components/typo";
-import { Layout } from "@/pages/components/layout";
 
 const Joined = () => {
   const navigate = useNavigate();
@@ -20,16 +19,16 @@ const Joined = () => {
     navigate(`/chat-room/${partyId}`);
   };
 
-  const HeaderContainer = (
-    <Header leftIcon={<IconChevronLeftLarge onClick={() => navigate(-1)} />}>
-      {partyTitle ? partyTitle : "모임 제목이 없습니다."}
-    </Header>
-  );
-
   return (
     <Layout
-      header={HeaderContainer}
-      bottom={<BottomButton text="이동" onClick={onChat} />}
+      header={
+        <Header
+          leftIcon={<IconChevronLeftLarge onClick={() => navigate(-1)} />}
+        >
+          {partyTitle ? partyTitle : "모임 제목이 없습니다."}
+        </Header>
+      }
+      footer={<Button onClick={onChat}>이동</Button>}
     >
       <Box padding="0 20px">
         <Stack>

@@ -4,9 +4,9 @@ import { Box } from "@/components/box";
 import { Button } from "@/components/button";
 import { Flex } from "@/components/flex";
 import { Header } from "@/components/header";
+import { Layout } from "@/components/layout";
 import { ProgressBar } from "@/components/progressbar";
 import { Selectionbox } from "@/components/selectionbox/Selectionbox";
-import { Spacing } from "@/components/spacing";
 import { Stack } from "@/components/stack";
 import { Typo } from "@/components/typo";
 import { PartyFormSubPageProps } from "@/pages/create-party/types";
@@ -47,8 +47,8 @@ const Keywords = (props: PartyFormSubPageProps) => {
   };
 
   return (
-    <Box height="100vh" padding="0 20px">
-      <Flex flexDirection="column" gap="42px">
+    <Layout
+      header={
         <Header
           leftIcon={
             <IconChevronLeftLarge
@@ -59,28 +59,30 @@ const Keywords = (props: PartyFormSubPageProps) => {
           }
           rightIcon={<IconCancel width="22px" height="22px" />}
         >
-          모임 만들기
+          모임만들기
         </Header>
-        <Stack>
-          <Typo appearance="header1">우리 모임을 소개하자면?</Typo>
-          <Typo appearance="body2" color="gray700">
-            키워드를 설정해주세요.
-          </Typo>
-        </Stack>
-        <Selectionbox
-          options={KEYWORDS}
-          defaultValues={keywords}
-          onChange={values => dispatch(setKeywords(new Set(values)))}
-        />
-        <Spacing direction="vertical" fill={true} />
-        <Box>
+      }
+      footer={<Button onClick={handleNext}>다음</Button>}
+    >
+      <Box padding="0 20px" height="calc(100dvh - 174px)">
+        <Flex flexDirection="column" gap="42px" justifyContent="space-between">
+          <Stack space="space12">
+            <Stack>
+              <Typo appearance="header1">우리 모임을 소개하자면?</Typo>
+              <Typo appearance="body2" color="gray700">
+                키워드를 설정해주세요.
+              </Typo>
+            </Stack>
+            <Selectionbox
+              options={KEYWORDS}
+              defaultValues={keywords}
+              onChange={values => dispatch(setKeywords(new Set(values)))}
+            />
+          </Stack>
           <ProgressBar curStep={curStep} totalSteps={lastStep} />
-          <Spacing direction="vertical" size="42px" />
-          <Button onClick={handleNext}>다음</Button>
-          <Spacing direction="vertical" size="32px" />
-        </Box>
-      </Flex>
-    </Box>
+        </Flex>
+      </Box>
+    </Layout>
   );
 };
 

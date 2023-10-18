@@ -8,8 +8,8 @@ import { HEADER_BOTTOM_HEIGHT, MENU_HEIGHT } from "./constants";
 import { BottomNav } from "@/components/bottomNav";
 import { Box } from "@/components/box";
 import { Header } from "@/components/header";
+import { Layout } from "@/components/layout";
 import { List as ContentList } from "@/components/list";
-import { Layout } from "@/pages/components/layout";
 import { NAV_ITEMS } from "@/pages/home/constants";
 import { useFetchAllChat } from "@/services/internal/chat/query";
 import { exitParty } from "@/services/internal/party/http";
@@ -46,17 +46,19 @@ const List = () => {
     }
   };
 
-  const HeaderContainer = (
-    <Header
-      leftIcon={<IconChevronLeftLarge onClick={() => navigate(-1)} />}
-      rightIcon={<IconMenu onClick={() => setShowMenu(!showMenu)} />}
-    >
-      탐색하기
-    </Header>
-  );
-
   return (
-    <Layout header={HeaderContainer} bottom={<BottomNav items={NAV_ITEMS} />}>
+    <Layout
+      header={
+        <Header
+          leftIcon={<IconChevronLeftLarge onClick={() => navigate(-1)} />}
+          rightIcon={<IconMenu onClick={() => setShowMenu(!showMenu)} />}
+        >
+          탐색하기
+        </Header>
+      }
+      footer={<BottomNav items={NAV_ITEMS} />}
+      paddingFooter={false}
+    >
       <Box padding="0 20px">
         <ContentList
           gap="30px"

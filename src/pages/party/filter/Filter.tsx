@@ -11,12 +11,12 @@ import { Box } from "@/components/box";
 import { Flex } from "@/components/flex";
 import { Header } from "@/components/header";
 import { Hr } from "@/components/hr";
+import { Layout } from "@/components/layout";
 import { Selectionbox } from "@/components/selectionbox/Selectionbox";
 import { Slider } from "@/components/slider";
 import { Spacing } from "@/components/spacing";
 import { Stack } from "@/components/stack";
 import { Typo } from "@/components/typo";
-import { Layout } from "@/pages/components/layout";
 
 const Filter = () => {
   const navigate = useNavigate();
@@ -38,19 +38,21 @@ const Filter = () => {
     navigate(`/party-explore?${queryParams.toString()}`);
   };
 
-  const HeaderContainer = (
-    <Header
-      leftIcon={
-        <IconChevronLeftLarge onClick={navigateToPartyExploreWithQueryString} />
-      }
-      rightIcon={<IconCancel onClick={() => navigate("/party-explore")} />}
-    >
-      필터
-    </Header>
-  );
-
   return (
-    <Layout header={HeaderContainer}>
+    <Layout
+      header={
+        <Header
+          leftIcon={
+            <IconChevronLeftLarge
+              onClick={navigateToPartyExploreWithQueryString}
+            />
+          }
+          rightIcon={<IconCancel onClick={() => navigate("/party-explore")} />}
+        >
+          필터
+        </Header>
+      }
+    >
       <Box padding="0 20px">
         <Typo appearance="body1">정렬</Typo>
         <Spacing direction="vertical" size="10px" />

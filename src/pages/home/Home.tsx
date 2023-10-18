@@ -18,6 +18,7 @@ import { Box } from "@/components/box";
 import { Button } from "@/components/button";
 import { Flex } from "@/components/flex";
 import { Header } from "@/components/header";
+import { Layout } from "@/components/layout";
 import { Spacing } from "@/components/spacing";
 import { Stack } from "@/components/stack";
 import { Typo } from "@/components/typo";
@@ -133,57 +134,57 @@ const Home = () => {
   const { data: userInfo } = useFetchUserInfo();
 
   return (
-    <Box height="100dvh">
-      <Flex flexDirection="column">
-        <Box padding="0 20px">
-          <Header
-            leftIcon={<IconJjanLogo width="52px" height="28px" />}
-            rightIcon={
-              <IconAlertEmpty
-                width="20px"
-                height="24px"
-                onClick={() => navigate("/notifications")}
-              />
-            }
-          />
-        </Box>
-        <Box padding="0 20px" height="100%">
-          <Flex flexDirection="column" justifyContent="space-evenly">
-            <Flex gap="16px" justifyContent="space-between">
-              <Flex.Item flex="1 1 80%">
-                <Typo appearance="header1">
-                  심심한 오늘, 동네 친구들과 술 한잔 어때요?
-                </Typo>
-              </Flex.Item>
+    <Layout
+      header={
+        <Header
+          leftIcon={<IconJjanLogo width="52px" height="28px" />}
+          rightIcon={
+            <IconAlertEmpty
+              width="20px"
+              height="24px"
+              onClick={() => navigate("/notifications")}
+            />
+          }
+        />
+      }
+      footer={<BottomNav items={NAV_ITEMS} />}
+      paddingFooter={false}
+    >
+      <Box height="calc(100dvh - 156px)" padding="0 20px">
+        <Flex flexDirection="column" justifyContent="space-between">
+          <Flex gap="16px" justifyContent="space-between">
+            <Flex.Item flex="1 1 80%">
+              <Typo appearance="header1">
+                심심한 오늘, 동네 친구들과 술 한잔 어때요?
+              </Typo>
+            </Flex.Item>
 
-              <Flex.Item flex="1 1 20%">
-                {userInfo && (
-                  <Avatar
-                    isCircle
-                    width="68px"
-                    height="68px"
-                    src={userInfo?.profile}
-                  />
-                )}
-              </Flex.Item>
-            </Flex>
-            <Cards />
-            <Box padding="12px" backgroundColor="gray700" borderRadius="15px">
-              <Flex alignItems="center" gap="20px">
-                <Box>
-                  <Flex gap="8px" alignContent="center">
-                    <IconLocationPlus width="24px" height="24px" />
-                    <Typo appearance="body2">나의 위치</Typo>
-                  </Flex>
-                </Box>
-                <Typo appearance="body1">{userInfo && userInfo.address}</Typo>
-              </Flex>
-            </Box>
+            <Flex.Item flex="1 1 20%">
+              {userInfo && (
+                <Avatar
+                  isCircle
+                  width="68px"
+                  height="68px"
+                  src={userInfo?.profile}
+                />
+              )}
+            </Flex.Item>
           </Flex>
-        </Box>
-        <BottomNav items={NAV_ITEMS} />
-      </Flex>
-    </Box>
+          <Cards />
+          <Box padding="12px" backgroundColor="gray700" borderRadius="15px">
+            <Flex alignItems="center" gap="20px">
+              <Box>
+                <Flex gap="8px" alignContent="center">
+                  <IconLocationPlus width="24px" height="24px" />
+                  <Typo appearance="body2">나의 위치</Typo>
+                </Flex>
+              </Box>
+              <Typo appearance="body1">{userInfo && userInfo.address}</Typo>
+            </Flex>
+          </Box>
+        </Flex>
+      </Box>
+    </Layout>
   );
 };
 
