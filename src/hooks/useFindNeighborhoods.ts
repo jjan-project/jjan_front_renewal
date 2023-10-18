@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { useGetNeighborhoods } from "@/api/kakao";
+import { useGetNeighborhoods } from "@/services/external/kakao";
 import type { PlacesSearchOptions } from "@/types/kakao";
 import type { Coordinates } from "@/types/location";
 import { convertObjectValuesToStrings } from "@/utils/convertObjectValuesToStrings";
@@ -35,7 +35,6 @@ export function useFindNeighborhoods({
   };
 
   const stringOptions = convertObjectValuesToStrings(options);
-
   const neighborhoods = useGetNeighborhoods(stringOptions);
 
   useEffect(() => {

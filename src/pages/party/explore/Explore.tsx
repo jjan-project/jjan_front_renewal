@@ -3,11 +3,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
 import { NAV_ITEMS } from "../constants";
 
-import {
-  useAllPartyData,
-  useJoinedPartyData,
-  usePartyFilterData,
-} from "./hooks/";
+import { usePartyFilterData } from "./hooks";
 
 import { BottomNav } from "@/components/bottomNav";
 import { Box } from "@/components/box";
@@ -18,6 +14,10 @@ import { Stack } from "@/components/stack";
 import { Tabs } from "@/components/tabs";
 import { Typo } from "@/components/typo";
 import { PartyCard } from "@/pages/components";
+import {
+  useFetchAllParty,
+  useFetchJoinedParty,
+} from "@/services/internal/party/query";
 import { calculateDday } from "@/utils/calculateDday";
 
 const NAME = {
@@ -47,12 +47,12 @@ const Explore = () => {
     personnelLoe,
     ageTag,
   });
-  const defaultPartyList = useAllPartyData();
-  const joinedPartyList = useJoinedPartyData();
+  const { data: allPartyResponse } = useFetchAllParty();
+  const { data: joinedPartyResponse } = useFetchJoinedParty();
 
   const partyListToDisplay = filteredPartyList?.length
     ? filteredPartyList
-    : defaultPartyList;
+    : allPartyResponse && allPartyResponse.data;
 
   const handleDday = (date: string) => {
     const [day] = date.split(" ");

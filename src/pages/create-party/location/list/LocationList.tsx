@@ -2,10 +2,10 @@ import { Dispatch, SetStateAction } from "react";
 
 import { LocationItem } from "../item";
 
-import { useGetLocation } from "@/api/kakao";
 import { Box } from "@/components/box";
 import { List } from "@/components/list";
 import { useGeoLocation } from "@/hooks/useGeoLocation";
+import { useGetLocation } from "@/services/external/kakao";
 import { PartyLocation } from "@/store/partyStore";
 
 type LocationSearchProps = {

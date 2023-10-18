@@ -1,14 +1,15 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useQueryClient } from "@tanstack/react-query";
 import { IconCancel, IconChevronLeftLarge } from "jjan-icon";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { userRoutes } from "@/routes";
 
 import { ACCEPTED_IMAGE_TYPES } from "./constants";
 import { ProfileEditSchemaType, profileEditSchema } from "./schema";
 import { UploaderUI } from "./uploaderUi";
 
-import { AuthResponseData } from "@/api/jjan/types";
-import { fetchUserInfo } from "@/api/jjan/userController";
 import { Box } from "@/components/box";
 import { Button } from "@/components/button";
 import { Flex } from "@/components/flex";
@@ -25,11 +26,13 @@ import {
   SLIDER_MIN_VALUE,
   STEP,
 } from "@/pages/signup/capacity/constants";
+import { JJAN_URL } from "@/services/internal/domain";
+import { updateDrinkCapacity } from "@/services/internal/user/http";
+import { useFetchUserInfo } from "@/services/internal/user/query";
 import {
   useUpdateAvatar,
   useUpdateNickname,
-  useUpdateDrinkCapacity,
-} from "@/query/user";
+} from "@/services/internal/user/query";
 
 const HeaderContainer = () => {
   const navigate = useNavigate();
@@ -48,46 +51,46 @@ const HeaderContainer = () => {
 
 const Edit = () => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const mutateAvatar = useUpdateAvatar();
   const mutateNickname = useUpdateNickname();
-  const mutateDrinkCapacity = useUpdateDrinkCapacity();
+  //const mutateDrinkCapacity = useUpdateDrinkCapacity();
 
-  const [userInfo, setUserInfo] = useState<AuthResponseData>();
-  const [localCapacity, setLocalCapacity] = useState(0);
+  const { data: userInfo } = useFetchUserInfo();
 
-  const onFetchUserInfo = async () => {
-    try {
-      const response = await fetchUserInfo();
-      setUserInfo(response);
-      setLocalCapacity(+response.drinkCapacity);
-    } catch (error) {
-      console.error("Error while verifying JWT Token", error);
-    }
-  };
+  const [localCapacity, setLocalCapacity] = useState(
+    Number(userInfo?.drinkCapacity) | 0,
+  );
 
-  useEffect(() => {
-    onFetchUserInfo();
-  }, []);
-
-  const handleChange = (validatedData: ProfileEditSchemaType) => {
+  const handleChange = async (validatedData: ProfileEditSchemaType) => {
     try {
       if (userInfo?.nickName !== validatedData.nickname) {
-        mutateNickname.mutate(validatedData.nickname);
+        await mutateNickname.mutateAsync(validatedData.nickname);
       }
 
       if (validatedData.avatar[0] !== undefined) {
         const formDate = new FormData();
         formDate.append("image", validatedData.avatar[0]);
-        mutateAvatar.mutate(formDate);
+        await mutateAvatar.mutateAsync(formDate);
       }
 
-      mutateDrinkCapacity.mutate(localCapacity.toString());
+      const localCapacityString = localCapacity
+        ? localCapacity.toString()
+        : "0";
+      if (userInfo?.drinkCapacity !== localCapacityString) {
+        //mutateDrinkCapacity.mutateAsync(localCapacityString);
+        await updateDrinkCapacity(localCapacityString);
+      }
+
+      queryClient.invalidateQueries([
+        `${JJAN_URL}/${userRoutes.userInfo}`,
+        null,
+      ]);
+      navigate("/profile");
     } catch (error) {
       console.error(error);
     }
-
-    navigate("/profile");
   };
 
   if (!userInfo) return;

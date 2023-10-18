@@ -10,7 +10,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import { TagBox } from "./TagBox";
 import { useDetailData } from "./useDetailData";
 
-import { joinParty } from "@/api/jjan/partyController";
 import { Avatar } from "@/components/avatar";
 import { Box } from "@/components/box";
 import { Button } from "@/components/button";
@@ -24,6 +23,7 @@ import { List } from "@/components/list";
 import { Spacing } from "@/components/spacing";
 import { Stack } from "@/components/stack";
 import { Typo } from "@/components/typo";
+import { joinParty } from "@/services/internal/party/http";
 import { formatToKoreanDateTime } from "@/utils/formatToKoreanDateTime";
 
 const PartyImages = ({ images }: { images?: string[] }) => (

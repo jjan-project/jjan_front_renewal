@@ -11,6 +11,7 @@ import { Spacing } from "@/components/spacing";
 import { Stack } from "@/components/stack";
 import { TextArea } from "@/components/textField";
 import { Typo } from "@/components/typo";
+import { exitParty } from "@/services/internal/party/http";
 
 const Exit = () => {
   const { partyId } = useParams();
@@ -29,7 +30,7 @@ const Exit = () => {
     }
 
     try {
-      await outParty(partyId);
+      await exitParty(partyId);
       navigate("/party-explore");
     } catch (e) {
       console.error(e);

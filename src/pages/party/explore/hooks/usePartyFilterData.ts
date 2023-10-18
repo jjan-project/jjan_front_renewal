@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
-import { useFetchFilterParty } from "@/api/jjan/partyController";
-import { FilterPartyRequestData, PartyInfo } from "@/api/jjan/types";
+import { useFetchFilterParty } from "@/services/internal/party/query";
+import { FilterPartyRequestData, PartyInfo } from "@/services/internal/types";
 
 export const usePartyFilterData = ({
   sort,

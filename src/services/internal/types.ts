@@ -1,3 +1,9 @@
+export type Response<T> = {
+  code: number;
+  message: string;
+  data: T;
+};
+
 export type AuthResponseData = {
   email: string;
   nickName: string;
@@ -83,9 +89,9 @@ export type ChatAllRoomResponseData = {
   partyId: number;
   partyImages: string | null;
   partyTitle: string;
-}
+};
 
-  export type FilterPartyRequestData = {
+export type FilterPartyRequestData = {
   sort: string | null;
   partyTagList?: string[] | null;
   radiusRange?: string | null;

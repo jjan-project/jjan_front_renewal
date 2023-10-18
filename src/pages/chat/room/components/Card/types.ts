@@ -1,4 +1,4 @@
-import { ChatMessageResponseDate } from "@/api/jjan/types";
+import { ChatMessageResponseDate } from "@/services/internal/types";
 
 type CardProps = {
   index: number;

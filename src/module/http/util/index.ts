@@ -1,18 +1,17 @@
-import type { RequestSubConfigMap, RequestToken } from "../type";
+import type { RequestSubConfigMap } from "../type";
 
 export function getRequestHeader(
   requestHeaderMap: RequestSubConfigMap,
   url: string,
-  token?: RequestToken,
 ): Record<string, string> {
-  const headerConfig = requestHeaderMap[url];
-  if (typeof headerConfig === "function") {
-    if (token) return headerConfig(token || token);
-    else return {};
-  }
-  return headerConfig || {};
+  return requestHeaderMap[url];
 }
 
 export function extractDomain(url: string): string {
-  return new URL(url).hostname;
+  try {
+    return new URL(url).hostname;
+  } catch (error) {
+    console.error("Invalid URL:", url);
+    return "";
+  }
 }

@@ -33,13 +33,12 @@ interface InfinitePagesProps<T> extends Omit<QueryProps<T>, "config"> {
 }
 
 interface MutationProps<T, S = unknown> {
-  func?: ((data: T | S) => Promise<ResponseType<S>>) | (() => Promise<T>);
+  func?: ((data: T | S) => Promise<ResponseType<T | S>>) | (() => Promise<T>);
   url: string;
   updater?: (oldData: T, newData: S) => T;
   params?: RequestConfigType;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   config?: UseMutationOptions<ResponseType<S> | any, ErrorType, T | S>;
-  customQueryKey?: string;
 }
 
 export type {

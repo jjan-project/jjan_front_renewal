@@ -1,9 +1,8 @@
 import { userRoutes } from "@/routes";
 
-import { JJAN_URL } from "./domain";
-import { AuthResponseData } from "./types";
+import { JJAN_URL } from "../domain";
+import { AuthResponseData } from "../types";
 
-import { httpService } from "@/module/http";
 import { serverStateManager } from "@/module/serverState";
 
 export const useUpdateAvatar = () =>
@@ -14,14 +13,22 @@ export const useUpdateAvatar = () =>
         "Content-Type": "multipart/form-data",
       },
     },
+    config: {
+      useErrorBoundary: true,
+    },
   });
 
-export const useUpdateNickName = () =>
-  serverStateManager.update({ url: `${JJAN_URL}${userRoutes.updateNickName}` });
-
-export const useUpdateDrinkCapacity = () =>
+export const useUpdateNickname = () =>
   serverStateManager.update({
-    url: `${JJAN_URL}${userRoutes.updateDrinkCapacity}`,
+    url: `${JJAN_URL}${userRoutes.updateNickName}`,
+    params: {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    },
+    config: {
+      useErrorBoundary: true,
+    },
   });
 
 export const useDeleteUserAT = () =>
@@ -40,9 +47,4 @@ export const useDeleteUserUserEmail = (userEmail: string) =>
 export const useFetchUserInfo = () =>
   serverStateManager.fetch<AuthResponseData>({
     url: `${JJAN_URL}${userRoutes.userInfo}`,
-  });
-
-export const fetchUserInfo = () =>
-  httpService.get<AuthResponseData>(`${JJAN_URL}${userRoutes.userInfo}`, {
-    withCredentials: true,
   });

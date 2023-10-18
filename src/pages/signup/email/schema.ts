@@ -2,7 +2,7 @@ import { z } from "zod";
 
 import { jjanError } from "@/errors";
 
-import { isEmailExistedApi } from "@/api/jjan/joinController";
+import { isEmailExistedApi } from "@/services/internal/auth/http";
 
 const errorMessages = {
   required: "필수 항목입니다.",

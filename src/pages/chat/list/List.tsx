@@ -5,14 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { RoomListCard, RoomModifyMenu } from "./components";
 import { HEADER_BOTTOM_HEIGHT, MENU_HEIGHT } from "./constants";
 
-import { useFetchAllChat } from "@/api/jjan/chatController";
-import { outParty } from "@/api/jjan/partyController";
 import { BottomNav } from "@/components/bottomNav";
 import { Box } from "@/components/box";
 import { Header } from "@/components/header";
 import { Layout } from "@/components/layout";
 import { List as ContentList } from "@/components/list";
 import { NAV_ITEMS } from "@/pages/home/constants";
+import { useFetchAllChat } from "@/services/internal/chat/query";
+import { exitParty } from "@/services/internal/party/http";
 
 const List = () => {
   const navigate = useNavigate();
@@ -35,7 +35,7 @@ const List = () => {
     if (checkedIds) {
       checkedIds.forEach(async id => {
         try {
-          await outParty(String(id));
+          await exitParty(String(id));
           setCheckedIds([]);
           setShowMenu(false);
           refetchMyChatRoomAllList();

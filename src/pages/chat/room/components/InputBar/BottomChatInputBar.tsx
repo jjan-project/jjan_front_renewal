@@ -4,12 +4,12 @@ import { IconCamera, IconChevronLeftLarge } from "jjan-icon";
 import { ACCEPTED_IMAGE_TYPES } from "../../constants";
 import { ChatSchemaType, chatSchema } from "../../schema";
 
-import { AuthResponseData } from "@/api/jjan/types";
 import { Box } from "@/components/box";
 import { Button } from "@/components/button";
 import { Flex } from "@/components/flex";
 import { Form } from "@/components/form/Form";
 import { RenderProps } from "@/components/form/imageUploader";
+import { AuthResponseData } from "@/services/internal/types";
 
 interface BottomChatInputBarProps {
   socketConnected: boolean | WebSocket | null;
