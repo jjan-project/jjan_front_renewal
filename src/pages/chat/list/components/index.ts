@@ -1,2 +1,2 @@
-export { RoomListCard } from "./Card";
+export { RoomListCard, RoomListCardSkeleton } from "./Card";
 export { RoomModifyMenu } from "./Menu";

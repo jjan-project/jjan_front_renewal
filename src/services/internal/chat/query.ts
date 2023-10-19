@@ -14,4 +14,5 @@ export const useFetchChatMessages = (chatId: string | undefined) =>
 export const useFetchAllChat = () =>
   serverStateManager.fetch<ChatAllRoomResponseData[]>({
     url: `${JJAN_URL}${chatRoutes.getChatAllRoom}`,
+    config: { suspense: false },
   });
