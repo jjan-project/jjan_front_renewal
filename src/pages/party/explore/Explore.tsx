@@ -1,9 +1,9 @@
 import { IconChevronLeftLarge, IconMenu } from "jjan-icon";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { NAV_ITEMS } from "../constants";
 
-import { usePartyFilterData } from "./hooks";
+import { usePartyFilterData, usePartyFilterParams } from "./hooks";
 
 import { BottomNav } from "@/components/bottomNav";
 import { Box } from "@/components/box";
@@ -27,17 +27,21 @@ const NAME = {
 
 const Explore = () => {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
 
-  const sort = searchParams.get("sort");
-  const partyTagListParam = searchParams.get("partyTagList");
-  const partyTagList =
-    partyTagListParam !== null ? JSON.parse(partyTagListParam) : undefined;
-  const radiusRange = searchParams.get("radiusRange");
-  const personnelGoe = searchParams.get("personnelGoe");
-  const personnelLoe = searchParams.get("personnelLoe");
-  const ageTagParam = searchParams.get("ageTag");
-  const ageTag = ageTagParam !== null ? JSON.parse(ageTagParam) : undefined;
+  const { data: allPartyResponse, isLoading: isLoadingAllParty } =
+    useFetchAllParty();
+
+  const { data: joinedPartyResponse, isLoading: isLoadingJoinedParty } =
+    useFetchJoinedParty();
+
+  const {
+    sort,
+    partyTagList,
+    radiusRange,
+    personnelGoe,
+    personnelLoe,
+    ageTag,
+  } = usePartyFilterParams();
 
   const {
     filteredPartyList,
@@ -51,11 +55,6 @@ const Explore = () => {
     personnelLoe,
     ageTag,
   });
-
-  const { data: allPartyResponse, isLoading: isLoadingAllParty } =
-    useFetchAllParty();
-  const { data: joinedPartyResponse, isLoading: isLoadingJoinedParty } =
-    useFetchJoinedParty();
 
   const partyListToDisplay = filteredPartyList?.length
     ? filteredPartyList
