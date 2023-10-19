@@ -27,6 +27,7 @@ const Typo: TypoComponent = forwardRef(
       if (appearanceStyles) {
         return (
           <Skeleton
+            trimEdges
             width={width ? width : "100%"}
             height={appearanceStyles.height}
             radius="4px"

@@ -9,13 +9,22 @@ export const Container = styled.div<SkeletonProps>`
     typeof props.width === "number" ? `${props.width}px` : props.width};
   height: ${props =>
     typeof props.height === "number" ? `${props.height}px` : props.height};
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   border-radius: ${props => props.radius};
 `;
 
-export const Div = styled.div<Pick<SkeletonProps, "radius">>`
+export const Div = styled.div<Pick<SkeletonProps, "radius" | "trimEdges">>`
   position: relative;
-  background: ${colors.gray800};
+  background: ${props =>
+    props.trimEdges
+      ? `
+  linear-gradient(
+    to bottom,
+    transparent 0%,
+    ${colors.gray800} 15%,
+    ${colors.gray800} 85%,
+    transparent 100%
+  )`
+      : colors.gray800};
   border-radius: ${props => props.radius};
   height: 100%;
 `;
