@@ -1,5 +1,5 @@
 import { IconCancel, IconChevronLeftLarge } from "jjan-icon";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { Box } from "@/components/box";
 import { Header } from "@/components/header";
@@ -8,10 +8,8 @@ import { Layout } from "@/components/layout";
 import { List } from "@/components/list";
 import { Spacing } from "@/components/spacing";
 import { Typo } from "@/components/typo";
-import { PartyCard } from "@/pages/components";
+import usePartyCardRenderer from "@/hooks/usePartyCardRenderer";
 import { useFetchJoinedParty } from "@/services/internal/party/query";
-import { PartyInfo } from "@/services/internal/types";
-import { calculateDday } from "@/utils/calculateDday";
 
 const HeaderContainer = () => {
   const navigate = useNavigate();
@@ -29,18 +27,9 @@ const HeaderContainer = () => {
 };
 
 const WatchList = () => {
-  let joinedPartyList: PartyInfo[] | undefined;
+  const { data: joinedPartyResponse, isLoading } = useFetchJoinedParty();
 
-  const { data: joinedPartyResponse } = useFetchJoinedParty();
-
-  if (joinedPartyResponse?.data) {
-    joinedPartyList = joinedPartyResponse.data;
-  }
-
-  const handleDday = (date: string) => {
-    const [day] = date.split(" ");
-    return calculateDday(day);
-  };
+  const renderPartyList = usePartyCardRenderer();
 
   return (
     <Layout header={<HeaderContainer />}>
@@ -50,21 +39,7 @@ const WatchList = () => {
         <Hr type="solid" backgroundColor="violet100" />
         <Spacing direction="vertical" size="36px" />
         <List gap="30px" height="calc(100dvh - 68px - 221px)" hideScrollbar>
-          {joinedPartyList
-            ? joinedPartyList.map(partyInfo => (
-                <Link to={`/party-detail/${partyInfo.id}`} key={partyInfo.id}>
-                  <PartyCard
-                    title={partyInfo.title}
-                    date={partyInfo.partyDate}
-                    partyImage={partyInfo.thumbnail}
-                    dDay={handleDday(partyInfo.partyDate)}
-                    contributorsAvatars={partyInfo.joinUser.map(
-                      user => user.profile,
-                    )}
-                  />
-                </Link>
-              ))
-            : "나의 모임을 찾을 수 없습니다."}
+          {renderPartyList(isLoading, joinedPartyResponse?.data)}
         </List>
       </Box>
     </Layout>
