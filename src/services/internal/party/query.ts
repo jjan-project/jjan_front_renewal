@@ -20,11 +20,13 @@ import { pathToUrl } from "@/utils/pathToURL";
 export const useFetchAllParty = () =>
   serverStateManager.fetch<Response<PartyInfo[]>>({
     url: `${JJAN_URL}${partyRoutes.getAllParty}`,
+    config: { suspense: false },
   });
 
 export const useFetchJoinedParty = () =>
   serverStateManager.fetch<Response<PartyInfo[]>>({
     url: `${JJAN_URL}${partyRoutes.getMyParty}`,
+    config: { suspense: false },
   });
 
 export const useFetchDetailParty = (partyId: string | undefined) =>

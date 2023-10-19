@@ -12,7 +12,17 @@ export const usePartyFilterData = ({
   ageTag,
 }: FilterPartyRequestData) => {
   const fetchFilterParty = useFetchFilterParty();
+
   const [filteredPartyList, setFilteredPartyList] = useState<PartyInfo[]>();
+
+  const isFilteredPage = !!(
+    sort ||
+    partyTagList ||
+    radiusRange ||
+    personnelGoe ||
+    personnelLoe ||
+    ageTag
+  );
 
   useEffect(() => {
     if (sort) {
@@ -39,5 +49,5 @@ export const usePartyFilterData = ({
     }
   }, []);
 
-  return filteredPartyList;
+  return { filteredPartyList, isFilteredPage, ...fetchFilterParty };
 };
