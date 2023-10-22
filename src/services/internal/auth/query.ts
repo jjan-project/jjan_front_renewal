@@ -8,7 +8,6 @@ import { serverStateManager } from "@/module/serverState";
 export const useSignin = () =>
   serverStateManager.post({
     url: `${JJAN_URL}${userRoutes.signin}`,
-    config: { useErrorBoundary: true },
   });
 
 export const useSignup = () =>

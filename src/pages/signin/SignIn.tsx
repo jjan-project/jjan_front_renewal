@@ -1,5 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { IconChevronLeftLarge } from "jjan-icon";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { FORM_DATA } from "./constants";
@@ -12,11 +13,13 @@ import { Form } from "@/components/form/Form";
 import { Header } from "@/components/header";
 import { Layout } from "@/components/layout";
 import { Stack } from "@/components/stack";
+import { Typo } from "@/components/typo";
 import { useSignin } from "@/services/internal/auth/query";
 
 const Signin = () => {
   const navigate = useNavigate();
   const signinMutation = useSignin();
+  const [error, setError] = useState(false);
 
   const handlePrev = () => {
     navigate("/landing", {
@@ -28,6 +31,9 @@ const Signin = () => {
     signinMutation.mutate(data, {
       onSuccess: () => {
         window.location.replace("/");
+      },
+      onError: () => {
+        setError(true);
       },
     });
   };
@@ -72,6 +78,11 @@ const Signin = () => {
               />
             ))}
           </Stack>
+          {error && (
+            <Typo appearance="body3" color="orange300" role="alert">
+              이메일 또는 비밀번호를 확인해주세요.
+            </Typo>
+          )}
         </Form>
       </Box>
     </Layout>
