@@ -10,7 +10,7 @@ import { Flex } from "@/components/flex";
 import { Header } from "@/components/header";
 import { Layout } from "@/components/layout";
 import { ProfileInfo } from "@/pages/components/profileInfo";
-import { ProfileOptionPanel } from "@/pages/components/ProfileOptions";
+import { ProfileOptionPanel } from "@/pages/components/profileOptions";
 import { NAV_ITEMS } from "@/pages/party/constants";
 
 const Main = () => {
