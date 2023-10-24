@@ -6,7 +6,7 @@ import { Flex } from "@/components/flex";
 import { Header } from "@/components/header";
 import { Layout } from "@/components/layout";
 import { ProgressBar } from "@/components/progressbar";
-import { Selectionbox } from "@/components/selectionbox/Selectionbox";
+import { Selectionbox } from "@/components/selectionbox";
 import { Stack } from "@/components/stack";
 import { Typo } from "@/components/typo";
 import { PartyFormSubPageProps } from "@/pages/create-party/types";
