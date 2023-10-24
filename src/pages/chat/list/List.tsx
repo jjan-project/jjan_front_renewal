@@ -14,7 +14,7 @@ import { Box } from "@/components/box";
 import { Header } from "@/components/header";
 import { Layout } from "@/components/layout";
 import { List as ContentList } from "@/components/list";
-import { NAV_ITEMS } from "@/pages/home/constants";
+import { NAV_ITEMS } from "@/constants/navigation";
 import { useFetchAllChat } from "@/services/internal/chat/query";
 import { exitParty } from "@/services/internal/party/http";
 

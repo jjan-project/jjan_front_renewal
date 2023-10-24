@@ -10,8 +10,6 @@ import {
 } from "jjan-icon";
 import { useNavigate, Link } from "react-router-dom";
 
-import { NAV_ITEMS } from "./constants";
-
 import { Avatar } from "@/components/avatar";
 import { BottomNav } from "@/components/bottomNav";
 import { Box } from "@/components/box";
@@ -22,6 +20,7 @@ import { Layout } from "@/components/layout";
 import { Spacing } from "@/components/spacing";
 import { Stack } from "@/components/stack";
 import { Typo } from "@/components/typo";
+import { NAV_ITEMS } from "@/constants/navigation";
 import { useFetchUserInfo } from "@/services/internal/user/query";
 
 const Cards = () => {
