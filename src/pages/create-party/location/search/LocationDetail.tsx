@@ -7,6 +7,7 @@ import { Box } from "@/components/box";
 import { Flex } from "@/components/flex";
 import { Header } from "@/components/header";
 import { Input } from "@/components/input";
+import useDebounce from "@/hooks/useDebounce";
 import { PartyLocation } from "@/store/partyStore";
 
 type LocationSearchProps = {
@@ -17,6 +18,7 @@ type LocationSearchProps = {
 
 const LocationSearch = (props: LocationSearchProps) => {
   const [searchValue, setSearchValue] = useState<string>("");
+  const debouncedValued = useDebounce<string>(searchValue, 300);
 
   const handleClose = () => {
     props.onClose(prev => !prev);
@@ -48,7 +50,7 @@ const LocationSearch = (props: LocationSearchProps) => {
           isValid
         />
         <Suspense fallback={<h1>fallback</h1>}>
-          <LocationList {...props} searchValue={searchValue} />
+          <LocationList {...props} searchValue={debouncedValued} />
         </Suspense>
       </Flex>
     </Box>
