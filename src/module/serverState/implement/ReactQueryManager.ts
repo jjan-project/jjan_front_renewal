@@ -24,6 +24,17 @@ export class ReactQueryManager implements ServerStateManager {
     this.apiService = apiService;
   }
 
+  private async minimumLoadingTime<T>(
+    dataPromise: Promise<T>,
+    minimumTime = 400,
+  ): Promise<T> {
+    const timerPromise = new Promise<void>(resolve =>
+      setTimeout(resolve, minimumTime),
+    );
+    await Promise.all([dataPromise, timerPromise]);
+    return dataPromise;
+  }
+
   private fetcher<T>({
     queryKey,
     pageParam,
@@ -39,8 +50,10 @@ export class ReactQueryManager implements ServerStateManager {
 
     return useQuery<T, Error, T, QueryKeyT>({
       queryKey: [url!, params],
-      queryFn: (context: QueryFunctionContext<QueryKeyT>) =>
-        this.fetcher<T>(context),
+      queryFn: (context: QueryFunctionContext<QueryKeyT>) => {
+        const dataPromise = this.fetcher<T>(context);
+        return this.minimumLoadingTime(dataPromise);
+      },
       enabled: !!url,
       ...config,
     });

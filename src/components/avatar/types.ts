@@ -4,8 +4,13 @@ import { BaseTest } from "../types/base";
 
 type ImageBaseProps = ImgHTMLAttributes<HTMLImageElement>;
 
+type SkeletonAvatarProps = {
+  isLoading?: boolean;
+};
+
 type AvatarProps = ImageBaseProps &
-  BaseTest & {
+  BaseTest &
+  SkeletonAvatarProps & {
     isDisabled?: boolean;
     isCircle?: boolean;
   };

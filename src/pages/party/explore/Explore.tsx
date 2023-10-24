@@ -1,25 +1,24 @@
-import { IconChevronLeftLarge, IconMenu, IconPensil } from "jjan-icon";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { IconChevronLeftLarge, IconMenu } from "jjan-icon";
+import { useNavigate } from "react-router-dom";
 
 import { NAV_ITEMS } from "../constants";
 
-import { usePartyFilterData } from "./hooks";
+import { usePartyFilterData, usePartyFilterParams } from "./hooks";
 
 import { BottomNav } from "@/components/bottomNav";
 import { Box } from "@/components/box";
-import { Fab } from "@/components/fab";
 import { Header } from "@/components/header";
 import { Layout } from "@/components/layout";
 import { List } from "@/components/list";
 import { Stack } from "@/components/stack";
 import { Tabs } from "@/components/tabs";
 import { Typo } from "@/components/typo";
-import { PartyCard } from "@/pages/components";
+import usePartyCardRenderer from "@/hooks/usePartyCardRenderer";
+import { CreatePartyFabButton } from "@/pages/components";
 import {
   useFetchAllParty,
   useFetchJoinedParty,
 } from "@/services/internal/party/query";
-import { calculateDday } from "@/utils/calculateDday";
 
 const NAME = {
   FIRST: "짠 모임",
@@ -28,19 +27,27 @@ const NAME = {
 
 const Explore = () => {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
 
-  const sort = searchParams.get("sort");
-  const partyTagListParam = searchParams.get("partyTagList");
-  const partyTagList =
-    partyTagListParam !== null ? JSON.parse(partyTagListParam) : undefined;
-  const radiusRange = searchParams.get("radiusRange");
-  const personnelGoe = searchParams.get("personnelGoe");
-  const personnelLoe = searchParams.get("personnelLoe");
-  const ageTagParam = searchParams.get("ageTag");
-  const ageTag = ageTagParam !== null ? JSON.parse(ageTagParam) : undefined;
+  const { data: allPartyResponse, isLoading: isLoadingAllParty } =
+    useFetchAllParty();
 
-  const filteredPartyList = usePartyFilterData({
+  const { data: joinedPartyResponse, isLoading: isLoadingJoinedParty } =
+    useFetchJoinedParty();
+
+  const {
+    sort,
+    partyTagList,
+    radiusRange,
+    personnelGoe,
+    personnelLoe,
+    ageTag,
+  } = usePartyFilterParams();
+
+  const {
+    filteredPartyList,
+    isFilteredPage,
+    isLoading: isLoadingFilteredParty,
+  } = usePartyFilterData({
     sort,
     partyTagList,
     radiusRange,
@@ -48,17 +55,16 @@ const Explore = () => {
     personnelLoe,
     ageTag,
   });
-  const { data: allPartyResponse } = useFetchAllParty();
-  const { data: joinedPartyResponse } = useFetchJoinedParty();
 
   const partyListToDisplay = filteredPartyList?.length
     ? filteredPartyList
     : allPartyResponse && allPartyResponse.data;
 
-  const handleDday = (date: string) => {
-    const [day] = date.split(" ");
-    return calculateDday(day);
-  };
+  const isLoadingParty =
+    (isFilteredPage && isLoadingFilteredParty) ||
+    (!isFilteredPage && isLoadingAllParty);
+
+  const renderPartyList = usePartyCardRenderer();
 
   return (
     <Layout
@@ -74,18 +80,8 @@ const Explore = () => {
       paddingFooter={false}
     >
       <Box padding="0 20px" style={{ position: "relative" }}>
-        <Link to="/party-create">
-          <Fab
-            width="61px"
-            height="61px"
-            location="auto 20 20 auto"
-            boxShadow="0 4px 5px 1px rgba(0, 0, 0, 0.3)"
-            color="white"
-          >
-            <IconPensil width="60%" height="60%" />
-          </Fab>
-        </Link>
         <Stack>
+          <CreatePartyFabButton />
           <Typo appearance="header2" style={{ fontWeight: "bold" }}>
             오늘은 무슨 모임이 있을까요?
           </Typo>
@@ -104,24 +100,7 @@ const Explore = () => {
                 height="calc(100dvh - 68px - 198px)"
                 hideScrollbar
               >
-                {partyListToDisplay
-                  ? partyListToDisplay.map(partyInfo => (
-                      <Link
-                        to={`/party-detail/${partyInfo.id}`}
-                        key={partyInfo.id}
-                      >
-                        <PartyCard
-                          title={partyInfo.title}
-                          date={partyInfo.partyDate}
-                          partyImage={partyInfo.thumbnail}
-                          dDay={handleDday(partyInfo.partyDate)}
-                          contributorsAvatars={partyInfo.joinUser.map(
-                            user => user.profile,
-                          )}
-                        />
-                      </Link>
-                    ))
-                  : "모임을 찾을 수 없습니다."}
+                {renderPartyList(isLoadingParty, partyListToDisplay)}
               </List>
             </Tabs.Panel>
             <Tabs.Panel name={NAME.SECOND}>
@@ -130,24 +109,10 @@ const Explore = () => {
                 height="calc(100dvh - 68px - 198px)"
                 hideScrollbar
               >
-                {joinedPartyResponse
-                  ? joinedPartyResponse.data.map(partyInfo => (
-                      <Link
-                        to={`/party-detail/${partyInfo.id}`}
-                        key={partyInfo.id}
-                      >
-                        <PartyCard
-                          title={partyInfo.title}
-                          date={partyInfo.partyDate}
-                          partyImage={partyInfo.thumbnail}
-                          dDay={handleDday(partyInfo.partyDate)}
-                          contributorsAvatars={partyInfo.joinUser.map(
-                            user => user.profile,
-                          )}
-                        />
-                      </Link>
-                    ))
-                  : "나의 모임을 찾을 수 없습니다."}
+                {renderPartyList(
+                  isLoadingJoinedParty,
+                  joinedPartyResponse?.data,
+                )}
               </List>
             </Tabs.Panel>
           </Tabs>

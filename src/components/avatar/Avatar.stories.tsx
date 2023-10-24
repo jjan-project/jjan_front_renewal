@@ -9,7 +9,19 @@ export default {
 } as Meta;
 
 export const Default = (args: AvatarProps) => {
-  return <Avatar {...args} />;
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem",
+      }}
+    >
+      <Avatar {...args} />
+      <Avatar isLoading width={60} height={60} />
+      <Avatar isLoading width={60} height={60} isCircle />
+    </div>
+  );
 };
 Default.args = {
   alt: "사용자 아바타",

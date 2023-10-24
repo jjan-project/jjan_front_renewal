@@ -2,7 +2,11 @@ import { IconChevronLeftLarge, IconMenu } from "jjan-icon";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { RoomListCard, RoomModifyMenu } from "./components";
+import {
+  RoomListCard,
+  RoomModifyMenu,
+  RoomListCardSkeleton,
+} from "./components";
 import { HEADER_BOTTOM_HEIGHT, MENU_HEIGHT } from "./constants";
 
 import { BottomNav } from "@/components/bottomNav";
@@ -28,8 +32,11 @@ const List = () => {
     setCheckedIds(prev => prev.filter(item => item !== id));
   };
 
-  const { data: myChatRoomAllList, refetch: refetchMyChatRoomAllList } =
-    useFetchAllChat();
+  const {
+    data: myChatRoomAllList,
+    refetch: refetchMyChatRoomAllList,
+    isLoading,
+  } = useFetchAllChat();
 
   const handleExitChatRoom = () => {
     if (checkedIds) {
@@ -45,6 +52,11 @@ const List = () => {
       });
     }
   };
+
+  const renderRoomListCardSkeletons = () =>
+    Array(5)
+      .fill(null)
+      .map((_, index) => <RoomListCardSkeleton key={index} />);
 
   return (
     <Layout
@@ -68,15 +80,17 @@ const List = () => {
               : `calc(100dvh - ${HEADER_BOTTOM_HEIGHT}px)`
           }
         >
-          {myChatRoomAllList &&
-            myChatRoomAllList.map((roomData, index) => (
-              <RoomListCard
-                key={index}
-                showMenu={showMenu}
-                roomData={roomData}
-                onCheckChange={handleCheckChange}
-              />
-            ))}
+          {isLoading
+            ? renderRoomListCardSkeletons()
+            : myChatRoomAllList &&
+              myChatRoomAllList.map((roomData, index) => (
+                <RoomListCard
+                  key={index}
+                  showMenu={showMenu}
+                  roomData={roomData}
+                  onCheckChange={handleCheckChange}
+                />
+              ))}
         </ContentList>
       </Box>
       {showMenu && <RoomModifyMenu onClick={handleExitChatRoom} />}

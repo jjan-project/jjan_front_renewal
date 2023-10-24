@@ -56,6 +56,19 @@ export const Default: Story = {
           hello world
         </Typo>
       </div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "1rem",
+        }}
+      >
+        <Typo isLoading appearance="header1" width="100px" />
+        <Typo isLoading appearance="header2" width="100px" />
+        <Typo isLoading appearance="body1" width="100px" />
+        <Typo isLoading appearance="body2" width="100px" />
+        <Typo isLoading appearance="body3" width="100px" />
+      </div>
     </div>
   ),
 };

@@ -5,7 +5,6 @@ import { Avatar } from "@/components/avatar";
 import { Box } from "@/components/box";
 import { Flex } from "@/components/flex";
 import { Spacing } from "@/components/spacing";
-import { Stack } from "@/components/stack";
 import { Typo } from "@/components/typo";
 
 const OverlayedAvatar = ({ overlay, ...avatarProps }: OverlayedAvatarProps) => {
@@ -55,7 +54,7 @@ const CardInfo = ({
   contributorsAvatars,
 }: Pick<PartyCardProps, "title" | "date" | "contributorsAvatars">) => {
   return (
-    <Stack>
+    <Box width="100%">
       <Flex flexDirection="column">
         <Typo
           appearance="body2"
@@ -70,7 +69,7 @@ const CardInfo = ({
         <Spacing direction="vertical" size="20px" />
         <CardContributorsAvatar avatars={contributorsAvatars} />
       </Flex>
-    </Stack>
+    </Box>
   );
 };
 
