@@ -2,7 +2,7 @@ import { CardProps } from "./types";
 
 import { Box } from "@/components/box";
 import { Typo } from "@/components/typo";
-import { formatToKoreanTime } from "@/utils/formatToKoreanDateTime";
+import { formatToKoreanTime } from "@/utils/date";
 
 const CurrentUserChatCard = ({ index, data }: CardProps) => {
   return (

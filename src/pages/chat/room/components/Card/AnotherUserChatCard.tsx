@@ -4,7 +4,7 @@ import { Avatar } from "@/components/avatar";
 import { Box } from "@/components/box";
 import { Flex } from "@/components/flex";
 import { Typo } from "@/components/typo";
-import { formatToKoreanTime } from "@/utils/formatToKoreanDateTime";
+import { formatToKoreanTime } from "@/utils/date";
 
 const AnotherUserChatCard = ({ index, data }: CardProps) => {
   return (

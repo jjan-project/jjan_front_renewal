@@ -15,7 +15,7 @@ import {
 import { httpService } from "@/module/http";
 import { serverStateManager } from "@/module/serverState";
 import { ErrorType } from "@/module/serverState/type/httpTypes";
-import { pathToUrl } from "@/utils/pathToURL";
+import { pathToUrl } from "@/utils/route";
 
 export const useFetchAllParty = () =>
   serverStateManager.fetch<Response<PartyInfo[]>>({

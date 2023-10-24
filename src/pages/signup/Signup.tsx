@@ -14,7 +14,7 @@ import useProgressBar from "@/components/progressbar/useProgressBar";
 import useFunnel from "@/hooks/useFunnel";
 import { useSignup } from "@/services/internal/auth/query";
 import { useSignupState, State as SignupStateType } from "@/store/signupStore";
-import { getFormattedBirthday } from "@/utils/getFormattedBirthday";
+import { getFormattedBirthday } from "@/utils/date";
 
 const STS = {
   Email: "email",

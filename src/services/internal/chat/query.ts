@@ -4,7 +4,7 @@ import { JJAN_URL } from "../domain";
 import { ChatAllRoomResponseData, ChatMessageResponseDate } from "../types";
 
 import { serverStateManager } from "@/module/serverState";
-import { pathToUrl } from "@/utils/pathToURL";
+import { pathToUrl } from "@/utils/route";
 
 export const useFetchChatMessages = (chatId: string | undefined) =>
   serverStateManager.fetch<ChatMessageResponseDate[]>({

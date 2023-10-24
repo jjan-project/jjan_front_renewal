@@ -15,7 +15,7 @@ import { getRequestHeader } from "../util";
 import { extractDomain } from "../util";
 
 import { JJAN_URL } from "@/services/internal/domain";
-import { mergeObjects } from "@/utils/objects";
+import { mergeObjects } from "@/utils/object";
 
 type AxiosRequestConfigAdaptor = Partial<AxiosRequestConfig> & RequestConfig;
 

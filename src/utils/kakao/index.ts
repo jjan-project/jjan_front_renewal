@@ -1,0 +1,1 @@
+export { extractAddress } from "./extractAddress";
