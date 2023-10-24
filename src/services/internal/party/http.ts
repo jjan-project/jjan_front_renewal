@@ -1,4 +1,4 @@
-import { partyRoutes } from "@/routes";
+import { partyRoutes } from "@/router";
 
 import { JJAN_URL } from "../domain";
 import { Response } from "../types";

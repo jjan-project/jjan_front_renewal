@@ -1,4 +1,4 @@
-import { chatRoutes } from "@/routes";
+import { chatRoutes } from "@/router";
 
 import { JJAN_URL } from "../domain";
 import { ChatAllRoomResponseData, ChatMessageResponseDate } from "../types";
