@@ -2,7 +2,7 @@
 name: Refactoring Issue
 about: 리팩토링시 해당 이슈를 사용합니다.
 title: "[refactor]"
-labels: ''
+labels: refactoring
 assignees: ''
 
 ---
