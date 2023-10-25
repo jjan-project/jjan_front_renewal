@@ -1,0 +1,16 @@
+#!/bin/bash
+. "$(dirname -- "$0")/_/husky.sh"
+
+COMMIT_MESSAGE_FILE_PATH="$1"
+branch_name=$(git symbolic-ref HEAD --short)
+issue_number=$(echo "$branch_name" | grep -o "#[0-9]*" | sed 's/#//')
+
+# 커밋 메시지 앞에 이슈 번호 붙이기
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # macOS에서 실행될 코드
+    sed -i "" "1s/^/[#$issue_number] /" "$COMMIT_MESSAGE_FILE_PATH"
+else
+    # Linux나 Windows(Git Bash)에서 실행될 코드
+    sed -i "1s/^/[#$issue_number] /" "$COMMIT_MESSAGE_FILE_PATH"
+fi
+
