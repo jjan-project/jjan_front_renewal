@@ -1,6 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { IconChevronLeftLarge } from "jjan-icon";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { FORM_DATA } from "./constants";
@@ -13,13 +12,13 @@ import { Form } from "@/components/form/Form";
 import { Header } from "@/components/header";
 import { Layout } from "@/components/layout";
 import { Stack } from "@/components/stack";
-import { Typo } from "@/components/typo";
+import useFormRef from "@/hooks/useFormRef";
 import { useSignin } from "@/services/internal/auth/query";
 
 const Signin = () => {
   const navigate = useNavigate();
   const signinMutation = useSignin();
-  const [error, setError] = useState(false);
+  const signinFormRef = useFormRef();
 
   const handlePrev = () => {
     navigate("/landing", {
@@ -30,10 +29,12 @@ const Signin = () => {
   const handleSignin = (data: SigninSchemaType) => {
     signinMutation.mutate(data, {
       onSuccess: () => {
-        window.location.replace("/");
+        navigate("/");
       },
       onError: () => {
-        setError(true);
+        signinFormRef.current?.setGlobalError(
+          "아이디 또는 비밀번호를 확인해주세요.",
+        );
       },
     });
   };
@@ -60,11 +61,11 @@ const Signin = () => {
       }
     >
       <Box padding="0 20px">
-        <Form
+        <Form<SigninSchemaType>
           onSubmit={handleSignin}
           resolver={zodResolver(signinSchema)}
-          mode="onChange"
           id="signinForm"
+          ref={signinFormRef}
         >
           <Stack space="space08">
             {FORM_DATA.map((input, index) => (
@@ -78,11 +79,6 @@ const Signin = () => {
               />
             ))}
           </Stack>
-          {error && (
-            <Typo appearance="body3" color="orange300" role="alert">
-              이메일 또는 비밀번호를 확인해주세요.
-            </Typo>
-          )}
         </Form>
       </Box>
     </Layout>
