@@ -40,12 +40,11 @@ const Verification = () => {
   const { mapComponent } = useCreateMap({
     latitude,
     longitude,
-    mapLevel: 3,
+    mapLevel: 6,
     mapClickEnabled: false,
     options: {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      markerEnabled: true,
+      markerEnabled: {},
+      polygonEnabled: {},
     },
   });
 

@@ -1,5 +1,5 @@
 type MarkerOptions = {
-  image: string;
+  image?: string;
   width?: number;
   height?: number;
 } & Partial<Omit<kakao.maps.MarkerOptions, "image">>;
