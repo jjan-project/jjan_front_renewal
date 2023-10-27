@@ -1,8 +1,6 @@
 import { IconChevronLeftLarge, IconMenu } from "jjan-icon";
 import { useNavigate } from "react-router-dom";
 
-import { NAV_ITEMS } from "../constants";
-
 import { usePartyFilterData, usePartyFilterParams } from "./hooks";
 
 import { BottomNav } from "@/components/bottomNav";
@@ -13,6 +11,7 @@ import { List } from "@/components/list";
 import { Stack } from "@/components/stack";
 import { Tabs } from "@/components/tabs";
 import { Typo } from "@/components/typo";
+import { NAV_ITEMS } from "@/constants/navigation";
 import usePartyCardRenderer from "@/hooks/usePartyCardRenderer";
 import { CreatePartyFabButton } from "@/pages/components";
 import {

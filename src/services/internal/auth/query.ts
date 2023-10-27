@@ -1,4 +1,4 @@
-import { userRoutes } from "@/routes";
+import { userRoutes } from "@/router";
 
 import { JJAN_URL } from "../domain";
 import type { Response } from "../types";

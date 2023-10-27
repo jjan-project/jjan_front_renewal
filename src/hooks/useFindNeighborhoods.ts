@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { useGetNeighborhoods } from "@/services/external/kakao";
 import type { PlacesSearchOptions } from "@/types/kakao";
 import type { Coordinates } from "@/types/location";
-import { convertObjectValuesToStrings } from "@/utils/convertObjectValuesToStrings";
 import { extractAddress } from "@/utils/kakao";
+import { convertObjectValuesToStrings } from "@/utils/object";
 
 const defaultOptions = {
   query: "동사무소",

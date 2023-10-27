@@ -1,10 +1,10 @@
-import { partyRoutes } from "@/routes";
+import { partyRoutes } from "@/router";
 
 import { JJAN_URL } from "../domain";
 import { Response } from "../types";
 
 import { httpService } from "@/module/http";
-import { pathToUrl } from "@/utils/pathToURL";
+import { pathToUrl } from "@/utils/route";
 
 export const joinParty = (partyId: string | undefined) =>
   httpService.post<Response<null>>(

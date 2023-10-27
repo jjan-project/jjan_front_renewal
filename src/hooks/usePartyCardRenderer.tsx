@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 import { PartyCard, PartyCardSkeleton } from "@/pages/components";
 import { PartyInfo } from "@/services/internal/types";
-import { calculateDday } from "@/utils/calculateDday";
+import { calculateDday } from "@/utils/date";
 
 const usePartyListRenderer = () => {
   const handleDday = (date: string) => {

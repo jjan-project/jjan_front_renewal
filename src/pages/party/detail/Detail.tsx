@@ -24,7 +24,7 @@ import { Spacing } from "@/components/spacing";
 import { Stack } from "@/components/stack";
 import { Typo } from "@/components/typo";
 import { joinParty } from "@/services/internal/party/http";
-import { formatToKoreanDateTime } from "@/utils/formatToKoreanDateTime";
+import { formatToKoreanDateTime } from "@/utils/date";
 
 const PartyImages = ({ images }: { images?: string[] }) => (
   <Box width="100%" height="220px">

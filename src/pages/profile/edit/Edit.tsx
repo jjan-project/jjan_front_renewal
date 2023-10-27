@@ -4,7 +4,7 @@ import { IconCancel, IconChevronLeftLarge } from "jjan-icon";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { userRoutes } from "@/routes";
+import { userRoutes } from "@/router";
 
 import { ACCEPTED_IMAGE_TYPES } from "./constants";
 import { ProfileEditSchemaType, profileEditSchema } from "./schema";

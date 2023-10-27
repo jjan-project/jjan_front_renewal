@@ -1,4 +1,4 @@
-import { kakaoRoutes } from "@/routes";
+import { kakaoRoutes } from "@/router";
 
 import { QUERY_KEY } from "@/constants/queryKeys";
 import {

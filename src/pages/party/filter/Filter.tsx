@@ -12,7 +12,7 @@ import { Flex } from "@/components/flex";
 import { Header } from "@/components/header";
 import { Hr } from "@/components/hr";
 import { Layout } from "@/components/layout";
-import { Selectionbox } from "@/components/selectionbox/Selectionbox";
+import { Selectionbox } from "@/components/selectionbox";
 import { Slider } from "@/components/slider";
 import { Spacing } from "@/components/spacing";
 import { Stack } from "@/components/stack";

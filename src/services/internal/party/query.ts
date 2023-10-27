@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 
-import { partyRoutes } from "@/routes";
+import { partyRoutes } from "@/router";
 
 import { JJAN_URL } from "../domain";
 import { Response } from "../types";
@@ -15,7 +15,7 @@ import {
 import { httpService } from "@/module/http";
 import { serverStateManager } from "@/module/serverState";
 import { ErrorType } from "@/module/serverState/type/httpTypes";
-import { pathToUrl } from "@/utils/pathToURL";
+import { pathToUrl } from "@/utils/route";
 
 export const useFetchAllParty = () =>
   serverStateManager.fetch<Response<PartyInfo[]>>({
