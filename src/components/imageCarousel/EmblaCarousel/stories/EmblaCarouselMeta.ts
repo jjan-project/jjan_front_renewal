@@ -1,5 +1,6 @@
-import { DISABLE, Controls } from "@story/constants";
 import { IconChevronLeftSmall, IconChevronRightSmall } from "jjan-icon";
+
+import { DISABLE, Controls } from "../../../../../.storybook/constants";
 
 const Categories = {
   OPTIONS: "options",

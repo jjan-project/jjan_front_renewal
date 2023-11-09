@@ -1,6 +1,8 @@
 import { IconAlertEmpty, IconJjanLogo } from "jjan-icon";
 import { useNavigate } from "react-router-dom";
 
+import { ProfileOptionPanel } from "../../components/profileOptions";
+
 import { PROFILE_OPTIONS } from "./constants";
 
 import { BottomNav } from "@/components/bottomNav";
@@ -11,7 +13,6 @@ import { Header } from "@/components/header";
 import { Layout } from "@/components/layout";
 import { NAV_ITEMS } from "@/constants/navigation";
 import { ProfileInfo } from "@/pages/components/profileInfo";
-import { ProfileOptionPanel } from "@/pages/components/profileOptions";
 
 const Main = () => {
   const navigate = useNavigate();
