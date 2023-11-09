@@ -43,10 +43,10 @@ export const handlers = [
 
   // 회원가입 요청
   rest.post("https://api.example.com/user/join", (req, res, ctx) => {
-    const { email, password, nickname, location }: State = req.body as State;
+    const { email, password, nickname }: State = req.body as State;
     let responseData;
 
-    if (email && password && nickname && location) {
+    if (email && password && nickname) {
       responseData = {
         item: email,
         target: "email",

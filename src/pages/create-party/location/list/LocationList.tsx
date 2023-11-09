@@ -10,8 +10,9 @@ import { PartyLocation } from "@/store/partyStore";
 
 type LocationSearchProps = {
   onClose: Dispatch<SetStateAction<boolean>>;
-  onChange: Dispatch<SetStateAction<PartyLocation>>;
-  location: PartyLocation;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onChange: Dispatch<SetStateAction<PartyLocation>> | any;
+  location: PartyLocation | undefined;
   searchValue: string;
 };
 

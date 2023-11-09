@@ -43,7 +43,7 @@ const Location = (props: PartyFormSubPageProps) => {
     mapLevel: 3,
     mapClickEnabled: false,
     options: {
-      markerEnabled: true,
+      markerEnabled: {},
     },
   });
 

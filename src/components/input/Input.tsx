@@ -4,7 +4,7 @@ import { mergeRefs } from "react-merge-refs";
 
 import { Caption } from "../caption";
 
-import * as S from "./input.styles";
+import * as S from "./Input.styles";
 import { styleMap } from "./styleMap";
 import { InputBaseProps, InputProps } from "./types";
 

@@ -1,1 +1,1 @@
-export * from "./SignupComplete";
+export * from "./CreatePartyComplete";

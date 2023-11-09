@@ -10,4 +10,4 @@ type TextAreaProps = TextAreaBaseProps &
     height?: string;
   };
 
-export { TextAreaProps };
+export type { TextAreaProps };

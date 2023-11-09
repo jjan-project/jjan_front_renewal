@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+ 
 import { z } from "zod";
 
-import { ACCEPTED_IMAGE_TYPES, MAX_FILE_LENGTH } from "./constants";
+import { ACCEPTED_IMAGE_TYPES } from "./constants";
 
 const errorMessages = {
   partyNameMinLength: "모임 이름을 입력해주세요.",
@@ -10,12 +10,8 @@ const errorMessages = {
   descriptionMinLength: "모임 설명을 입력해주세요.",
 };
 
-const {
-  partyNameMinLength,
-  unsupportFile,
-  fileMaxLength,
-  descriptionMinLength,
-} = errorMessages;
+const { partyNameMinLength, unsupportFile, descriptionMinLength } =
+  errorMessages;
 
 const partyImageSchema = z.object({
   partyName: z.string().min(1, { message: partyNameMinLength }),

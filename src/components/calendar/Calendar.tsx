@@ -1,5 +1,4 @@
-// 필요한 라이브러리와 스타일시트를 import합니다.
-import React, { useState } from "react";
+import { useState } from "react";
 import "./Calendar.css";
 
 import type { CalendarProps } from "./types";
