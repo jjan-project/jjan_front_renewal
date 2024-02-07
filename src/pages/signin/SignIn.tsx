@@ -12,11 +12,13 @@ import { Form } from "@/components/form/Form";
 import { Header } from "@/components/header";
 import { Layout } from "@/components/layout";
 import { Stack } from "@/components/stack";
+import useFormRef from "@/hooks/useFormRef";
 import { useSignin } from "@/services/internal/auth/query";
 
 const Signin = () => {
   const navigate = useNavigate();
   const signinMutation = useSignin();
+  const signinFormRef = useFormRef();
 
   const handlePrev = () => {
     navigate("/landing", {
@@ -27,7 +29,12 @@ const Signin = () => {
   const handleSignin = (data: SigninSchemaType) => {
     signinMutation.mutate(data, {
       onSuccess: () => {
-        window.location.replace("/");
+        navigate("/");
+      },
+      onError: () => {
+        signinFormRef.current?.setGlobalError(
+          "아이디 또는 비밀번호를 확인해주세요.",
+        );
       },
     });
   };
@@ -54,11 +61,11 @@ const Signin = () => {
       }
     >
       <Box padding="0 20px">
-        <Form
+        <Form<SigninSchemaType>
           onSubmit={handleSignin}
           resolver={zodResolver(signinSchema)}
-          mode="onChange"
           id="signinForm"
+          ref={signinFormRef}
         >
           <Stack space="space08">
             {FORM_DATA.map((input, index) => (
