@@ -6,6 +6,7 @@ import { ChatList, ChatRoom } from "@/pages/chat";
 import { CreateParty } from "@/pages/create-party";
 import { Home } from "@/pages/home";
 import { Landing } from "@/pages/landing";
+import { NotFound } from "@/pages/not-found";
 import { Notifications } from "@/pages/notifications";
 import {
   PartyExplore,
@@ -129,6 +130,11 @@ const routes: Routes = [
     path: "/profile-watchlist",
     element: <ProfileWatchList />,
     isPublic: false,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
+    isPublic: true,
   },
 ];
 
