@@ -91,41 +91,42 @@ npm install
 ### 회원가입 세부
 
 <div align="center">
-  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/45e0e0fc-ef99-4fb8-8faf-28df86c572bf"/>
-  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/0f9f2825-1a71-4d85-9a42-733a84a87e76"/>
-  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/49442151-daac-4beb-82ef-56c63a6d9acc"/>
-  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/d46a491b-91ee-4f84-a6cf-21cc389d966f"/>
-  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/302e1654-635b-4d91-ac35-c57f7bf2bb9c"/>
+  <img height="350px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/45e0e0fc-ef99-4fb8-8faf-28df86c572bf"/>
+  <img height="350px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/0f9f2825-1a71-4d85-9a42-733a84a87e76"/>
+  <img height="350px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/49442151-daac-4beb-82ef-56c63a6d9acc"/>
+  <img height="350px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/d46a491b-91ee-4f84-a6cf-21cc389d966f"/>
+  <img height="350px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/302e1654-635b-4d91-ac35-c57f7bf2bb9c"/>
 </div>
 
 ### 홈, 모임 
 
 <div align="center">
-  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/357ff481-b76d-4beb-8c87-cad73085d0be"/>
-  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/3a137cc6-8548-4646-9ab4-3c29339029b9"/>
-  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/a43c0d19-595c-4916-aabb-bf8733a1d090"/>
-  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/a459b609-68a7-499f-9386-ac88925a34bb"/>
-  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/26a632d7-546e-4d4a-a8d3-b422b938139c"/>
+  <img height="350px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/357ff481-b76d-4beb-8c87-cad73085d0be"/>
+  <img height="350px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/3a137cc6-8548-4646-9ab4-3c29339029b9"/>
+  <img height="350px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/afa8f9e0-28bf-447d-a6c4-698c36a3445f"/>
+  <img height="350px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/a459b609-68a7-499f-9386-ac88925a34bb"/>
+  <img height="350px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/26a632d7-546e-4d4a-a8d3-b422b938139c"/>
 </div>
+
 
 ### 모임글 작성
 
 <div align="center">
-  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/80596617-50dc-48ca-8317-d90768fa0871"/>
-  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/db2889ab-7c62-4c06-8c77-3eb94d5ebcfe"/>
-  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/9770632c-bc0d-4c7b-9adc-eeeed9641120"/>
-  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/05e1c3f2-0da9-45c0-9cf0-9efc79c82861"/>
-  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/b12b095f-3ebe-474c-8a61-2bf9994d3108"/>
+  <img height="350px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/80596617-50dc-48ca-8317-d90768fa0871"/>
+  <img height="350px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/db2889ab-7c62-4c06-8c77-3eb94d5ebcfe"/>
+  <img height="350px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/9770632c-bc0d-4c7b-9adc-eeeed9641120"/>
+  <img height="350px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/05e1c3f2-0da9-45c0-9cf0-9efc79c82861"/>
+  <img height="350px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/b12b095f-3ebe-474c-8a61-2bf9994d3108"/>
 </div>
 
 ### 프로필 및 동네 설정
 
 <div align="center">
-  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/ddaaf34c-eb7b-470b-9823-16b380956ddc"/>
-  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/f0c2dae3-f6da-4146-a1f3-de67faf06113"/>
-  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/81686f66-4fd4-4d32-b3b3-03fdc822eac7"/>
-  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/17d2a77f-6a8d-4500-9ce3-e17e07a25284"/>
-  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/6c9273f8-f7f8-4d85-a043-e4dbeafcfde9"/>
+  <img height="350px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/ddaaf34c-eb7b-470b-9823-16b380956ddc"/>
+  <img height="350px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/f0c2dae3-f6da-4146-a1f3-de67faf06113"/>
+  <img height="350px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/81686f66-4fd4-4d32-b3b3-03fdc822eac7"/>
+  <img height="350px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/17d2a77f-6a8d-4500-9ce3-e17e07a25284"/>
+  <img height="350px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/6c9273f8-f7f8-4d85-a043-e4dbeafcfde9"/>
 </div>
 
 <br>
