@@ -1,43 +1,137 @@
-![jjan_splash](https://github.com/jjan-project/jjan_front_renewal/assets/75124028/7754bf0b-8757-47c8-8b97-7f9502cd177c)
 
-# 동네 술친구 만들기
+<p align="center">
+  <img src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/03e998d6-97f0-4c3f-abaa-a04c0ef7ab0c"/>
+</p>
+<h1 align="center">짠 - JJAN</h1>
+<p align="center">당신의 동네에서 새로운 친구와 함께, 짠! • 프론트엔드 레포지토리</p>
 
-- [프로젝트 소개](#프로젝트-소개)
-- [프로젝트의 목적 및 문제 해결](#프로젝트의-목적-및-문제-해결)
-- [사용 기술 및 스택](#사용-기술-및-스택)
-- [팀 멤버 및 참여 인원](#팀-멤버-및-참여-인원)
+## 1. 서비스 소개
 
-  <br>
-
-## 프로젝트 소개
-JJAN은 동네 술친구를 손쉽게 찾아 연결해주는 서비스입니다. 같은 지역의 사람들과 간편하게 매칭하여 좋은 추억을 만들 수 있습니다.
+짠은 지역 기반으로 술을 즐기는 사람들을 위한 커뮤니티 플랫폼이에요. 같은 동네에 사는 사람들과 손쉽게 만날 수 있으며, 새로운 친구들과 즐거운 시간을 보낼 수 있는 모임을 찾거나 직접 만들 수 있어요. 당신의 밤을 더 특별하게 만들어줄 짠에서 좋은 사람들과 좋은 술을 만나보세요!
 
 <br>
 
-## 프로젝트의 목적 및 문제 해결
-오늘날 우리는 온라인과 모바일 플랫폼의 급속한 발전과 확산으로 인해 수많은 사람들과 연결될 수 있는 기회를 얻었습니다. 그러나 이러한 기술의 발전에도 불구하고, 현실 세계에서의 직접적인 대인 관계나 지역 커뮤니티와의 연결은 여전히 중요하게 다가옵니다.
+## 2. 사용 기술 및 스택
 
-JJAN은 바로 이러한 문제를 해결하기 위해 탄생했습니다. 사용자는 현재 위치한 동을 기준으로 반경 10킬로미터 내에서 다른 사람들이 작성한 모임글을 볼 수 있습니다. 이를 통해 주변 지역의 사람들과 쉽고 빠르게 연결될 수 있게 됩니다.
+<div>
+  <img src="https://img.shields.io/badge/Vite-646CFF?style=flat&logo=Vite&logoColor=white">
+  <img src="https://img.shields.io/badge/Typescript-3178C6?style=flat&logo=Typescript&logoColor=white">
+  <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=React&logoColor=black">
+  <img src="https://img.shields.io/badge/Emotion-DB7093?style=flat&logo=Styled-Components&logoColor=white">
+</div>
 
-또한, 사용자는 모임글의 태그, 거리, 인원 수 등 다양한 필터링 옵션을 활용하여 원하는 조건의 모임글만을 선택적으로 볼 수 있습니다. 이를 통해 사용자의 관심사나 조건에 맞는 모임을 더욱 효과적으로 찾아나갈 수 있습니다.
+<div>
+  <img src="https://img.shields.io/badge/React%20Hook%20Form-EC5990?style=flat&logo=React-Hook-Form&logoColor=white">
+  <img src="https://img.shields.io/badge/Zod-3E67B1?style=flat&logo=Zod&logoColor=white">
+  <img src="https://img.shields.io/badge/React%20Query-FF4154?style=flat&logo=React-Query&logoColor=white">
+</div>
 
-모임에 참여하면 해당 모임의 참가자들과 채팅을 통해 소통할 수 있어, 모임 전에도 서로의 의견을 공유하거나 모임 관련 정보를 얻는 것이 가능합니다.
+<div>
+  <img src="https://img.shields.io/badge/Storybook-FF4785?style=flat&logo=Storybook&logoColor=white">
+  <img src="https://img.shields.io/badge/Vitest-6E9F18?style=flat&logo=Vitest&logoColor=white">
+  <img src="https://img.shields.io/badge/React%20Testing%20Library-E33332?style=flat&logo=Testing-Library&logoColor=white">
+</div>
 
-JJAN은 단순히 모임을 찾아주는 서비스를 넘어, 사용자 자신의 모임글을 작성하고, 프로필 정보를 수정하는 등의 개인화된 서비스를 제공합니다. 이를 통해 사용자는 자신만의 독특한 경험을 만들어나갈 수 있습니다.
+<div>
+  <img src="https://img.shields.io/badge/ESlint-4B32C3?style=flat&logo=ESlint&logoColor=white">
+  <img src="https://img.shields.io/badge/Prettier-F7B93E?style=flat&logo=Prettier&logoColor=white">
+</div>
 
 <br>
 
-## 사용 기술 및 스택
-- **Frontend**: React, TypeScript, Tanstack-Query, Emotion, Storybook, PWA
-- **Backend**: Java, Spring
-- **Deployment**: AWS, Docker
-- **Version Control**: Git, GitHub
+## 4. 프로젝트 구조
+
+```
+├── src
+│    ├── componentss // 재사용 가능한 컴포넌트
+│    ├── constants   // 프로젝트 전역에서 사용되는 상수
+│    ├── errors      // 커스텀 에러
+│    ├── hooks       // 재사용 가능한 훅
+│    ├── module      // 외부 모듈
+│    ├── pages       // 페이지 컴포넌트
+│    ├── router      // 페이지 라우터
+│    ├── service     // api, query 함수
+│    ├── style       // 전역 스타일
+│    ├── theme       // 테마 상수 모음
+│    └── util        // 유틸 함수
+...
+```
+<br>
+
+## 5. 설치
+
+환경 변수 설정
+
+```
+VITE_JJAN_DEV_URL=""
+VITE_JJAN_PROD_URL""
+VITE_KAKAO_URL=""
+VITE_KAKAO_TOKEN=""
+```
+
+프로젝트 설치
+
+```
+npm install
+```
+<br>
+
+## 3. 주요 UI
+
+### 스플래쉬, 로그인 및 회원가입
+
+<div align="center">
+  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/799e0055-1d23-4eec-894d-894606724bb1"/>
+  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/6776b6f9-cb5f-47bf-a047-3040f23f783d"/>
+  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/c3ddfbd9-c5e5-4197-8c01-ff1bfec3c1e7"/>
+  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/c7d5df9f-a2c2-4390-b50a-b28a031ef6ce"/>
+  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/227a27f9-2a54-4843-8147-3d6d2529e2ec"/>
+</div>
+
+### 회원가입 세부
+
+<div align="center">
+  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/45e0e0fc-ef99-4fb8-8faf-28df86c572bf"/>
+  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/0f9f2825-1a71-4d85-9a42-733a84a87e76"/>
+  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/49442151-daac-4beb-82ef-56c63a6d9acc"/>
+  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/d46a491b-91ee-4f84-a6cf-21cc389d966f"/>
+  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/302e1654-635b-4d91-ac35-c57f7bf2bb9c"/>
+</div>
+
+### 홈, 모임 
+
+<div align="center">
+  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/357ff481-b76d-4beb-8c87-cad73085d0be"/>
+  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/3a137cc6-8548-4646-9ab4-3c29339029b9"/>
+  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/a43c0d19-595c-4916-aabb-bf8733a1d090"/>
+  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/a459b609-68a7-499f-9386-ac88925a34bb"/>
+  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/26a632d7-546e-4d4a-a8d3-b422b938139c"/>
+</div>
+
+### 모임글 작성
+
+<div align="center">
+  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/80596617-50dc-48ca-8317-d90768fa0871"/>
+  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/db2889ab-7c62-4c06-8c77-3eb94d5ebcfe"/>
+  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/9770632c-bc0d-4c7b-9adc-eeeed9641120"/>
+  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/05e1c3f2-0da9-45c0-9cf0-9efc79c82861"/>
+  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/b12b095f-3ebe-474c-8a61-2bf9994d3108"/>
+</div>
+
+### 프로필 및 동네 설정
+
+<div align="center">
+  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/ddaaf34c-eb7b-470b-9823-16b380956ddc"/>
+  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/f0c2dae3-f6da-4146-a1f3-de67faf06113"/>
+  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/81686f66-4fd4-4d32-b3b3-03fdc822eac7"/>
+  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/17d2a77f-6a8d-4500-9ce3-e17e07a25284"/>
+  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/6c9273f8-f7f8-4d85-a043-e4dbeafcfde9"/>
+</div>
 
 <br>
 
-## 팀 멤버 및 참여 인원
+## 6. 참여자
 
-### Frontend
 <table>
   <th>강민규</th>
   <th>최홍규</th>
@@ -61,57 +155,5 @@ JJAN은 단순히 모임을 찾아주는 서비스를 넘어, 사용자 자신�
   </tr>
 </table>
 
-### Backend
-<table>
-  <th>박상진</th>
-  <th>김강훈</th>
-  <th>임혁</th>
-  <th>정환훈</th>
-  <tr>
-    <td>
-      <a target="_blank" href="https://github.com/kkangh00n">
-        <img
-          width="100px"
-          src="https://avatars.githubusercontent.com/u/102799700?v=4"
-        />
-      </a>
-    </td>
-    <td>
-      <a target="_blank" href="https://github.com/5tr1ker">
-        <img
-          width="100px"
-          src="https://avatars.githubusercontent.com/u/49367338?v=4"
-        />
-      </a>
-    </td>
-    <td>
-      <a target="_blank" href="https://github.com/Limworld98">
-        <img
-          width="100px"
-          src="https://avatars.githubusercontent.com/u/38485221?v=4"
-        />
-      </a>
-    </td>
-    <td>
-      <a target="_blank" href="https://github.com/ParangBird">
-        <img
-          width="100px"
-          src="https://avatars.githubusercontent.com/u/81746705?v=4"
-        />
-      </a>
-    </td>
-  </tr>
-</table>
-
 <br>
-
-### 피그마 프로토타입 디자인
-![피그마 프로토타입 디자인](https://github.com/jjan-project/jjan_front_renewal/assets/75124028/e0bddaf2-51d1-40d2-93b2-2237dd64134f)
-<br>
-### 피그마 디자인
-![피그마 디자인](https://github.com/jjan-project/jjan_front_renewal/assets/75124028/4cb2b5ee-2bad-4531-aec7-adf1c7617f9d)
-
-<br>
-
-[JJAN Notion](https://proud-magician-e4e.notion.site/JJAN-690b9ec5720d4269aeecb49c15ece4b7)
 
