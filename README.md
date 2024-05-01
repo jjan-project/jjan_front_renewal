@@ -81,11 +81,11 @@ npm install
 ### 스플래쉬, 로그인 및 회원가입
 
 <div align="center">
-  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/799e0055-1d23-4eec-894d-894606724bb1"/>
-  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/6776b6f9-cb5f-47bf-a047-3040f23f783d"/>
-  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/c3ddfbd9-c5e5-4197-8c01-ff1bfec3c1e7"/>
-  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/c7d5df9f-a2c2-4390-b50a-b28a031ef6ce"/>
-  <img height="430px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/227a27f9-2a54-4843-8147-3d6d2529e2ec"/>
+  <img height="350px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/799e0055-1d23-4eec-894d-894606724bb1"/>
+  <img height="350px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/6776b6f9-cb5f-47bf-a047-3040f23f783d"/>
+  <img height="350px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/c3ddfbd9-c5e5-4197-8c01-ff1bfec3c1e7"/>
+  <img height="350px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/c7d5df9f-a2c2-4390-b50a-b28a031ef6ce"/>
+  <img height="350px" src="https://github.com/jjan-project/jjan_front_renewal/assets/64501757/227a27f9-2a54-4843-8147-3d6d2529e2ec"/>
 </div>
 
 ### 회원가입 세부
