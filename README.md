@@ -39,7 +39,7 @@
 
 <br>
 
-## 4. 프로젝트 구조
+## 3. 프로젝트 구조
 
 ```
 ├── src
@@ -58,7 +58,7 @@
 ```
 <br>
 
-## 5. 설치
+## 4. 설치
 
 환경 변수 설정
 
@@ -76,7 +76,14 @@ npm install
 ```
 <br>
 
-## 3. 주요 UI
+## 5. 문서
+
+- [스토리북](https://660669df67ccba61e0a64d14-fhueugfvlz.chromatic.com/?path=/story/typo--default)
+- [위키](https://proud-magician-e4e.notion.site/JJAN-690b9ec5720d4269aeecb49c15ece4b7) 
+
+<br>
+
+## 6. 주요 UI
 
 ### 스플래쉬, 로그인 및 회원가입
 
